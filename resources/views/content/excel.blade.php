@@ -12,7 +12,7 @@
 
             <div class="flex justify-between h-16 border-b border-black mt-4">
                 <a class="text-2xl font-bold ml-8 mb-2 mt-1"> Tabel Nilai Mata Kuliah Teknik Komputer </a>
-                <a class="text-2xl font-bold ml-8 mb-2 mt-1 text-right mr-8"> Universitas Diponegoro </a>
+                <a class="text-2xl font-bold ml-8 mb-2 mt-1 text-right mr-8"> UNDIP </a>
                 <!-- Tombol Tambah -->
             </div>
             <main class="grid grid-row-5 w-full min-h-screen bg-[#F6F1F1] ">
