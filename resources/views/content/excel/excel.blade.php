@@ -1,4 +1,10 @@
 <x-app-layout>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <div class="grid grid-cols-12">
         <!-- Sidebar -->
 
@@ -91,7 +97,7 @@
                                 <x-text-input class="block w-50 border border-gray-300 rounded-md px-4 py-2 ml-4 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cari Mata Kuliah" />
                             </div>
 
-                            <table class="min-w-full mt-4">
+                            <table class="min-w-full mt-4" id="excelsdl">
                                 <thead class="border-b-2 border-black">
                                     <tr>
                                         <th class="px-2 py-3 bg-[#F6F1F1] text-center text-xs leading-4 font-medium text-black uppercase tracking-wider">NIM</th>
@@ -99,7 +105,7 @@
                                         <th class="px-2 py-3 bg-[#F6F1F1] text-center text-xs leading-4 font-medium text-black uppercase tracking-wider">CPL 3</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                {{-- <tbody>
                                     <!-- Tampilkan data menggunakan loop -->
                                     @foreach($nilai as $item)
                                         <tr>
@@ -108,7 +114,7 @@
                                             <td class="px-6 py-4 whitespace-no-wrap">{{ $item->cpl3 }}</td>
                                         </tr>
                                     @endforeach
-                                </tbody>
+                                </tbody> --}}
                             </table>
                         </div>
                 </div>
@@ -198,7 +204,7 @@
             })();
         }
 
-                function add() {
+        function add() {
             modalHandler(true);
         }
 
@@ -209,6 +215,37 @@
         document.addEventListener("DOMContentLoaded", function() {
             modalHandler(false);
         });
+
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#excelsdl').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ url('excel') }}",
+                columns: [{
+                        data: 'nim',
+                        name: 'nim'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'cpl3',
+                        name: 'cpl3'
+                    },
+                ],
+                order: [
+                    [0, 'desc']
+                ]
+            });
+        });
+
 </script>
 
 </x-app-layout>

@@ -17,6 +17,11 @@ class ExcelsdlController extends Controller
     public function index()
     {
         $nilai = excelsdl::all();
+        if(request()->ajax()) {
+            return datatables()->of(excelsdl::select('*'))
+            ->addIndexColumn()
+            ->make(true);
+        }
         return view('content.excel.excel', compact('nilai'));
     }
 
