@@ -92,7 +92,7 @@
                                             <!-- Tombol Hapus -->
 
 
-                                                    <a href="{{ route('excel') }}" class=" items-center">
+                                                    <a href="{{ route('excelsdl') }}" class=" items-center">
                                                         <x-select-button >
                                                             Select
                                                         </x-select-button>

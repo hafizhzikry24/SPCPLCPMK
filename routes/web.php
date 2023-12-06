@@ -1,12 +1,11 @@
 <?php
 
+use App\Http\Controllers\ExcelsdlController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,10 +38,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/matakuliah/store', [MatakuliahController::class, 'store'])->name('matakuliah.store');
     Route::post('/matakuliah/delete', [MatakuliahController::class, 'destroy'])->name('matakuliah.delete');;
 
+    Route::get('/excel', [ExcelsdlController::class, 'index'])->name('excelsdl');
+    Route::post('/importexcelsdl', [ExcelsdlController::class, 'excelsdlimport'])->name('importexcelsdl');
 
     Route::view('/dosen', 'content.dosen')->name('dosen');
     Route::view('/nilai', 'content.nilai')->name('nilai');
-    Route::view('/excel', 'content.excel')->name('excel');
+    // Route::view('/excel', 'content.excel.excel')->name('excel');
     Route::view('/nilai', 'content.nilai')->name('nilai');
     Route::view('/rekap', 'content.rekap')->name('rekap');
     Route::view('/rapor', 'content.rapor')->name('rapor');
