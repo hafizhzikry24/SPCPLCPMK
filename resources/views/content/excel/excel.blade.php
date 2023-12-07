@@ -5,6 +5,11 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chart Sample</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <div class="grid grid-cols-12">
         <!-- Sidebar -->
 
@@ -116,6 +121,22 @@
                                     @endforeach
                                 </tbody> --}}
                             </table>
+                        </div>
+                        <div>
+                            <body class="h-screen bg-gray-100">
+
+                                <div class="container px-4 mx-auto">
+
+                                    <div class="p-6 m-20 bg-white rounded shadow">
+                                        {!! $chart->container() !!}
+                                    </div>
+
+                                </div>
+
+                                <script src="{{ $chart->cdn() }}"></script>
+
+                                {{ $chart->script() }}
+                                </body>
                         </div>
                 </div>
                 </div>

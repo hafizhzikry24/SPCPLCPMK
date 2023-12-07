@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\ChartExcelSDL;
 use App\Imports\ExcelSDLimport;
 use App\Models\excelsdl;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class ExcelsdlController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ChartExcelSDL $chart)
     {
         $nilai = excelsdl::all();
         if(request()->ajax()) {
@@ -22,8 +23,10 @@ class ExcelsdlController extends Controller
             ->addIndexColumn()
             ->make(true);
         }
-        return view('content.excel.excel', compact('nilai'));
+        return view('content.excel.excel', ['chart' => $chart->build()], compact('nilai'));
     }
+
+
 
     public function excelsdlimport(Request $request){
         $file = $request->file('file');
