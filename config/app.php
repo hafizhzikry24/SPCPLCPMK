@@ -196,7 +196,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
-
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -214,5 +214,5 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
     'Datatables' => Yajra\Datatables\Facades\Datatables::class,
-
+    'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 ];

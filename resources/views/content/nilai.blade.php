@@ -92,11 +92,18 @@
                                             <!-- Tombol Hapus -->
 
 
-                                                    <a href="{{ route('excel') }}" class=" items-center">
+                                                    <a href="{{ route('excelsdl') }}" class=" items-center">
                                                         <x-select-button >
                                                             Select
                                                         </x-select-button>
                                                     </a>
+                                                    <div class="mt-5">
+                                                        <a href="{{ route('exceldkp') }}" class=" items-center">
+                                                            <x-select-button >
+                                                                Select
+                                                            </x-select-button>
+                                                        </a>
+                                                    </div>
 
 
                                         </td>
