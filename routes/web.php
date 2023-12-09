@@ -41,7 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/matakuliah/delete', [MatakuliahController::class, 'destroy'])->name('matakuliah.delete');;
 
     Route::get('/excel', [ExcelsdlController::class, 'index'])->name('excelsdl');
-    Route::post('/importexcelsdl', [ExcelsdlController::class, 'exceldkpimport'])->name('importexcelsdl');
+    Route::post('/importexcelsdl', [ExcelsdlController::class, 'excelsdlimport'])->name('importexcelsdl');
 
     Route::get('/exceldkp', [ExcelDKPController::class, 'index'])->name('exceldkp');
     Route::post('/importexceldkp', [ExcelDKPController::class, 'exceldkpimport'])->name('importexceldkp');
