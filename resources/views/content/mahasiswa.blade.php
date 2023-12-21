@@ -6,21 +6,40 @@
         </div>
         <!-- Main Content -->
         <div class="col-span-10 overflow-y-auto mt-4 ">
-            <div class="flex justify-between h-16 border-b border-black">
-                <a class="text-2xl font-bold ml-8 mb-2 mt-1"> Tabel Mahasiswa Teknik Komputer </a>
-                <a class="text-2xl font-bold ml-8 mb-2 mt-1 text-right mr-8"> Universitas Diponegoro </a>
-                <meta name="csrf-token" content="{{ csrf_token() }}">
+            <div class="">
+                <meta name=" csrf-token" content="{{ csrf_token() }}">
+                <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+                <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
                 <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
                 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+                <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
             </div>
-            <main class="w-full h-screen bg-[#F6F1F1]">
-                <div class="w-full overflow-hidden shadow-sm sm:rounded-lg ">
-                    <div class="p-6 text-gray-900 justify-between">
-                        <x-add-button type="submit" class="ml-6" id="button">
-                            Tambah data
-                        </x-add-button>
+
+
+            <body>
+                <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">
+                    <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
+                        <!-- Div gabungan -->
+                        <a class="text-2xl font-bold"> TABEL MAHASISWA </a>
+                        <div class="p-5 flex justify-between items-center">
+                            <x-add-button type="submit" class="ml-auto" id="button">
+                                Tambah data
+                            </x-add-button>
+                        </div>
+                        <!-- Tabel Data -->
+                        <table class="table" id="mahasiswa" style="border: none;">
+                            <thead>
+                                <tr>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">NIM</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">NAMA</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">Semester</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;"></th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <!-- Div buat modal pop up -->
                         <div class="py-12  bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
                             id="mahasiswa-modal">
                             <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
@@ -30,41 +49,71 @@
                                     </div>
                                     <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel
                                         Mahasiswa Teknik Komputer </h1>
-                                    <form action="javascript:void(0)" id="MahasiswaForm" name="MahasiswaForm"
-                                        class="form-horizontal" method="POST" enctype="multipart/form-data">
-                                        <input type="hidden" name="id" id="id" />
-                                        <label for="nim"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nim</label>
-                                        <input name="nim" id="nim"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="21120120120034" />
-                                        <label for="nama"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nama</label>
-                                        <input name="nama" id="nama"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="Daffa" />
-                                        <label for="semester"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Semester</label>
-                                        <input name="semester" id="semester"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="7" />
-                                        <div class="flex items-center justify-start w-full">
-                                            <button type="submit"
-                                                class="focus:outline-none
-                                                focus:ring-2
-                                                focus:ring-offset-2
-                                                focus:ring-green-700
-                                                transition duration-150
-                                                ease-in-out
-                                                hover:bg-green-300
-                                                bg-green-400 rounded
-                                                text-white px-8 py-2
-                                                text-sm">
-                                                Save Changes</button>
-                                    </form>
-                                    <button type="button"
-                                        class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
-                                        onclick="modalHandler(false)">Cancel</button>
+                                    <!DOCTYPE html>
+                                    <html>
+
+                                    <head>
+                                        <title>Data Mahasiswa</title>
+                                        <style>
+                                            table {
+                                                border-collapse: collapse;
+                                                width: 100%;
+                                            }
+
+                                            th,
+                                            td {
+                                                border-bottom: 2px solid #ddd;
+                                                padding: 8px;
+                                                text-align: left;
+                                            }
+
+                                            th {
+                                                background-color: #f2f2f2;
+                                            }
+                                        </style>
+                                    </head>
+
+                                    <body>
+                                        <form action="javascript:void(0)" id="MahasiswaForm" name="MahasiswaForm"
+                                            class="form-horizontal" method="POST" enctype="multipart/form-data">
+                                            <input type="hidden" name="id" id="id" />
+                                            <label for="nim"
+                                                class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nim</label>
+                                            <input name="nim" id="nim"
+                                                class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                                placeholder="21120120120034" />
+                                            <label for="nama"
+                                                class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nama</label>
+                                            <input name="nama" id="nama"
+                                                class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                                placeholder="Daffa" />
+                                            <label for="semester"
+                                                class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Semester</label>
+                                            <input name="semester" id="semester"
+                                                class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                                placeholder="7" />
+                                            <div class="flex items-center justify-start w-full">
+                                                <button type="submit"
+                                                    class="focus:outline-none items-center
+                                                    focus:ring-2
+                                                    focus:ring-offset-2
+                                                    focus:ring-green-700
+                                                    transition duration-150
+                                                    ease-in-out
+                                                    hover:bg-green-300
+                                                    bg-green-400 rounded
+                                                    text-white px-8 py-2
+                                                    text-sm mr-3">
+                                                    Submit
+                                                </button>
+                                                <button type="button"
+                                                    class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                                                    onclick="modalHandler(false)">Cancel</button>
+                                        </form>
+                                    </body>
+
+                                    </html>
+
                                 </div>
                                 <button
                                     class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
@@ -79,33 +128,13 @@
                                     </svg>
                                 </button>
                             </div>
-                        </div>
-                    </div>`
-                </div>
+                        </div><!-- Div buat modal pop up -->
 
-                <!-- Tabel Data -->
-                <table class="table table-bordered" id="mahasiswa">
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>NIM</th>
-                            <th>Semester</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                </table>
+                    </div> <!-- Div gabungan -->
+                </main>
+            </body>
         </div>
-
     </div>
-    </div>
-
-    </div>
-    </main>
-    </div>
-
-    </div>
-
-
 
     <script type="text/javascript">
         let modal = document.getElementById("mahasiswa-modal");
@@ -184,9 +213,19 @@
                 ],
                 order: [
                     [0, 'desc']
-                ]
+                ],
+                // Customizing the DataTables elements position
+                dom: '<"flex mb-3"l<"flex-shrink-0 mr-3 ml-3"f>>rtip',
+                drawCallback: function(settings) {
+                    // Adjust the positioning of the length menu
+                    $('.dataTables_length').addClass('my-custom-length-menu');
+
+                    // Adjust the styling of the select within the length menu
+                    $('.my-custom-length-menu select').addClass('px-2 py-1 rounded');
+                }
             });
         });
+
 
         function add() {
             modalHandler(true);
