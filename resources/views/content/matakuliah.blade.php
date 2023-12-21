@@ -61,44 +61,28 @@
                                 }
                             </style>
                         </head>
-                        <div class=" py-12 bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
-                            id="matakuliah-modal">
+                        <div class=" py-12 bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0" id="matakuliah-modal">
                             <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
-                                <div
-                                    class="relative mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+                                <div class="relative mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
                                     <div class="w-full flex justify-start text-gray-600 mb-3">
                                     </div>
                                     <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel
                                         Matakuliah Teknik Komputer </h1>
-                                    <form action="javascript:void(0)" id="MatakuliahForm" name="MatakuliahForm"
-                                        class="form-horizontal" method="POST">
+                                    <form action="javascript:void(0)" id="MatakuliahForm" name="MatakuliahForm" class="form-horizontal" method="POST">
                                         <input type="hidden" name="id" id="id" />
-                                        <label for="kode_MK"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Kode
+                                        <label for="kode_MK" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Kode
                                             Mata Kuliah</label>
-                                        <input name="kode_MK" id="kode_MK"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="133742069" />
-                                        <label for="Mata_Kuliah"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Mata
+                                        <input name="kode_MK" id="kode_MK" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="133742069" />
+                                        <label for="Mata_Kuliah" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Mata
                                             Kuliah</label>
-                                        <input name="Mata_Kuliah" id="Mata_Kuliah"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="Pemorgraman Jaringan" />
-                                        <label for="Tahun_ajaran"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Tahun
+                                        <input name="Mata_Kuliah" id="Mata_Kuliah" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Pemorgraman Jaringan" />
+                                        <label for="Tahun_ajaran" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Tahun
                                             Ajaran</label>
-                                        <input name="Tahun_ajaran" id="Tahun_ajaran"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="2020" />
-                                        <label for="SKS"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">SKS</label>
-                                        <input name="SKS" id="SKS"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="3" />
+                                        <input name="Tahun_ajaran" id="Tahun_ajaran" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="2020" />
+                                        <label for="SKS" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">SKS</label>
+                                        <input name="SKS" id="SKS" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="3" />
                                         <div class="flex items-center justify-start w-full">
-                                            <button type="submit"
-                                                class="focus:outline-none
+                                            <button type="submit" class="focus:outline-none
                                                 focus:ring-2
                                                 focus:ring-offset-2
                                                 focus:ring-green-700
@@ -109,19 +93,12 @@
                                                 text-white px-8 py-2
                                                 text-sm">
                                                 Submit</button>
-                                            <button type="button"
-                                                class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
-                                                onclick="modalHandler(false)">Cancel</button>
+                                            <button type="button" class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm" onclick="modalHandler(false)">Cancel</button>
                                     </form>
 
                                 </div>
-                                <button
-                                    class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
-                                    onclick="modalHandler()" aria-label="close modal" role="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x"
-                                        width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5"
-                                        stroke="currentColor" fill="none" stroke-linecap="round"
-                                        stroke-linejoin="round">
+                                <button class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600" onclick="modalHandler()" aria-label="close modal" role="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" />
                                         <line x1="18" y1="6" x2="6" y2="18" />
                                         <line x1="6" y1="6" x2="18" y2="18" />
@@ -196,6 +173,10 @@
             });
 
             $('#matakuliah').DataTable({
+                language: {
+                    search: '', // Mengosongkan teks pada kotak pencarian
+                    lengthMenu: '_MENU_', // Mengganti teks "Show Entries" dengan '_MENU_'
+                },
                 processing: true,
                 serverSide: true,
                 ajax: "{{ url('matakuliah') }}",
