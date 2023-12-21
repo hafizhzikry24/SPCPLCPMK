@@ -6,23 +6,62 @@
         </div>
         <!-- Main Content -->
         <div class="col-span-10 overflow-y-auto mt-4 ">
-            <div class="flex justify-between h-16 border-b border-black">
-                <a class="text-2xl font-bold ml-8 mb-2 mt-1"> Tabel atakuliah Teknik Komputer </a>
-                <a class="text-2xl font-bold ml-8 mb-2 mt-1 text-right mr-8"> Universitas Diponegoro </a>
+            <div class="">
+
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-
                 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
                 <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
                 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
             </div>
-            <main class="w-full h-screen bg-[#F6F1F1]">
-                <div class="w-full overflow-hidden shadow-sm sm:rounded-lg ">
-                    <div class="p-6 text-gray-900 justify-between">
-                        <x-add-button type="submit" class="ml-6" id="button">
-                            Tambah data
-                        </x-add-button>
-                        <div class="py-12  bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
+
+            <body>
+                <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">
+                    <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
+                        <a class="text-2xl font-bold"> TABEL MATAKULIAH </a>
+                        <div>
+                            <div class="p-5 flex justify-between items-center">
+                                <x-add-button type="submit" class="ml-auto" id="button">
+                                    Tambah data
+                                </x-add-button>
+                            </div>
+                            <!-- Tabel Data -->
+                            <table class="table table-bordered" id="matakuliah">
+                                <thead>
+                                    <tr>
+                                        <th class="bg-[#C2E7FF]" style=" border: none;">Kode Mata Kuliah</th>
+                                        <th class="bg-[#C2E7FF]" style=" border: none;">Mata Kuliah</th>
+                                        <th class="bg-[#C2E7FF]" style=" border: none;">Tahun Ajaran</th>
+                                        <th class="bg-[#C2E7FF]" style=" border: none;">SKS</th>
+                                        <th class="bg-[#C2E7FF]" style=" border: none;">Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <!DOCTYPE html>
+                        <html>
+
+                        <head>
+                            <title>Data Mahasiswa</title>
+                            <style>
+                                table {
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                }
+
+                                th,
+                                td {
+                                    border-bottom: 2px solid #ddd;
+                                    padding: 8px;
+                                    text-align: left;
+                                }
+
+                                th {
+                                    background-color: #f2f2f2;
+                                }
+                            </style>
+                        </head>
+                        <div class=" py-12 bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
                             id="matakuliah-modal">
                             <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
                                 <div
@@ -69,11 +108,12 @@
                                                 bg-green-400 rounded
                                                 text-white px-8 py-2
                                                 text-sm">
-                                                Save Changes</button>
+                                                Submit</button>
+                                            <button type="button"
+                                                class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                                                onclick="modalHandler(false)">Cancel</button>
                                     </form>
-                                    <button type="button"
-                                        class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
-                                        onclick="modalHandler(false)">Cancel</button>
+
                                 </div>
                                 <button
                                     class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
@@ -89,29 +129,14 @@
                                 </button>
                             </div>
                         </div>
+
                     </div>
-                </div>
 
-                <!-- Tabel Data -->
-                <table class="table table-bordered" id="matakuliah">
-                    <thead>
-                        <tr>
-                            <th>Kode Mata Kuliah</th>
-                            <th>Mata Kuliah</th>
-                            <th>Tahun Ajaran</th>
-                            <th>SKS</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                </table>
+                </main>
+
+            </body>
+
         </div>
-    </div>
-    </div>
-
-    </div>
-    </main>
-    </div>
-
     </div>
 
 
