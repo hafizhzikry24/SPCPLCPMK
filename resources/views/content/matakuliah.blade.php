@@ -18,7 +18,7 @@
             <body>
                 <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">
                     <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
-                        <a class="text-2xl font-bold"> TABEL MATAKULIAH </a>
+                        <a class="text-3xl font-bold"> TABEL MATAKULIAH </a>
                         <div>
                             <div class="p-5 flex justify-between items-center">
                                 <x-add-button type="submit" class="ml-auto" id="button">
@@ -58,6 +58,34 @@
 
                                 th {
                                     background-color: #f2f2f2;
+                                }
+
+                                .custom-search {
+                                    padding: 8px 30px 8px 40px;
+                                    /* Sesuaikan padding agar tulisan tidak terlalu dekat dengan tepi kotak */
+                                    border: 1px solid #ccc;
+                                    border-radius: 4px;
+                                    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="%23757575" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="11" cy="11" r="8" /><path d="M21 21l-6-6" /></svg>');
+                                    background-repeat: no-repeat;
+                                    background-position: calc(100% - 20px) center;
+                                    /* Mulai dari tepi kanan */
+                                    background-size: 20px;
+                                    /* Ukuran ikon */
+                                    padding-right: 40px;
+                                    /* Menggeser teks untuk memberi ruang bagi ikon */
+                                    width: 200px;
+                                    /* Sesuaikan lebar sesuai kebutuhan */
+                                    color: #757575;
+                                    /* Warna teks abu-abu */
+                                    transition: background-position 0.3s ease-in-out;
+                                    /* Efek transisi saat fokus */
+                                }
+
+                                .dataTables_filter {
+                                    text-align: right;
+                                    /* Posisi kotak pencarian di sisi kanan */
+                                    margin-bottom: 10px;
+                                    /* Jarak antara kotak pencarian dan tabel */
                                 }
                             </style>
                         </head>
@@ -204,8 +232,15 @@
                 ],
                 order: [
                     [0, 'desc']
-                ]
+                ],
+                // Customizing the DataTables elements position
+                dom: '<"flex mb-3"l<"flex-shrink-0 mr-3 ml-3"f>>rtip',
+                initComplete: function() {
+                    // Menyesuaikan kotak pencarian
+                    $('.dataTables_filter input[type="search"]').addClass('custom-search');
+                }
             });
+            $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
         });
 
         function add() {
