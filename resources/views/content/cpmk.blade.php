@@ -13,7 +13,7 @@
                     <a class="text-3xl font-bold"> CPMK </a>
                     <div class="flex items-center justify-between">
                         <!-- Button -->
-                        <div>
+                        <div class="mt-10 mb-10 flex justify-between items-center">
                             <x-add-button type="submit" class="" id="button">
                                 Tambah data
                             </x-add-button>
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <!-- Tabel Data -->
-                    <table class="min-w-full mt-4"><!-- Ini daf kudu mbok garap Back End e sek nembe iso soal e styling e kudu ono Data Tables -->
+                    <table class="min-w-full "><!-- Ini daf kudu mbok garap Back End e sek nembe iso soal e styling e kudu ono Data Tables -->
                         <thead class="border-b-2 border-black">
                             <tr>
                                 <th class="  ml-2 py-3 bg-[#F6F1F1] text-center text-xs leading-4 font-medium text-black uppercase tracking-wider">Mata Kuliah</th>
