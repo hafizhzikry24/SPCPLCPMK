@@ -14,7 +14,12 @@ class CplController extends Controller
      */
     public function index()
     {
-        //
+        if(request()->ajax()) {
+            return datatables()->of(Cpl::select('*'))
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('content.cpl');
     }
 
     /**
