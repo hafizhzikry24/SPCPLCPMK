@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('cpls', function (Blueprint $table) {
-            $table->id('id_cpl');
-            $table->string('Nama_CPL');
-            $table->string('Deskripsi');
+            $table->id();
+            $table->string('nama');
+            $table->text('desc');
             $table->timestamps();
         });
     }

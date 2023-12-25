@@ -9,5 +9,10 @@ class Cpl extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_cpl', 'Nama_CPL', 'Deskripsi'];
+    protected $fillable = ['id', 'nama', 'desc'];
+
+    // public function excelDKPs()
+    // {
+    //     return $this->hasMany(ExcelDKP::class, 'cpl_id');
+    // }
 }

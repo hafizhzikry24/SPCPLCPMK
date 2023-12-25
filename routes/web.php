@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CplController;
 use App\Http\Controllers\ExcelDKPController;
 use App\Http\Controllers\ExcelsdlController;
 use App\Http\Controllers\ProfileController;
@@ -25,7 +26,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
-    Route::view('/cpl', 'content.cpl')->name('cpl');
+    // Route::view('/cpl', 'content.cpl')->name('cpl');
     Route::view('/cpmk', 'content.cpmk')->name('cpmk');
     Route::view('/matakuliah', 'content.matakuliah')->name('matakuliah');
 
@@ -39,6 +40,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/matakuliah/edit', [MatakuliahController::class, 'edit'])->name('matakuliah.edit');;
     Route::post('/matakuliah/store', [MatakuliahController::class, 'store'])->name('matakuliah.store');
     Route::post('/matakuliah/delete', [MatakuliahController::class, 'destroy'])->name('matakuliah.delete');;
+
+    Route::get('/cpl', [CplController::class, 'index'])->name('cpl');
 
     Route::get('/excel', [ExcelsdlController::class, 'index'])->name('excelsdl');
     Route::post('/importexcelsdl', [ExcelsdlController::class, 'excelsdlimport'])->name('importexcelsdl');

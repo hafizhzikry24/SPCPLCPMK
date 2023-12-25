@@ -94,7 +94,6 @@
                             </div>
                     </div>
 
-
                             <div class="flex flex-auto justify-between">
                                 <!-- Dropdown Jumlah Data -->
                                 <x-dropdown-data/>
