@@ -43,12 +43,12 @@
                 <span class="ml-2 text-1xl">Rekap CPL</span>
             </a>
         </li>
-        <li class="my-8 ">
+        {{-- <li class="my-8 ">
             <a href="{{ route('rapor') }}" class="inline-flex flex items-center">
                 <x-assets.document-report class="w-4 h-4 mr-1" />
                 <span class="ml-2 text-1xl">Rapor Jurusan</span>
             </a>
-        </li>
+        </li> --}}
         <li class="my-8 ">
             <a href="{{ route('bukupanduan') }}" class="inline-flex flex items-center">
                 <x-assets.briefcase class="w-4 h-4 mr-1" />
