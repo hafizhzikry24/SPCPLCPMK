@@ -15,7 +15,7 @@
 
                         <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-                                <div class="max-w-7x1">
+                            {{-- <div class="max-w-7x1">
                                     <a class="text-2xl font-bold ml-2 mb-4 mt-4"> S1 Teknik Komputer </a>
                                     <table class="min-w-full mt-4 ">
                                         <thead >
@@ -27,8 +27,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- Tampilkan data menggunakan loop -->
-                                            {{-- @foreach() --}}
                                             <tr>
                                                 <td class="text-center px-6 py-4 whitespace-no-wrap">CPL-A</td>
                                                 <td class="px-6 py-4 whitespace-no-wrap"></td>
@@ -92,38 +90,44 @@
                                                 <td class="px-4 py-4 whitespace-no-wrap text-center">
 
                                             </tr>
-                                            {{-- @endforeach --}}
+
                                         </tbody>
                                     </table>
 
                                 </div>
 
 
-                                </div>
+                                </div> --}}
 
 
 
 
 
-                        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 space-y-6 mt-16">
+                            <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 space-y-6 mt-16">
 
-                                 <div class="max-w-7x1 ">
+                                <div class="max-w-7x1 ">
 
-                                    <table class="min-w-full mt-4 ">
-                                        <thead >
-                                            <tr>
-                                                 <th class="px-6 py-3 bg-[#5AB3F0] text-center text-xs leading-4 font-medium text-dark uppercase tracking-wider">Grafik Nilai</th>
-                                            </tr>
-                                        </thead>
+                                    <body class="h-screen bg-gray-100">
 
-                                    </table>
+                                        <div class="container px-4 mx-auto">
+
+                                            <div class="p-6 m-20 bg-white rounded shadow">
+                                                {!! $chart->container() !!}
+                                            </div>
+
+                                        </div>
+
+                                        <script src="{{ $chart->cdn() }}"></script>
+
+                                        {{ $chart->script() }}
+                                    </body>
                                 </div>
 
 
 
                             </div>
+                        </div>
                     </div>
-                </div>
             </main>
         </div>
     </div>
