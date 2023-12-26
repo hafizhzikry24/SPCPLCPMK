@@ -35,7 +35,7 @@
                                         <th class="bg-[#C2E7FF]" style=" border: none;">NIM</th>
                                         <th class="bg-[#C2E7FF]" style=" border: none;">NAMA</th>
                                         <th class="bg-[#C2E7FF]" style=" border: none;">Semester</th>
-                                        <th class="bg-[#C2E7FF]" style=" border: none;"></th>
+                                        <th class="bg-[#C2E7FF]" style=" border: none;">Action</th>
                                     </tr>
                                 </thead>
                             </table>

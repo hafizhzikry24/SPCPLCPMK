@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CplController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ExcelDKPController;
 use App\Http\Controllers\ExcelsdlController;
 use App\Http\Controllers\ProfileController;
@@ -8,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/matakuliah/delete', [MatakuliahController::class, 'destroy'])->name('matakuliah.delete');;
 
     Route::get('/cpl', [CplController::class, 'index'])->name('cpl');
+    Route::get('/dosen', [DosenController::class, 'index'])->name('dosen');
 
     Route::get('/excel', [ExcelsdlController::class, 'index'])->name('excelsdl');
     Route::post('/importexcelsdl', [ExcelsdlController::class, 'excelsdlimport'])->name('importexcelsdl');
@@ -49,7 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/exceldkp', [ExcelDKPController::class, 'index'])->name('exceldkp');
     Route::post('/importexceldkp', [ExcelDKPController::class, 'exceldkpimport'])->name('importexceldkp');
 
-    Route::view('/dosen', 'content.dosen')->name('dosen');
+    // Route::view('/dosen', 'content.dosen')->name('dosen');
     Route::view('/nilai', 'content.nilai')->name('nilai');
     // Route::view('/excel', 'content.excel.excel')->name('excel');
     Route::view('/nilai', 'content.nilai')->name('nilai');
