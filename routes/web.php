@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChartAllController;
 use App\Http\Controllers\CplController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ExcelDKPController;
@@ -43,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/cpl', [CplController::class, 'index'])->name('cpl');
     Route::get('/dosen', [DosenController::class, 'index'])->name('dosen');
+    Route::get('/rekap', [ChartAllController::class, 'index'])->name('rekap');
 
     Route::get('/excel', [ExcelsdlController::class, 'index'])->name('excelsdl');
     Route::post('/importexcelsdl', [ExcelsdlController::class, 'excelsdlimport'])->name('importexcelsdl');
@@ -54,7 +56,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/nilai', 'content.nilai')->name('nilai');
     // Route::view('/excel', 'content.excel.excel')->name('excel');
     Route::view('/nilai', 'content.nilai')->name('nilai');
-    Route::view('/rekap', 'content.rekap')->name('rekap');
+    // Route::view('/rekap', 'content.rekap')->name('rekap');
     Route::view('/rapor', 'content.rapor')->name('rapor');
     Route::view('/bukupanduan', 'content.bukupanduan')->name('bukupanduan');
 });
