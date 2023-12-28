@@ -13,75 +13,74 @@
 
         <!-- Main Content -->
         <div class="col-span-10 overflow-y-auto mt-4">
-            <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">
 
-                <body>
-                    <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">
-                        <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
-                            <a class="text-3xl font-bold"> TABEL DOSEN </a>
-                            <div>
-                                <!-- Tabel Data -->
-                                <table class="table table-bordered" id="dosen">
-                                    <thead>
-                                        <tr>
-                                            <th class="bg-[#C2E7FF]" style=" border: none;">NIP Dosen</th>
-                                            <th class="bg-[#C2E7FF]" style=" border: none;">Nama Dosen</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                            <!DOCTYPE html>
-                            <html>
+            <body>
+                <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">
+                    <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
+                        <a class="text-3xl font-bold"> TABEL DOSEN </a>
+                        <div>
+                            <!-- Tabel Data -->
+                            <table class="table table-bordered" id="dosen">
+                                <thead>
+                                    <tr>
+                                        <th class="bg-[#C2E7FF]" style=" border: none;">NIP Dosen</th>
+                                        <th class="bg-[#C2E7FF]" style=" border: none;">Nama Dosen</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <!DOCTYPE html>
+                        <html>
 
-                            <head>
-                                <title>Data Dosen</title>
-                                <style>
-                                    table {
-                                        border-collapse: collapse;
-                                        width: 100%;
-                                    }
+                        <head>
+                            <title>Data Dosen</title>
+                            <style>
+                                table {
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                }
 
-                                    th,
-                                    td {
-                                        border-bottom: 2px solid #ddd;
-                                        padding: 8px;
-                                        text-align: left;
-                                    }
+                                th,
+                                td {
+                                    border-bottom: 2px solid #ddd;
+                                    padding: 8px;
+                                    text-align: left;
+                                }
 
-                                    th {
-                                        background-color: #f2f2f2;
-                                    }
+                                th {
+                                    background-color: #f2f2f2;
+                                }
 
-                                    .custom-search {
-                                        padding: 8px 30px 8px 40px;
-                                        /* Sesuaikan padding agar tulisan tidak terlalu dekat dengan tepi kotak */
-                                        border: 1px solid #ccc;
-                                        border-radius: 4px;
-                                        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="%23757575" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="11" cy="11" r="8" /><path d="M21 21l-6-6" /></svg>');
-                                        background-repeat: no-repeat;
-                                        background-position: calc(100% - 20px) center;
-                                        /* Mulai dari tepi kanan */
-                                        background-size: 20px;
-                                        /* Ukuran ikon */
-                                        padding-right: 40px;
-                                        /* Menggeser teks untuk memberi ruang bagi ikon */
-                                        width: 200px;
-                                        /* Sesuaikan lebar sesuai kebutuhan */
-                                        color: #757575;
-                                        /* Warna teks abu-abu */
-                                        transition: background-position 0.3s ease-in-out;
-                                        /* Efek transisi saat fokus */
-                                    }
+                                .custom-search {
+                                    padding: 8px 30px 8px 40px;
+                                    /* Sesuaikan padding agar tulisan tidak terlalu dekat dengan tepi kotak */
+                                    border: 1px solid #ccc;
+                                    border-radius: 4px;
+                                    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="%23757575" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="11" cy="11" r="8" /><path d="M21 21l-6-6" /></svg>');
+                                    background-repeat: no-repeat;
+                                    background-position: calc(100% - 20px) center;
+                                    /* Mulai dari tepi kanan */
+                                    background-size: 20px;
+                                    /* Ukuran ikon */
+                                    padding-right: 40px;
+                                    /* Menggeser teks untuk memberi ruang bagi ikon */
+                                    width: 200px;
+                                    /* Sesuaikan lebar sesuai kebutuhan */
+                                    color: #757575;
+                                    /* Warna teks abu-abu */
+                                    transition: background-position 0.3s ease-in-out;
+                                    /* Efek transisi saat fokus */
+                                }
 
-                                    .dataTables_filter {
-                                        text-align: right;
-                                        /* Posisi kotak pencarian di sisi kanan */
-                                        margin-bottom: 10px;
-                                        /* Jarak antara kotak pencarian dan tabel */
-                                    }
-                                </style>
-                            </head>
-                    </main>
+                                .dataTables_filter {
+                                    text-align: right;
+                                    /* Posisi kotak pencarian di sisi kanan */
+                                    margin-bottom: 10px;
+                                    /* Jarak antara kotak pencarian dan tabel */
+                                }
+                            </style>
+                        </head>
+                </main>
         </div>
     </div>
 
