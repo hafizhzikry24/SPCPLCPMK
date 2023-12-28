@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center px-12 py-40 sm:pt-0" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset("build/assets/background.jpg") }}'); background-size: cover; background-position: center center;">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center px-12 py-40 sm:pt-0" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset("assets/background.jpg") }}'); background-size: cover; background-position: center center;">
 
                 {{-- <a href="/">
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />

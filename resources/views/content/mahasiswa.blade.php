@@ -64,7 +64,7 @@
                                                 th,
                                                 td {
                                                     border-bottom: 2px solid #ddd;
-                                                    padding: 8px;
+                                                    padding: 4px;
                                                     text-align: left;
                                                 }
 

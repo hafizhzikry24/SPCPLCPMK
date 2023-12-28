@@ -17,14 +17,10 @@
                 <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
                     <a class="text-3xl font-bold"> TABEL NILAI MATA KULIAH </a>
                     <!-- Tombol Tambah -->
-                    <div class="mt-10 mb-10 flex justify-between items-center">
-                        <x-add-button type="submit" class="" id="button">
-                            Tambah data
-                        </x-add-button>
-                    </div>
+
                     <!-- Tabel Data -->
-                    <table class="min-w-full mt-4"> <!-- Ini daf kudu mbok garap Back End e sek nembe iso soal e styling e kudu ono Data Tables -->
-                        <thead class="border-b-2 border-black">
+                    <table class="min-w-full my-14"> <!-- Ini daf kudu mbok garap Back End e sek nembe iso soal e styling e kudu ono Data Tables -->
+                        <thead class="border-b-2 border-black ">
                             <tr>
                                 <th class="  px-6 py-3 bg-[#F6F1F1] text-center text-xs leading-4 font-medium text-black uppercase tracking-wider">Nama Mata Kuliah</th>
 
@@ -56,6 +52,7 @@
                                             </x-select-button>
                                         </a>
                                     </div>
+
                                 </td>
 
                             </tr>
