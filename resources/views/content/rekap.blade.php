@@ -20,10 +20,10 @@
                                     <table class="min-w-full mt-4 ">
                                         <thead >
                                             <tr>
-                                                <th class="  px-6 py-3 bg-[#5AB3F0] text-center text-xs leading-4 font-medium text-dark uppercase tracking-wider">Nama CPL</th>
-                                                <th class=" px-6 py-3 bg-[#5AB3F0] text-center text-xs leading-4 font-medium text-dark uppercase tracking-wider">Deskripsi</th>
+                                                <th class="  px-6 py-3 bg-[#C2E7FF] text-center text-xs leading-4 font-medium text-dark uppercase tracking-wider">Nama CPL</th>
+                                                <th class=" px-6 py-3 bg-[#C2E7FF] text-center text-xs leading-4 font-medium text-dark uppercase tracking-wider">Deskripsi</th>
                                                 <!-- Tambahkan kolom-kolom lain sesuai kebutuhan -->
-                                                <th class="px-6 py-3 bg-[#5AB3F0] text-center text-xs leading-4 font-medium text-dark uppercase tracking-wider">Capaian</th>
+                                                <th class="px-6 py-3 bg-[#C2E7FF] text-center text-xs leading-4 font-medium text-dark uppercase tracking-wider">Capaian</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -112,7 +112,7 @@
                                     <table class="min-w-full mt-4 ">
                                         <thead >
                                             <tr>
-                                                 <th class="px-6 py-3 bg-[#5AB3F0] text-center text-xs leading-4 font-medium text-dark uppercase tracking-wider">Grafik Nilai</th>
+                                                 <th class="px-6 py-3 bg-[#C2E7FF] text-center text-xs leading-4 font-medium text-dark uppercase tracking-wider">Grafik Nilai</th>
                                             </tr>
                                         </thead>
 

@@ -13,7 +13,7 @@
 
         <!-- Main Content -->
         <div class="col-span-10 overflow-y-auto mt-4">
-            <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">
+
 
                 <body>
                     <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">

@@ -20,11 +20,11 @@
                     <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
                         <a class="text-3xl font-bold"> TABEL MATAKULIAH </a>
                         <div>
-                            <div class="p-5 flex justify-between items-center">
+                            {{-- <div class="p-5 flex justify-between items-center">
                                 <x-add-button type="submit" class="ml-auto" id="button">
                                     Tambah data
                                 </x-add-button>
-                            </div>
+                            </div> --}}
                             <!-- Tabel Data -->
                             <table class="table table-bordered" id="matakuliah">
                                 <thead>
@@ -33,7 +33,7 @@
                                         <th class="bg-[#C2E7FF]" style=" border: none;">Mata Kuliah</th>
                                         <th class="bg-[#C2E7FF]" style=" border: none;">Tahun Ajaran</th>
                                         <th class="bg-[#C2E7FF]" style=" border: none;">SKS</th>
-                                        <th class="bg-[#C2E7FF]" style=" border: none;">Action</th>
+                                        <th class="bg-[#C2E7FF]" style=" border: none;"></th>
                                     </tr>
                                 </thead>
                             </table>
@@ -52,7 +52,7 @@
                                 th,
                                 td {
                                     border-bottom: 2px solid #ddd;
-                                    padding: 8px;
+                                    padding: 2px;
                                     text-align: left;
                                 }
 
@@ -234,11 +234,21 @@
                     [0, 'desc']
                 ],
                 // Customizing the DataTables elements position
-                dom: '<"flex mb-3"l<"flex-shrink-0 mr-3 ml-3"f>>rtip',
+                dom: '<"flex my-5"l<"flex-shrink-0 mr-3 ml-3"f>>rtip',
                 initComplete: function() {
-                    // Menyesuaikan kotak pencarian
-                    $('.dataTables_filter input[type="search"]').addClass('custom-search');
-                }
+                        // Menyesuaikan kotak pencarian
+                        $('.dataTables_filter input[type="search"]').addClass('custom-search');
+
+                        // Append "Tambah data" button to DataTables container
+                        var addButton = $(
+                                `<div class="p-3 flex justify-between items-center">
+                                <x-add-button type="submit" class="ml-auto" id="button">
+                                    Tambah data
+                                </x-add-button>
+                            </div>`)
+                            .addClass('ml-auto');
+                        $('#mahasiswa_wrapper').find('.flex.mb-3').append(addButton);
+                    }
             });
             $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
         });
