@@ -9,5 +9,5 @@ class Dosen extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_dosen', 'NIP', 'Nama_Dosen'];
+    protected $fillable = ['NIP', 'Nama_Dosen'];
 }

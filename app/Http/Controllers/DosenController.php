@@ -14,7 +14,12 @@ class DosenController extends Controller
      */
     public function index()
     {
-        //
+        if(request()->ajax()) {
+            return datatables()->of(Dosen::select('*'))
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('content.dosen');
     }
 
     /**
