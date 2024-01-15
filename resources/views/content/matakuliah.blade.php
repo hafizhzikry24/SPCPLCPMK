@@ -20,11 +20,11 @@
                     <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
                         <a class="text-3xl font-bold"> TABEL MATAKULIAH </a>
 
-                        {{-- <div class="p-5 flex justify-between items-center">
-                                <x-add-button type="submit" class="ml-auto" id="button">
-                                    Tambah data
-                                </x-add-button>
-                            </div> --}}
+                        <div class="p-5 flex justify-between items-center">
+                            <x-add-button type="submit" class="ml-auto" id="button">
+                                Tambah data
+                            </x-add-button>
+                        </div>
                         <!-- Tabel Data -->
                         <table class="table table-bordered" id="matakuliah">
                             <thead>
