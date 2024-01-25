@@ -46,10 +46,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dosen', [DosenController::class, 'index'])->name('dosen');
     Route::get('/rekap', [ChartAllController::class, 'index'])->name('rekap');
 
-    Route::get('/excel', [ExcelsdlController::class, 'index'])->name('excelsdl');
+    Route::get('/matakuliah/PTSK6506', [ExcelsdlController::class, 'index'])->name('PTSK6506');
     Route::post('/importexcelsdl', [ExcelsdlController::class, 'excelsdlimport'])->name('importexcelsdl');
 
-    Route::get('/exceldkp', [ExcelDKPController::class, 'index'])->name('exceldkp');
+    Route::get('/matakuliah/PTSK6103', [ExcelDKPController::class, 'index'])->name('PTSK6103');
     Route::post('/importexceldkp', [ExcelDKPController::class, 'exceldkpimport'])->name('importexceldkp');
 
     // Route::view('/dosen', 'content.dosen')->name('dosen');

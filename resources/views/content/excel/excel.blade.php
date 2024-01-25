@@ -86,7 +86,7 @@
                         </div>
 
 
-                        <table class="mx-8 my-12" id="excelsdl">
+                        <table class="mx-8 my-12" id="PTSK6506">
                             <thead class="min-w-full my-12 ">
                                 <tr>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">NIM</th>
@@ -219,10 +219,10 @@
                     }
                 });
 
-                $('#excelsdl').DataTable({
+                $('#PTSK6506').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ url('excel') }}",
+                    ajax: "{{ url('/matakuliah/PTSK6506') }}",
                     columns: [{
                             data: 'nim',
                             name: 'nim'

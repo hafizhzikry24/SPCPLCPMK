@@ -46,7 +46,7 @@
                                         </a>
                                     </div>
                                     <div class="mt-5">
-                                        <a href="{{ route('excelsdl') }}" class=" items-center">
+                                        <a href="{{ route('PTSK6106') }}" class=" items-center">
                                             <x-select-button >
                                                 Select
                                             </x-select-button>

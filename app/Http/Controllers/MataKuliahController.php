@@ -11,7 +11,9 @@ class MatakuliahController extends Controller
     {
         if(request()->ajax()) {
             return datatables()->of(Mata_kuliah::select('*'))
-            ->addColumn('action', 'components.matakuliah-action')
+            ->addColumn('action', function ($row) {
+                return view('components.matakuliah-action', ['id' => $row->id, 'kode_MK' => $row->kode_MK]);
+            })
             ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);
@@ -31,7 +33,7 @@ class MatakuliahController extends Controller
                     [
                         'kode_MK' => $request->kode_MK,
                         'Mata_Kuliah' => $request->Mata_Kuliah,
-                        'Tahun_ajaran' => $request->Tahun_ajaran,
+                        'semester' => $request->semester,
                         'SKS' => $request->SKS,
                     ]);
         return Response()->json($matakuliah);
