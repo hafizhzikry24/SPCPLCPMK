@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-gray-500 fill-current bg-white rounded-full p-1" viewBox="0 0 20 20" fill="currentColor">
+{{-- <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-gray-500 fill-current bg-white rounded-full p-1" viewBox="0 0 20 20" fill="currentColor">
     <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
     <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-</svg>
+</svg> --}}
+
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="F-File"> <g id="Text"> <g> <path d="M18,22H6a2,2,0,0,1-2-2V4A2,2,0,0,1,6,2h7.1a2,2,0,0,1,1.5.6l4.9,5.2A2,2,0,0,1,20,9.2V20A2,2,0,0,1,18,22Z" fill="none" id="File" stroke="#699ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> <line fill="none" stroke="#699ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="7.9" x2="16.1" y1="17.5" y2="17.5"></line> <line fill="none" stroke="#699ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="7.9" x2="16.1" y1="13.5" y2="13.5"></line> <line fill="none" stroke="#699ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="8" x2="13" y1="9.5" y2="9.5"></line> </g> </g> </g> </g> </g></svg>
