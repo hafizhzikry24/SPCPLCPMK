@@ -83,7 +83,7 @@
 
 
 
-                        <table class="mx-8 my-12" id="exceldkp">
+                        <table class="mx-8 my-12" id="PTSK6103">
                             <thead class="min-w-full my-12 ">
                                 <tr class=" h-11">
                                     <th class="bg-[#C2E7FF]" style=" border: none;">NIM</th>
@@ -222,10 +222,10 @@
                     }
                 });
 
-                $('#exceldkp').DataTable({
+                $('#PTSK6103').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ url('exceldkp') }}",
+                    ajax: "{{ url('/matakuliah/PTSK6103') }}",
                     columns: [{
                             data: 'nim',
                             name: 'nim'
