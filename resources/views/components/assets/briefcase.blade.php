@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-gray-500 fill-current bg-white rounded-full p-1" viewBox="0 0 20 20" fill="currentColor">
+{{-- <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-gray-500 fill-current bg-white rounded-full p-1" viewBox="0 0 20 20" fill="currentColor">
     <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"></path>
     <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path>
-</svg>
+</svg> --}}
+
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="#699ace" stroke="#699ace"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>assignment-text</title> <g id="Layer_2" data-name="Layer 2"> <g id="invisible_box" data-name="invisible box"> <rect width="48" height="48" fill="none"></rect> </g> <g id="icons_Q2" data-name="icons Q2"> <g> <path d="M16,16a2,2,0,0,0,0,4H32a2,2,0,0,0,0-4Z"></path> <path d="M32,24H16a2,2,0,0,0,0,4H32a2,2,0,0,0,0-4Z"></path> <path d="M24,32H16a2,2,0,0,0,0,4h8a2,2,0,0,0,0-4Z"></path> <path d="M40,6H36V4a2,2,0,0,0-2-2H14a2,2,0,0,0-2,2V6H8A2,2,0,0,0,6,8V44a2,2,0,0,0,2,2H40a2,2,0,0,0,2-2V8A2,2,0,0,0,40,6ZM38,42H10V10h6V6H32v4h6Z"></path> </g> </g> </g> </g></svg>
