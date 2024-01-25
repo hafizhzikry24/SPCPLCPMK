@@ -1,3 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-gray-500 fill-current bg-white rounded-full p-1" viewBox="0 0 20 20" fill="currentColor">
+{{-- <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-gray-500 fill-current bg-white rounded-full p-1" viewBox="0 0 20 20" fill="currentColor">
     <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>
-</svg>
+</svg> --}}
+
+<svg viewBox="0 0 24 24" fill="none"  class="h-6 w-6" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H9M15 5H17C18.1046 5 19 5.89543 19 7V9" stroke="#699ace" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14.902 20.3343L12.7153 20.7716L13.1526 18.585C13.1914 18.3914 13.2865 18.2136 13.4261 18.074L17.5 14L19.5 12L21.4869 13.9869L19.4869 15.9869L15.413 20.0608C15.2734 20.2004 15.0956 20.2956 14.902 20.3343Z" stroke="#699ace" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#699ace" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
