@@ -19,12 +19,6 @@
                 <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">
                     <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
                         <a class="text-3xl font-bold"> TABEL MATAKULIAH </a>
-
-                        <div class="p-5 flex justify-between items-center">
-                            <x-add-button type="submit" class="ml-auto" id="button">
-                                Tambah data
-                            </x-add-button>
-                        </div>
                         <!-- Tabel Data -->
                         <table class="table table-bordered" id="matakuliah">
                             <thead>
@@ -118,7 +112,7 @@
                                         </label>
                                         <input name="semester" id="semester"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="2020" />
+                                            placeholder="3" />
                                         <label for="SKS"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">SKS</label>
                                         <input name="SKS" id="SKS"
@@ -257,7 +251,7 @@
                     [0, 'desc']
                 ],
                 // Customizing the DataTables elements position
-                dom: '<"flex my-5"l<"flex-shrink-0 mr-3 ml-3"f>>rtip',
+                dom: '<"flex justify-between mb-3 mt-3 items-center"l<"flex-shrink-0 justify-between mr-3 ml-3 items-center"f>>rtip',
                 initComplete: function() {
                     // Menyesuaikan kotak pencarian
                     $('.dataTables_filter input[type="search"]').addClass('custom-search');
@@ -265,7 +259,6 @@
                     // Append "Tambah data" button to DataTables container
                     var addButton = $(
                             `<div class="p-3 flex justify-between items-center">
-
                                 <x-add-button type="submit" class="ml-auto" id="button">
                                     Tambah data
                                 </x-add-button>
