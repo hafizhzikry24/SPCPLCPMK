@@ -7,6 +7,7 @@ use App\Imports\ExcelSDLimport;
 use App\Models\excelsdl;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Mata_kuliah;
 
 class ExcelsdlController extends Controller
 {
@@ -17,13 +18,16 @@ class ExcelsdlController extends Controller
      */
     public function index(ChartExcelSDL $chart)
     {
+        $idToMatch = 'PTSK6506';
+        $mataKuliahInfo = Mata_kuliah::where('kode_MK', $idToMatch)->get();
+
         $nilai = excelsdl::all();
         if(request()->ajax()) {
             return datatables()->of(excelsdl::select('*'))
             ->addIndexColumn()
             ->make(true);
         }
-        return view('content.excel.excel', ['chart' => $chart->build()], compact('nilai'));
+        return view('content.excel.excel', ['chart' => $chart->build(), 'mataKuliahInfo' => $mataKuliahInfo], compact('nilai'));
     }
 
 

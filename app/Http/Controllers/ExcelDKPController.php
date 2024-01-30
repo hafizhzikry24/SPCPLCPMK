@@ -7,6 +7,7 @@ use App\Imports\ExcelDKPimport;
 use App\Models\ExcelDKP;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Mata_kuliah;
 
 
 
@@ -19,13 +20,16 @@ class ExcelDKPController extends Controller
      */
     public function index(ChartExcelDKP $chart)
     {
+        $idToMatch = 'PTSK6103';
+        $mataKuliahInfo = Mata_kuliah::where('kode_MK', $idToMatch)->get();
+
         $nilai = ExcelDKP::all();
         if(request()->ajax()) {
             return datatables()->of(ExcelDKP::select('*'))
             ->addIndexColumn()
             ->make(true);
         }
-        return view('content.excel.exceldkp', ['chart' => $chart->build()], compact('nilai'));
+        return view('content.excel.exceldkp', ['chart' => $chart->build(), 'mataKuliahInfo' => $mataKuliahInfo], compact('nilai'));
     }
 
 

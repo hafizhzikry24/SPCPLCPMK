@@ -6,7 +6,8 @@
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chart Sample</title>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
@@ -38,33 +39,32 @@
                                     <a class="text-2xl font-bold ml-2 mb-4 mt-4 "> Keterangan </a>
                                     <table class="min-w-full mt-4">
                                         <tbody>
-                                            <!-- Tampilkan data menggunakan loop -->
-                                            {{-- @foreach() --}}
-                                            <tr>
-                                                <td class="px-2 py-1 whitespace-no-wrap">Kode Mata Kuliah </td>
-
-
-                                            </tr>
-                                            <tr>
-                                                <td class="px-2 py-1 whitespace-no-wrap">Nama Mata Kuliah</td>
-
-
-                                            </tr>
-                                            <tr>
-                                                <td class="px-2 py-1 whitespace-no-wrap">Semester</td>
-
-
-                                            </tr>
-                                            <tr>
-                                                <td class="px-2 py-1 whitespace-no-wrap">SKS</td>
-
-
-                                            </tr>
-
-
-                                            {{-- @endforeach --}}
+                                            @foreach ($mataKuliahInfo as $info)
+                                                <tr>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">Kode Mata Kuliah</td>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">{{ $info->kode_MK }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">Nama Mata Kuliah</td>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">{{ $info->Mata_Kuliah }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">Semester</td>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">{{ $info->semester }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">SKS</td>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">{{ $info->SKS }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">CPMK</td>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">{{ $info->cpmk }}</td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
+
                                 </div>
 
 
@@ -99,7 +99,7 @@
                             </thead>
                             {{-- <tbody>
                                     <!-- Tampilkan data menggunakan loop -->
-                                    @foreach($nilai as $item)
+                                    @foreach ($nilai as $item)
                                         <tr>
                                             <td class="px-6 py-4 whitespace-no-wrap">{{ $item->nim }}</td>
                             <td class="px-6 py-4 whitespace-no-wrap">{{ $item->nama }}</td>
@@ -133,7 +133,8 @@
     </div>
 
 
-    <div class="py-12  bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0" id="matakuliah-modal">
+    <div class="py-12  bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
+        id="matakuliah-modal">
         <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
             <div class="relative mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
                 <div class="w-full flex justify-start text-gray-600 mb-3">
@@ -146,7 +147,8 @@
                         <input type="file" name="file" required="required">
                     </div>
                     <div class="flex items-center justify-start w-full">
-                        <button type="submit" class="focus:outline-none
+                        <button type="submit"
+                            class="focus:outline-none
                         focus:ring-2
                         focus:ring-offset-2
                         focus:ring-green-700
@@ -158,10 +160,16 @@
                         text-sm">
                             Save Changes</button>
                 </form>
-                <button type="button" class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm" onclick="modalHandler(false)">Cancel</button>
+                <button type="button"
+                    class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                    onclick="modalHandler(false)">Cancel</button>
             </div>
-            <button class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600" onclick="modalHandler()" aria-label="close modal" role="button">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <button
+                class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
+                onclick="modalHandler()" aria-label="close modal" role="button">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20"
+                    height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" />
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />

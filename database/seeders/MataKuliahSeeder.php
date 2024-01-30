@@ -53,7 +53,7 @@ class MataKuliahSeeder extends seeder
         // Mata_kuliah::create(['kode_MK' => 'PTSK6403', 'Mata_Kuliah' => 'Praktikum Switching, Routing dan Jaringan Nirkabel', 'semester' => '5', 'SKS' => 1]);
         // Mata_kuliah::create(['kode_MK' => 'PTSK6503', 'Mata_Kuliah' => 'Praktikum Pemrograman Perangkat Bergerak', 'semester' => '5', 'SKS' => 1]);
         // Mata_kuliah::create(['kode_MK' => 'PTSK6504', 'Mata_Kuliah' => 'Praktikum Sistem Basis Data', 'semester' => '5', 'SKS' => 1]);
-        // // Mata_kuliah::create(['kode_MK' => 'PTSK6506', 'Mata_Kuliah' => 'Sistem Digital Lanjut', 'semester' => '5', 'SKS' => 2]);
+        Mata_kuliah::create(['kode_MK' => 'PTSK6506', 'Mata_Kuliah' => 'Sistem Digital Lanjut', 'semester' => '5', 'SKS' => 2]);
         // Mata_kuliah::create(['kode_MK' => 'PTSK6507', 'Mata_Kuliah' => 'Bahasa Pemrograman Rakitan', 'semester' => '5', 'SKS' => 2]);
         // Mata_kuliah::create(['kode_MK' => 'PTSK6508', 'Mata_Kuliah' => 'Teknik Mikroprosesor dan Antarmuka', 'semester' => '5', 'SKS' => 3]);
         // Mata_kuliah::create(['kode_MK' => 'PTSK6509', 'Mata_Kuliah' => 'Pengolahan Sinyal', 'semester' => '5', 'SKS' => 3]);
