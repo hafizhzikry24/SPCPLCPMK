@@ -9,5 +9,5 @@ class Mata_kuliah extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'kode_MK', 'Mata_Kuliah', 'semester', 'SKS'];
+    protected $fillable = ['id', 'kode_MK', 'Mata_Kuliah', 'semester', 'SKS', 'cpmk'];
 }

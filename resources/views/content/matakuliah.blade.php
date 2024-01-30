@@ -27,6 +27,7 @@
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Mata Kuliah</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Semester</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">SKS</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPMK</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Action</th>
                                 </tr>
                             </thead>
@@ -118,6 +119,11 @@
                                         <input name="SKS" id="SKS"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                                             placeholder="3" />
+                                        <label for="cpmk"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CPMK</label>
+                                        <input name="cpmk" id="cpmk"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                            placeholder="" />
                                         <div class="flex items-center justify-start w-full">
                                             <button type="submit"
                                                 class="focus:outline-none
@@ -188,6 +194,7 @@
             $('#Mata_Kuliah').val("");
             $('#semester').val("");
             $('#SKS').val("");
+            $('#cpmk').val("");
         }
 
         function fadeIn(el, display) {
@@ -240,6 +247,10 @@
                     {
                         data: 'SKS',
                         name: 'SKS'
+                    },
+                    {
+                        data: 'cpmk',
+                        name: 'cpmk'
                     },
                     {
                         data: 'action',
@@ -301,6 +312,7 @@
                     $('#Mata_Kuliah').val(res.Mata_Kuliah);
                     $('#semester').val(res.semester);
                     $('#SKS').val(res.SKS);
+                    $('#cpmk').val(res.cpmk);
                 }
             });
         }

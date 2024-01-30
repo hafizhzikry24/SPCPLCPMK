@@ -16,6 +16,7 @@ class ChartExcelDKP
 
     public function build(): \ArielMejiaDev\LarapexCharts\BarChart
     {
+
         return $this->chart->barChart()
             ->setTitle('Grafik CPL')
             ->setSubtitle('Perbandingan Nilai')

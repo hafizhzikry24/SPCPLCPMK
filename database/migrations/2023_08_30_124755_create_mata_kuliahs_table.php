@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('kode_MK');
             $table->string('Mata_Kuliah');
-            $table->string('Tahun_ajaran');
+            $table->string('semester');
             $table->integer('SKS');
+            $table->text('cpmk');
             $table->timestamps();
         });
     }

@@ -35,6 +35,7 @@ class MatakuliahController extends Controller
                         'Mata_Kuliah' => $request->Mata_Kuliah,
                         'semester' => $request->semester,
                         'SKS' => $request->SKS,
+                        'cpmk' => $request->cpmk,
                     ]);
         return Response()->json($matakuliah);
     }
