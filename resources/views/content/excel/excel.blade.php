@@ -104,19 +104,22 @@
                     <div>
 
                         <body class="h-screen bg-gray-100">
-
                             <div class="container px-4 mx-auto">
-
-                                <div class="p-6 m-20 bg-white rounded shadow">
+                                <div class="p-6 m-20 bg-white rounded shadow" id="barChartContainer">
                                     {!! $chart->container() !!}
                                 </div>
 
+                                <div class="p-6 m-20 bg-white rounded shadow" id="pieChartContainer">
+                                    {!! $piechart->container() !!}
+                                </div>
                             </div>
 
                             <script src="{{ $chart->cdn() }}"></script>
-
+                            <script src="{{ $piechart->cdn() }}"></script>
                             {{ $chart->script() }}
+                            {{ $piechart->script() }}
                         </body>
+
                     </div>
                 </div>
         </div>
