@@ -8,23 +8,23 @@ class MataKuliahSeeder extends seeder
 {
     public function run()
     {
-        Mata_kuliah::create(['kode_MK' => 'PTSK6103', 'Mata_Kuliah' => 'Dasar Komputer & Pemrograman', 'semester' => '1', 'SKS' => 2]);
-        Mata_kuliah::create(['kode_MK' => 'PTSK6104', 'Mata_Kuliah' => 'Teknologi Informasi', 'semester' => '1', 'SKS' => 2]);
-        Mata_kuliah::create(['kode_MK' => 'PTSK6105', 'Mata_Kuliah' => 'Kalkulus', 'semester' => '1', 'SKS' => 4]);
-        Mata_kuliah::create(['kode_MK' => 'PTSK6106', 'Mata_Kuliah' => 'Fisika Dasar 1', 'semester' => '1', 'SKS' => 3]);
-        Mata_kuliah::create(['kode_MK' => 'UUW00003', 'Mata_Kuliah' => 'Pancasila & Kewarganegaraan', 'semester' => '1', 'SKS' => 3]);
-        Mata_kuliah::create(['kode_MK' => 'UUW00004', 'Mata_Kuliah' => 'Bahasa Indonesia', 'semester' => '1', 'SKS' => 2]);
-        Mata_kuliah::create(['kode_MK' => 'UUW00007', 'Mata_Kuliah' => 'Bahasa Inggris', 'semester' => '1', 'SKS' => 2]);
-        Mata_kuliah::create(['kode_MK' => 'UUW00011', 'Mata_Kuliah' => 'Pendidikan Agama', 'semester' => '1', 'SKS' => 2]);
+        // Mata_kuliah::create(['kode_MK' => 'PTSK6103', 'Mata_Kuliah' => 'Dasar Komputer & Pemrograman', 'semester' => '1', 'SKS' => 2]);
+        // Mata_kuliah::create(['kode_MK' => 'PTSK6104', 'Mata_Kuliah' => 'Teknologi Informasi', 'semester' => '1', 'SKS' => 2]);
+        // Mata_kuliah::create(['kode_MK' => 'PTSK6105', 'Mata_Kuliah' => 'Kalkulus', 'semester' => '1', 'SKS' => 4]);
+        // Mata_kuliah::create(['kode_MK' => 'PTSK6106', 'Mata_Kuliah' => 'Fisika Dasar 1', 'semester' => '1', 'SKS' => 3]);
+        // Mata_kuliah::create(['kode_MK' => 'UUW00003', 'Mata_Kuliah' => 'Pancasila & Kewarganegaraan', 'semester' => '1', 'SKS' => 3]);
+        // Mata_kuliah::create(['kode_MK' => 'UUW00004', 'Mata_Kuliah' => 'Bahasa Indonesia', 'semester' => '1', 'SKS' => 2]);
+        // Mata_kuliah::create(['kode_MK' => 'UUW00007', 'Mata_Kuliah' => 'Bahasa Inggris', 'semester' => '1', 'SKS' => 2]);
+        // Mata_kuliah::create(['kode_MK' => 'UUW00011', 'Mata_Kuliah' => 'Pendidikan Agama', 'semester' => '1', 'SKS' => 2]);
 
-        Mata_kuliah::create(['kode_MK' => 'PTSK6201', 'Mata_Kuliah' => 'Praktikum Fisika Dasar I', 'semester' => '2', 'SKS' => 1]);
-        Mata_kuliah::create(['kode_MK' => 'PTSK6202', 'Mata_Kuliah' => 'Praktikum Dasar Komputer dan Pemrograman', 'semester' => '2', 'SKS' => 1]);
-        Mata_kuliah::create(['kode_MK' => 'PTSK6206', 'Mata_Kuliah' => 'Elektronika Dasar', 'semester' => '2', 'SKS' => 3]);
-        Mata_kuliah::create(['kode_MK' => 'PTSK6208', 'Mata_Kuliah' => 'Algoritma & Pemrograman', 'semester' => '2', 'SKS' => 2]);
-        Mata_kuliah::create(['kode_MK' => 'PTSK6210', 'Mata_Kuliah' => 'Aljabar Linear', 'semester' => '2', 'SKS' => 4]);
-        Mata_kuliah::create(['kode_MK' => 'PTSK6211', 'Mata_Kuliah' => 'Matematika Teknik', 'semester' => '2', 'SKS' => 4]);
-        Mata_kuliah::create(['kode_MK' => 'PTSK6212', 'Mata_Kuliah' => 'Fisika Dasar II', 'semester' => '2', 'SKS' => 3]);
-        Mata_kuliah::create(['kode_MK' => 'PTSK6213', 'Mata_Kuliah' => 'Kimia', 'semester' => '2', 'SKS' => 4]);
+        // Mata_kuliah::create(['kode_MK' => 'PTSK6201', 'Mata_Kuliah' => 'Praktikum Fisika Dasar I', 'semester' => '2', 'SKS' => 1]);
+        // Mata_kuliah::create(['kode_MK' => 'PTSK6202', 'Mata_Kuliah' => 'Praktikum Dasar Komputer dan Pemrograman', 'semester' => '2', 'SKS' => 1]);
+        // Mata_kuliah::create(['kode_MK' => 'PTSK6206', 'Mata_Kuliah' => 'Elektronika Dasar', 'semester' => '2', 'SKS' => 3]);
+        // Mata_kuliah::create(['kode_MK' => 'PTSK6208', 'Mata_Kuliah' => 'Algoritma & Pemrograman', 'semester' => '2', 'SKS' => 2]);
+        // Mata_kuliah::create(['kode_MK' => 'PTSK6210', 'Mata_Kuliah' => 'Aljabar Linear', 'semester' => '2', 'SKS' => 4]);
+        // Mata_kuliah::create(['kode_MK' => 'PTSK6211', 'Mata_Kuliah' => 'Matematika Teknik', 'semester' => '2', 'SKS' => 4]);
+        // Mata_kuliah::create(['kode_MK' => 'PTSK6212', 'Mata_Kuliah' => 'Fisika Dasar II', 'semester' => '2', 'SKS' => 3]);
+        // Mata_kuliah::create(['kode_MK' => 'PTSK6213', 'Mata_Kuliah' => 'Kimia', 'semester' => '2', 'SKS' => 4]);
 
         // Mata_kuliah::create(['kode_MK' => 'PTSK6209', 'Mata_Kuliah' => 'Pengenalan Jaringan Komputer', 'semester' => '3', 'SKS' => 3]);
         // Mata_kuliah::create(['kode_MK' => 'PTSK6301', 'Mata_Kuliah' => 'Praktikum Fisika Dasar II', 'semester' => '3', 'SKS' => 1]);
@@ -53,7 +53,7 @@ class MataKuliahSeeder extends seeder
         // Mata_kuliah::create(['kode_MK' => 'PTSK6403', 'Mata_Kuliah' => 'Praktikum Switching, Routing dan Jaringan Nirkabel', 'semester' => '5', 'SKS' => 1]);
         // Mata_kuliah::create(['kode_MK' => 'PTSK6503', 'Mata_Kuliah' => 'Praktikum Pemrograman Perangkat Bergerak', 'semester' => '5', 'SKS' => 1]);
         // Mata_kuliah::create(['kode_MK' => 'PTSK6504', 'Mata_Kuliah' => 'Praktikum Sistem Basis Data', 'semester' => '5', 'SKS' => 1]);
-        Mata_kuliah::create(['kode_MK' => 'PTSK6506', 'Mata_Kuliah' => 'Sistem Digital Lanjut', 'semester' => '5', 'SKS' => 2]);
+        // Mata_kuliah::create(['kode_MK' => 'PTSK6506', 'Mata_Kuliah' => 'Sistem Digital Lanjut', 'semester' => '5', 'SKS' => 2]);
         // Mata_kuliah::create(['kode_MK' => 'PTSK6507', 'Mata_Kuliah' => 'Bahasa Pemrograman Rakitan', 'semester' => '5', 'SKS' => 2]);
         // Mata_kuliah::create(['kode_MK' => 'PTSK6508', 'Mata_Kuliah' => 'Teknik Mikroprosesor dan Antarmuka', 'semester' => '5', 'SKS' => 3]);
         // Mata_kuliah::create(['kode_MK' => 'PTSK6509', 'Mata_Kuliah' => 'Pengolahan Sinyal', 'semester' => '5', 'SKS' => 3]);
