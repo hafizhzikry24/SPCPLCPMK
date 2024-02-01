@@ -42,7 +42,7 @@ class ExcelsdlController extends Controller
         $file->move('DataMatkul', $namaFile);
 
         Excel::import(new ExcelSDLimport, public_path('/DataMatkul/'.$namaFile));
-        return redirect('excel');
+        return redirect('PTSK6506');
     }
 
 
