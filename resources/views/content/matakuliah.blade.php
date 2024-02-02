@@ -250,7 +250,31 @@
                     },
                     {
                         data: 'cpmk',
-                        name: 'cpmk'
+                        name: 'cpmk',
+                        render: function(data, type, row) {
+                            // Your rendering logic for 'cpmk' column
+                            var cpmkData = data;
+
+                            // Convert sentences to an array
+                            var cpmkList = cpmkData.split('. ');
+
+                            // Remove empty elements from the array
+                            cpmkList = cpmkList.filter(Boolean);
+
+                            // Format as a numbered list
+                            if (cpmkList.length > 0) {
+                                var listHTML = '<ol>';
+                                cpmkList.forEach(function(item, index) {
+                                    // Add 1 to index since numbering starts from 1
+                                    var number = index + 1;
+                                    listHTML += '<li>' + number + '. ' + item + '</li>';
+                                });
+                                listHTML += '</ol>';
+                                return listHTML;
+                            } else {
+                                return data; // Return original data if empty
+                            }
+                        }
                     },
                     {
                         data: 'action',

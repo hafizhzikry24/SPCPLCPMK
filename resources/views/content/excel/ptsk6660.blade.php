@@ -59,7 +59,29 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="px-2 py-1 whitespace-no-wrap">CPMK</td>
-                                                    <td class="px-2 py-1 whitespace-no-wrap">{{ $info->cpmk }}</td>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">
+                                                        <?php
+                                                        // Your data
+                                                        $cpmkData = $info->cpmk;
+                                                        
+                                                        // Convert sentences to an array
+                                                        $cpmkList = explode('. ', $cpmkData);
+                                                        
+                                                        // Remove empty elements from the array
+                                                        $cpmkList = array_filter($cpmkList);
+                                                        
+                                                        // Output as a numbered list
+                                                        if (!empty($cpmkList)) {
+                                                            echo '<ol>';
+                                                            foreach ($cpmkList as $index => $item) {
+                                                                // Add 1 to $index since numbering starts from 1
+                                                                $number = $index + 1;
+                                                                echo '<li>' . $number . '. ' . $item . '</li>';
+                                                            }
+                                                            echo '</ol>';
+                                                        }
+                                                        ?>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -107,23 +129,29 @@
 
                                 <div class="p-6 m-20 bg-white rounded shadow" id="pieChartContainer">
 
-                                    <form method="POST"
+                                    <form id="cpmkForm" method="POST"
                                         action="{{ route('cpmkPTSK6660', ['selectedCpmk' => $selectedCpmk]) }}">
                                         @csrf
                                         <label for="selectedCpmk">Select CPMK:</label>
-                                        <select name="selectedCpmk" id="selectedCpmk">
+                                        <select name="selectedCpmk" id="selectedCpmk" style="min-width: 100px;">
 
-                                            <option value="1">CPMK 1</option>
-                                            <option value="2">CPMK 2</option>
-                                            <option value="3">CPMK 3</option>
-                                            <option value="4">CPMK 4</option>
-                                            <option value="5">CPMK 5</option>
-                                            <option value="6">CPMK 6</option>
-                                            <option value="7">CPMK 7</option>
+                                            <option value="1" {{ $selectedCpmk == 1 ? 'selected' : '' }}>CPMK 1
+                                            </option>
+                                            <option value="2" {{ $selectedCpmk == 2 ? 'selected' : '' }}>CPMK 2
+                                            </option>
+                                            <option value="3" {{ $selectedCpmk == 3 ? 'selected' : '' }}>CPMK 3
+                                            </option>
+                                            <option value="4" {{ $selectedCpmk == 4 ? 'selected' : '' }}>CPMK 4
+                                            </option>
+                                            <option value="5" {{ $selectedCpmk == 5 ? 'selected' : '' }}>CPMK 5
+                                            </option>
+                                            <option value="6" {{ $selectedCpmk == 6 ? 'selected' : '' }}>CPMK 6
+                                            </option>
+                                            <option value="7" {{ $selectedCpmk == 7 ? 'selected' : '' }}>CPMK 7
+                                            </option>
                                         </select>
-                                        <button type="submit">Submit</button>
+                                        <button type="button" onclick="changeCpmk()">Submit</button>
                                     </form>
-
                                     {!! $PieChart->container() !!}
                                 </div>
 
@@ -191,23 +219,19 @@
         </div>
 
         <script type="text/javascript">
-            // document.getElementById('cpmkForm').addEventListener('submit', function(event) {
-            //     event.preventDefault();
-
-            //     var selectedCpmk = document.getElementById('selectedCpmk').value;
-
-            //     // You may need to adjust this line based on how you handle the CSRF token
-            //     var csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-
-            //     // Ensure selectedCpmk is not empty before redirecting
-            //     if (selectedCpmk) {
-            //         window.location.href = "{{ url('matakuliah/PTSK6660') }}/" + selectedCpmk + "?_token=" + csrfToken;
-            //     } else {
-            //         alert('Please select a CPMK before submitting.');
-            //     }
-            // });
-
             let modal = document.getElementById("matakuliah-modal");
+
+            function changeCpmk() {
+                var selectedCpmk = document.getElementById("selectedCpmk").value;
+                var csrfToken = document.getElementsByName("_token")[0].value;
+
+                // Change the form action dynamically
+                document.getElementById("cpmkForm").action = "{{ route('cpmkPTSK6660') }}/" + selectedCpmk + "?_token=" +
+                    csrfToken;
+
+                // Submit the form
+                document.getElementById("cpmkForm").submit();
+            }
 
             function modalHandler(val) {
                 if (val) {
@@ -260,6 +284,10 @@
                 });
 
                 $('#PTSK6660').DataTable({
+                    language: {
+                        search: '', // Mengosongkan teks pada kotak pencarian
+                        lengthMenu: '_MENU_', // Mengganti teks "Show Entries" dengan '_MENU_'
+                    },
                     processing: true,
                     serverSide: true,
                     ajax: "{{ route('PTSK6660') }}",
@@ -322,8 +350,14 @@
                     ],
                     order: [
                         [0, 'desc']
-                    ]
+                    ],
+                    dom: '<"flex mb-3 mt-3"l<"flex-shrink-0 mr-3 ml-3"f>>rtip',
+                    initComplete: function() {
+                        // Menyesuaikan kotak pencarian
+                        $('.dataTables_filter input[type="search"]').addClass('custom-search');
+                    },
                 });
+                $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
             });
         </script>
 
