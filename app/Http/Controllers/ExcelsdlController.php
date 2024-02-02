@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Charts\ChartExcelSDL;
+use App\Charts\PieChartSDL;
 use App\Imports\ExcelSDLimport;
 use App\Models\excelsdl;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class ExcelsdlController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ChartExcelSDL $chart)
+    public function index(ChartExcelSDL $chart, PieChartSDL $piechart)
     {
         $idToMatch = 'PTSK6506';
         $mataKuliahInfo = Mata_kuliah::where('kode_MK', $idToMatch)->get();
@@ -27,10 +28,13 @@ class ExcelsdlController extends Controller
             ->addIndexColumn()
             ->make(true);
         }
-        return view('content.excel.excel', ['chart' => $chart->build(), 'mataKuliahInfo' => $mataKuliahInfo], compact('nilai'));
+        return view('content.excel.excel', [
+            'chart' => $chart->build(),
+            'piechart' => $piechart->build(),
+            'mataKuliahInfo' => $mataKuliahInfo,
+            'nilai' => $nilai,
+        ]);
     }
-
-
 
     public function excelsdlimport(Request $request){
         $file = $request->file('file');
@@ -38,7 +42,7 @@ class ExcelsdlController extends Controller
         $file->move('DataMatkul', $namaFile);
 
         Excel::import(new ExcelSDLimport, public_path('/DataMatkul/'.$namaFile));
-        return redirect('excel');
+        return redirect('PTSK6506');
     }
 
 

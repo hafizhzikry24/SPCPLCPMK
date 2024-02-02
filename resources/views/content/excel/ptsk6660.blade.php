@@ -59,34 +59,55 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="px-2 py-1 whitespace-no-wrap">CPMK</td>
-                                                    <td class="px-2 py-1 whitespace-no-wrap">{{ $info->cpmk }}</td>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">
+                                                        <?php
+                                                        // Your data
+                                                        $cpmkData = $info->cpmk;
+                                                        
+                                                        // Convert sentences to an array
+                                                        $cpmkList = explode('. ', $cpmkData);
+                                                        
+                                                        // Remove empty elements from the array
+                                                        $cpmkList = array_filter($cpmkList);
+                                                        
+                                                        // Output as a numbered list
+                                                        if (!empty($cpmkList)) {
+                                                            echo '<ol>';
+                                                            foreach ($cpmkList as $index => $item) {
+                                                                // Add 1 to $index since numbering starts from 1
+                                                                $number = $index + 1;
+                                                                echo '<li>' . $number . '. ' . $item . '</li>';
+                                                            }
+                                                            echo '</ol>';
+                                                        }
+                                                        ?>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
-
-
-                            </div>
-                            <div class="flex flex-auto mb-4 ">
-                                <!-- Tombol Tambah -->
-                                {{-- <a href="{{route('importexcelsdl')}}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Import Excel
-                                </a>
-                                <!-- Modal toggle -->
-                                <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="ml-5 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                                    Toggle modal
-                                </button> --}}
                             </div>
                         </div>
 
 
-                        <table class="mx-8 my-12" id="PTSK6506">
+                        <table class="mx-8 my-12" id="PTSK6660">
                             <thead class="min-w-full my-12 ">
                                 <tr>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">NIM</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">NAMA</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPL 2</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">CPL 3</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPL 4</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPL 6</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">Outcome</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPMK 1</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPMK 2</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPMK 3</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPMK 4</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPMK 5</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPMK 6</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPMK 7</th>
                                 </tr>
                             </thead>
                             {{-- <tbody>
@@ -105,19 +126,44 @@
 
                         <body class="h-screen bg-gray-100">
                             <div class="container px-4 mx-auto">
-                                <div class="p-6 m-20 bg-white rounded shadow" id="barChartContainer">
-                                    {!! $chart->container() !!}
-                                </div>
 
                                 <div class="p-6 m-20 bg-white rounded shadow" id="pieChartContainer">
-                                    {!! $piechart->container() !!}
-                                </div>
-                            </div>
 
-                            <script src="{{ $chart->cdn() }}"></script>
-                            <script src="{{ $piechart->cdn() }}"></script>
-                            {{ $chart->script() }}
-                            {{ $piechart->script() }}
+                                    <form id="cpmkForm" method="POST"
+                                        action="{{ route('cpmkPTSK6660', ['selectedCpmk' => $selectedCpmk]) }}">
+                                        @csrf
+                                        <label for="selectedCpmk">Select CPMK:</label>
+                                        <select name="selectedCpmk" id="selectedCpmk" style="min-width: 100px;">
+
+                                            <option value="1" {{ $selectedCpmk == 1 ? 'selected' : '' }}>CPMK 1
+                                            </option>
+                                            <option value="2" {{ $selectedCpmk == 2 ? 'selected' : '' }}>CPMK 2
+                                            </option>
+                                            <option value="3" {{ $selectedCpmk == 3 ? 'selected' : '' }}>CPMK 3
+                                            </option>
+                                            <option value="4" {{ $selectedCpmk == 4 ? 'selected' : '' }}>CPMK 4
+                                            </option>
+                                            <option value="5" {{ $selectedCpmk == 5 ? 'selected' : '' }}>CPMK 5
+                                            </option>
+                                            <option value="6" {{ $selectedCpmk == 6 ? 'selected' : '' }}>CPMK 6
+                                            </option>
+                                            <option value="7" {{ $selectedCpmk == 7 ? 'selected' : '' }}>CPMK 7
+                                            </option>
+                                        </select>
+                                        <button type="button" onclick="changeCpmk()">Submit</button>
+                                    </form>
+                                    {!! $PieChart->container() !!}
+                                </div>
+
+                                <div class="p-6 m-20 bg-white rounded shadow" id="barChartContainer">
+                                    {!! $BarChart->container() !!}
+                                </div>
+
+                            </div>
+                            <script src="{{ $PieChart->cdn() }}"></script>
+                            <script src="{{ $BarChart->cdn() }}"></script>
+                            {{ $PieChart->script() }}
+                            {{ $BarChart->script() }}
                         </body>
 
                     </div>
@@ -136,7 +182,7 @@
                 </div>
                 <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel
                     Matakuliah Teknik Komputer </h1>
-                <form action="{{ route('importexcelsdl') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('ExcelPTSK6660') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <input type="file" name="file" required="required">
@@ -174,6 +220,18 @@
 
         <script type="text/javascript">
             let modal = document.getElementById("matakuliah-modal");
+
+            function changeCpmk() {
+                var selectedCpmk = document.getElementById("selectedCpmk").value;
+                var csrfToken = document.getElementsByName("_token")[0].value;
+
+                // Change the form action dynamically
+                document.getElementById("cpmkForm").action = "{{ route('cpmkPTSK6660') }}/" + selectedCpmk + "?_token=" +
+                    csrfToken;
+
+                // Submit the form
+                document.getElementById("cpmkForm").submit();
+            }
 
             function modalHandler(val) {
                 if (val) {
@@ -225,10 +283,14 @@
                     }
                 });
 
-                $('#PTSK6506').DataTable({
+                $('#PTSK6660').DataTable({
+                    language: {
+                        search: '', // Mengosongkan teks pada kotak pencarian
+                        lengthMenu: '_MENU_', // Mengganti teks "Show Entries" dengan '_MENU_'
+                    },
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ url('/matakuliah/PTSK6506') }}",
+                    ajax: "{{ route('PTSK6660') }}",
                     columns: [{
                             data: 'nim',
                             name: 'nim'
@@ -238,14 +300,64 @@
                             name: 'nama'
                         },
                         {
+                            data: 'cpl2',
+                            name: 'cpl2'
+                        },
+                        {
                             data: 'cpl3',
                             name: 'cpl3'
+                        },
+                        {
+                            data: 'cpl4',
+                            name: 'cpl4'
+                        },
+                        {
+                            data: 'cpl6',
+                            name: 'cpl6'
+                        },
+                        {
+                            data: 'outcome',
+                            name: 'outcome'
+                        },
+                        {
+                            data: 'cpmk1',
+                            name: 'cpmk1'
+                        },
+                        {
+                            data: 'cpmk2',
+                            name: 'cpmk2'
+                        },
+                        {
+                            data: 'cpmk3',
+                            name: 'cpmk3'
+                        },
+                        {
+                            data: 'cpmk4',
+                            name: 'cpmk4'
+                        },
+                        {
+                            data: 'cpmk5',
+                            name: 'cpmk5'
+                        },
+                        {
+                            data: 'cpmk6',
+                            name: 'cpmk6'
+                        },
+                        {
+                            data: 'cpmk7',
+                            name: 'cpmk7'
                         },
                     ],
                     order: [
                         [0, 'desc']
-                    ]
+                    ],
+                    dom: '<"flex mb-3 mt-3"l<"flex-shrink-0 mr-3 ml-3"f>>rtip',
+                    initComplete: function() {
+                        // Menyesuaikan kotak pencarian
+                        $('.dataTables_filter input[type="search"]').addClass('custom-search');
+                    },
                 });
+                $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
             });
         </script>
 

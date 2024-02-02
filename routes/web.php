@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
+use App\Http\Controllers\PTSK6660Controller;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,6 +53,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/matakuliah/PTSK6103', [ExcelDKPController::class, 'index'])->name('PTSK6103');
     Route::post('/importexceldkp', [ExcelDKPController::class, 'exceldkpimport'])->name('importexceldkp');
+
+    // Route without selectedCpmk
+    Route::get('/matakuliah/PTSK6660', [PTSK6660Controller::class, 'index'])->name('PTSK6660');
+
+    // Route with selectedCpmk
+    Route::match(['get', 'post'], '/matakuliah/PTSK6660/{selectedCpmk?}', [PTSK6660Controller::class, 'index'])->name('cpmkPTSK6660');
+
+    // Route::get('/matakuliah/PTSK6660', [PTSK6660Controller::class, 'index'])->name('PTSK6660');
+    // Route::post('/matakuliah/PTSK6660/{selectedCpmk}', [PTSK6660Controller::class, 'index'])->name('cpmkPTSK6660');
+    Route::post('/ExcelPTSK6660', [PTSK6660Controller::class, 'ExcelPTSK6660'])->name('ExcelPTSK6660');
 
     // Route::view('/dosen', 'content.dosen')->name('dosen');
     Route::view('/nilai', 'content.nilai')->name('nilai');
