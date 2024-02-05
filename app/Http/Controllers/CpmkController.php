@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cpmk;
+use App\Models\Mata_kuliah;
 use Illuminate\Http\Request;
 
 class CpmkController extends Controller
@@ -14,7 +15,12 @@ class CpmkController extends Controller
      */
     public function index()
     {
-        //
+        if(request()->ajax()) {
+            return datatables()->of(Mata_kuliah::select('*'))
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('content.cpmk');
     }
 
     /**

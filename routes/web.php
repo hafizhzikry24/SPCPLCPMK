@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChartAllController;
 use App\Http\Controllers\CplController;
+use App\Http\Controllers\CpmkController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ExcelDKPController;
 use App\Http\Controllers\ExcelsdlController;
@@ -30,7 +31,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
     // Route::view('/cpl', 'content.cpl')->name('cpl');
-    Route::view('/cpmk', 'content.cpmk')->name('cpmk');
+    // Route::view('/cpmk', 'content.cpmk')->name('cpmk');
     Route::view('/matakuliah', 'content.matakuliah')->name('matakuliah');
 
     // Route::view('/mahasiswa', 'content.mahasiswa')->name('mahasiswa');
@@ -45,6 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/matakuliah/delete', [MatakuliahController::class, 'destroy'])->name('matakuliah.delete');;
 
     Route::get('/cpl', [CplController::class, 'index'])->name('cpl');
+    Route::get('/cpmk', [CpmkController::class, 'index'])->name('cpmk');
     Route::get('/dosen', [DosenController::class, 'index'])->name('dosen');
     Route::get('/rekap', [ChartAllController::class, 'index'])->name('rekap');
 

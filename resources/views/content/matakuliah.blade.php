@@ -27,7 +27,7 @@
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Mata Kuliah</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Semester</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">SKS</th>
-                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPMK</th>
+                                    {{-- <th class="bg-[#C2E7FF]" style=" border: none;">CPMK</th> --}}
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Action</th>
                                 </tr>
                             </thead>
@@ -248,34 +248,34 @@
                         data: 'SKS',
                         name: 'SKS'
                     },
-                    {
-                        data: 'cpmk',
-                        name: 'cpmk',
-                        render: function(data, type, row) {
-                            // Your rendering logic for 'cpmk' column
-                            var cpmkData = data;
+                    // {
+                    //     data: 'cpmk',
+                    //     name: 'cpmk',
+                    //     render: function(data, type, row) {
+                    //         // Your rendering logic for 'cpmk' column
+                    //         var cpmkData = data;
 
-                            // Convert sentences to an array
-                            var cpmkList = cpmkData.split('. ');
+                    //         // Convert sentences to an array
+                    //         var cpmkList = cpmkData.split('. ');
 
-                            // Remove empty elements from the array
-                            cpmkList = cpmkList.filter(Boolean);
+                    //         // Remove empty elements from the array
+                    //         cpmkList = cpmkList.filter(Boolean);
 
-                            // Format as a numbered list
-                            if (cpmkList.length > 0) {
-                                var listHTML = '<ol>';
-                                cpmkList.forEach(function(item, index) {
-                                    // Add 1 to index since numbering starts from 1
-                                    var number = index + 1;
-                                    listHTML += '<li>' + number + '. ' + item + '</li>';
-                                });
-                                listHTML += '</ol>';
-                                return listHTML;
-                            } else {
-                                return data; // Return original data if empty
-                            }
-                        }
-                    },
+                    //         // Format as a numbered list
+                    //         if (cpmkList.length > 0) {
+                    //             var listHTML = '<ol>';
+                    //             cpmkList.forEach(function(item, index) {
+                    //                 // Add 1 to index since numbering starts from 1
+                    //                 var number = index + 1;
+                    //                 listHTML += '<li>' + number + '. ' + item + '</li>';
+                    //             });
+                    //             listHTML += '</ol>';
+                    //             return listHTML;
+                    //         } else {
+                    //             return data; // Return original data if empty
+                    //         }
+                    //     }
+                    // },
                     {
                         data: 'action',
                         name: 'action',

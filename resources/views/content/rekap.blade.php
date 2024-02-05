@@ -8,7 +8,7 @@
 
         <!-- Main Content -->
         <div class="col-span-10 overflow-y-auto mt-4">
-            <main class="flex w-full h-full justify-center h-screen pl-5 pr-5 pb-5">
+            <main class="flex w-full h-full justify-center pl-5 pr-5 pb-5">
                 <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
                     <a class="text-3xl font-bold"> Rekap CPL </a>
                     <div class="py-12">
@@ -108,7 +108,6 @@
 
 
 
-
                         <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 space-y-6 mt-16">
 
                             <div class="max-w-7x1 ">
@@ -125,20 +124,18 @@
                                                     <div class="p-6 m-20 bg-white rounded shadow">
                                                         {!! $chart->container() !!}
                                                     </div>
+                                                    <script src="{{ $chart->cdn() }}"></script>
+
+                                                    {{ $chart->script() }}
 
                                                 </div>
 
-                                                <script src="{{ $chart->cdn() }}"></script>
 
-                                                {{ $chart->script() }}
                                         </tr>
                                         </th>
                                     </thead>
                                 </table>
                             </div>
-
-
-
                         </div>
                     </div>
                 </div>
