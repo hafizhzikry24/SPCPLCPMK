@@ -4,6 +4,7 @@ namespace App\Charts;
 
 use App\Models\ExcelDKP;
 use App\Models\ExcelSDL;
+use App\Models\PTSK6660;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class ChartAll
@@ -18,17 +19,23 @@ class ChartAll
     public function build(): \ArielMejiaDev\LarapexCharts\BarChart
     {
         $data = [
-            'cpl2' => [
-                '4' => ExcelDKP::where('cpl2', 4)->count(),
-                '3' => ExcelDKP::where('cpl2', 3)->count(),
-                '2' => ExcelDKP::where('cpl2', 2)->count(),
-                '1' => ExcelDKP::where('cpl2', 1)->count(),
-            ],
-            'cpl3' => [
+            'cpl1' => [
                 '4' => ExcelDKP::where('cpl3', 4)->count() + ExcelSDL::where('cpl3', 4)->count(),
                 '3' => ExcelDKP::where('cpl3', 3)->count() + ExcelSDL::where('cpl3', 3)->count(),
                 '2' => ExcelDKP::where('cpl3', 2)->count() + ExcelSDL::where('cpl3', 2)->count(),
                 '1' => ExcelDKP::where('cpl3', 1)->count() + ExcelSDL::where('cpl3', 1)->count(),
+            ],
+            'cpl2' => [
+                '4' => ExcelDKP::where('cpl2', 4)->count() + PTSK6660::where('cpl2', 4)->count(),
+                '3' => ExcelDKP::where('cpl2', 3)->count() + PTSK6660::where('cpl2', 3)->count(),
+                '2' => ExcelDKP::where('cpl2', 2)->count() + PTSK6660::where('cpl2', 2)->count(),
+                '1' => ExcelDKP::where('cpl2', 1)->count() + PTSK6660::where('cpl2', 1)->count(),
+            ],
+            'cpl3' => [
+                '4' => ExcelDKP::where('cpl3', 4)->count() + ExcelSDL::where('cpl3', 4)->count() + PTSK6660::where('cpl3', 4)->count(),
+                '3' => ExcelDKP::where('cpl3', 3)->count() + ExcelSDL::where('cpl3', 3)->count() + PTSK6660::where('cpl3', 3)->count(),
+                '2' => ExcelDKP::where('cpl3', 2)->count() + ExcelSDL::where('cpl3', 2)->count() + PTSK6660::where('cpl3', 2)->count(),
+                '1' => ExcelDKP::where('cpl3', 1)->count() + ExcelSDL::where('cpl3', 1)->count() + PTSK6660::where('cpl3', 1)->count(),
             ],
             'cpl5' => [
                 '4' => ExcelDKP::where('cpl5', 4)->count(),
@@ -37,10 +44,10 @@ class ChartAll
                 '1' => ExcelDKP::where('cpl5', 1)->count(),
             ],
             'cpl6' => [
-                '4' => ExcelDKP::where('cpl6', 4)->count(),
-                '3' => ExcelDKP::where('cpl6', 3)->count(),
-                '2' => ExcelDKP::where('cpl6', 2)->count(),
-                '1' => ExcelDKP::where('cpl6', 1)->count(),
+                '4' => ExcelDKP::where('cpl6', 4)->count() + PTSK6660::where('cpl2', 4)->count(),
+                '3' => ExcelDKP::where('cpl6', 3)->count() + PTSK6660::where('cpl2', 3)->count(),
+                '2' => ExcelDKP::where('cpl6', 2)->count() + PTSK6660::where('cpl2', 2)->count(),
+                '1' => ExcelDKP::where('cpl6', 1)->count() + PTSK6660::where('cpl2', 1)->count(),
             ],
             'cpl7' => [
                 '4' => ExcelDKP::where('cpl7', 4)->count(),
@@ -53,12 +60,6 @@ class ChartAll
                 '3' => ExcelDKP::where('cpl9', 3)->count(),
                 '2' => ExcelDKP::where('cpl9', 2)->count(),
                 '1' => ExcelDKP::where('cpl9', 1)->count(),
-            ],
-            'cpl1' => [
-                '4' => ExcelDKP::where('cpl3', 4)->count() + ExcelSDL::where('cpl3', 4)->count(),
-                '3' => ExcelDKP::where('cpl3', 3)->count() + ExcelSDL::where('cpl3', 3)->count(),
-                '2' => ExcelDKP::where('cpl3', 2)->count() + ExcelSDL::where('cpl3', 2)->count(),
-                '1' => ExcelDKP::where('cpl3', 1)->count() + ExcelSDL::where('cpl3', 1)->count(),
             ],
         ];
 
