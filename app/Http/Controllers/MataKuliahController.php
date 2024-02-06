@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dosen;
 use App\Models\Mata_kuliah;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,10 @@ class MatakuliahController extends Controller
             ->addIndexColumn()
             ->make(true);
         }
-        return view('content.matakuliah');
+
+        $dosens = Dosen::all();
+
+        return view('content.matakuliah', compact('dosens'));
     }
 
     public function store(Request $request)
@@ -35,6 +39,7 @@ class MatakuliahController extends Controller
                         'Mata_Kuliah' => $request->Mata_Kuliah,
                         'semester' => $request->semester,
                         'SKS' => $request->SKS,
+                        'Nama_Dosen' => $request->Nama_Dosen,
                         'cpmk' => $request->cpmk,
                     ]);
         return Response()->json($matakuliah);

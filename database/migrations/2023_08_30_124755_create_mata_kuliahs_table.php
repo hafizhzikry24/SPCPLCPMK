@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('Mata_Kuliah');
             $table->string('semester');
             $table->integer('SKS');
+            $table->string('Nama_Dosen');
             $table->text('cpmk');
             $table->timestamps();
         });
