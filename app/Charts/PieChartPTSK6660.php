@@ -22,9 +22,11 @@ class PieChartPTSK6660
             ->setTitle($chartTitle)
             ->setSubtitle('Perhitungan Remedial Status dengan Pie Chart')
             ->addData([
+                \App\Models\PTSK6660::where('outcome', 'TIDAK LULUS')->count(),
                 \App\Models\PTSK6660::where('cpmk' . $selectedCpmk, '<', 60)->count(),
-                \App\Models\PTSK6660::where('cpmk' . $selectedCpmk, '>=', 60)->count(),
+                \App\Models\PTSK6660::where('cpmk' . $selectedCpmk, '>=', 60)->count()
             ])
-            ->setLabels(['Remidi', 'Lulus']);
+            ->setColors(['#ff455f', '#feb019', '#00E396'])
+            ->setLabels(['Tidak Lulus', 'Remidi CPMK', 'Lulus',]);
     }
 }

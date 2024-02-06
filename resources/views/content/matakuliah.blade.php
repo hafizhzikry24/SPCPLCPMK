@@ -27,6 +27,7 @@
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Mata Kuliah</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Semester</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">SKS</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">Dosen Pengampu</th>
                                     {{-- <th class="bg-[#C2E7FF]" style=" border: none;">CPMK</th> --}}
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Action</th>
                                 </tr>
@@ -122,7 +123,7 @@
                                         <label for="cpmk"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CPMK</label>
                                         <input name="cpmk" id="cpmk"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-40 pl-3 pt-3 text-sm border-gray-300 rounded border"
                                             placeholder="" />
                                         <div class="flex items-center justify-start w-full">
                                             <button type="submit"
@@ -248,6 +249,10 @@
                         data: 'SKS',
                         name: 'SKS'
                     },
+                    // {
+                    //     data: 'Nama_Dosen',
+                    //     name: 'Nama_Dosen'
+                    // },
                     // {
                     //     data: 'cpmk',
                     //     name: 'cpmk',
