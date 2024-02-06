@@ -120,10 +120,21 @@
                                         <input name="SKS" id="SKS"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                                             placeholder="3" />
+                                        <label for="Nama_Dosen"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Dosen
+                                            Pengampu</label>
+                                        <select name="Nama_Dosen" id="Nama_Dosen"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                                            <option value="" disabled selected>Pilih Dosen</option>
+                                            @foreach ($dosens as $dosen)
+                                                <option value="{{ $dosen->Nama_Dosen }}">{{ $dosen->Nama_Dosen }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                         <label for="cpmk"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CPMK</label>
                                         <textarea name="cpmk" id="cpmk" rows="5"
-                                            class="mb-5 mt-2 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            class="mb-5 mt-2 block p-2.5 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full items-center text-sm border-gray-300 rounded border"
                                             placeholder="Untuk memisahkan antara CPMK gunakan (titik(.) dan spasi)"></textarea>
                                         <div class="flex items-center justify-start w-full">
                                             <button type="submit"
@@ -195,6 +206,7 @@
             $('#Mata_Kuliah').val("");
             $('#semester').val("");
             $('#SKS').val("");
+            $('#Nama_Dosen').val("");
             $('#cpmk').val("");
         }
 
@@ -249,10 +261,10 @@
                         data: 'SKS',
                         name: 'SKS'
                     },
-                    // {
-                    //     data: 'Nama_Dosen',
-                    //     name: 'Nama_Dosen'
-                    // },
+                    {
+                        data: 'Nama_Dosen',
+                        name: 'Nama_Dosen'
+                    },
                     // {
                     //     data: 'cpmk',
                     //     name: 'cpmk',
@@ -341,6 +353,7 @@
                     $('#Mata_Kuliah').val(res.Mata_Kuliah);
                     $('#semester').val(res.semester);
                     $('#SKS').val(res.SKS);
+                    $('#Nama_Dosen').val(res.Nama_Dosen);
                     $('#cpmk').val(res.cpmk);
                 }
             });

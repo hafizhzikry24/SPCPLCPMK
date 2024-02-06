@@ -50,6 +50,11 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">Dosen Pengampu</td>
+                                                    <td class="px-2 py-1 whitespace-no-wrap">{{ $info->Nama_Dosen }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <td class="px-2 py-1 whitespace-no-wrap">Semester</td>
                                                     <td class="px-2 py-1 whitespace-no-wrap">{{ $info->semester }}</td>
                                                 </tr>
