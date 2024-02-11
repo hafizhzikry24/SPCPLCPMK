@@ -182,6 +182,7 @@
 
 
     <script type="text/javascript">
+        let isAdmin = {{ $user->isAdmin() ? 'true' : 'false' }};
         let modal = document.getElementById("matakuliah-modal");
 
         function modalHandler(val) {
@@ -237,10 +238,12 @@
                 }
             });
 
+            // Check if the logged-in user is an admin
+
             $('#matakuliah').DataTable({
                 language: {
-                    search: '', // Mengosongkan teks pada kotak pencarian
-                    lengthMenu: '_MENU_', // Mengganti teks "Show Entries" dengan '_MENU_'
+                    search: '',
+                    lengthMenu: '_MENU_',
                 },
                 processing: true,
                 serverSide: true,
@@ -265,34 +268,6 @@
                         data: 'Nama_Dosen',
                         name: 'Nama_Dosen'
                     },
-                    // {
-                    //     data: 'cpmk',
-                    //     name: 'cpmk',
-                    //     render: function(data, type, row) {
-                    //         // Your rendering logic for 'cpmk' column
-                    //         var cpmkData = data;
-
-                    //         // Convert sentences to an array
-                    //         var cpmkList = cpmkData.split('. ');
-
-                    //         // Remove empty elements from the array
-                    //         cpmkList = cpmkList.filter(Boolean);
-
-                    //         // Format as a numbered list
-                    //         if (cpmkList.length > 0) {
-                    //             var listHTML = '<ol>';
-                    //             cpmkList.forEach(function(item, index) {
-                    //                 // Add 1 to index since numbering starts from 1
-                    //                 var number = index + 1;
-                    //                 listHTML += '<li>' + number + '. ' + item + '</li>';
-                    //             });
-                    //             listHTML += '</ol>';
-                    //             return listHTML;
-                    //         } else {
-                    //             return data; // Return original data if empty
-                    //         }
-                    //     }
-                    // },
                     {
                         data: 'action',
                         name: 'action',
@@ -302,21 +277,21 @@
                 order: [
                     [0, 'desc']
                 ],
-                // Customizing the DataTables elements position
                 dom: '<"flex justify-between mb-3 mt-3 items-center"l<"flex-shrink-0 justify-between mr-3 ml-3 items-center"f>>rtip',
                 initComplete: function() {
-                    // Menyesuaikan kotak pencarian
                     $('.dataTables_filter input[type="search"]').addClass('custom-search');
 
-                    // Append "Tambah data" button to DataTables container
-                    var addButton = $(
+                    // Append "Tambah data" button only if the user is an admin
+                    if (isAdmin) {
+                        var addButton = $(
                             `<div class="p-3 flex justify-between items-center">
-                                <x-add-button type="submit" class="ml-auto" id="button">
-                                    Tambah data
-                                </x-add-button>
-                            </div>`)
-                        .addClass('ml-auto');
-                    $('#matakuliah_wrapper').find('.flex.mb-3').append(addButton);
+                        <x-add-button type="submit" class="ml-auto" id="button">
+                            Tambah data
+                        </x-add-button>
+                    </div>`
+                        ).addClass('ml-auto');
+                        $('#matakuliah_wrapper').find('.flex.mb-3').append(addButton);
+                    }
                 }
             });
 
@@ -324,12 +299,12 @@
                 var data = table.row(this).data();
                 var kode_mk = data.kode_MK;
 
-                // Update the href attribute of the nilai button link
                 $('.nilai-button').attr('href', "{{ url('/matakuliah/') }}/" + kode_mk);
             });
 
             $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
         });
+
 
         function add() {
             modalHandler(true);

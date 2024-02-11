@@ -4,25 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Mata_kuliah;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MatakuliahController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
         if(request()->ajax()) {
             return datatables()->of(Mata_kuliah::select('*'))
-            ->addColumn('action', function ($row) {
-                return view('components.matakuliah-action', ['id' => $row->id, 'kode_MK' => $row->kode_MK]);
+            ->addColumn('action', function ($row) use ($user){
+                return view('components.matakuliah-action',
+                ['id' => $row->id,
+                'kode_MK' => $row->kode_MK,
+                'isAdmin' => $user->isAdmin(),
+            ]);
             })
             ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);
         }
 
+
         $dosens = Dosen::all();
 
-        return view('content.matakuliah', compact('dosens'));
+        return view('content.matakuliah', compact('dosens', 'user'));
     }
 
     public function store(Request $request)
