@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('SKS');
             $table->string('Nama_Dosen');
             $table->text('cpmk');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -63,7 +63,8 @@ class MatakuliahController extends Controller
 
     public function destroy(Request $request)
     {
-        $matakuliah = Mata_kuliah::where('id',$request->id)->delete();
+        $matakuliah = Mata_kuliah::findOrFail($request->id);
+        $matakuliah->delete();
 
         return Response()->json($matakuliah);
     }
