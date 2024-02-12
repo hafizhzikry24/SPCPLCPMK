@@ -27,7 +27,7 @@
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Mata Kuliah</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Semester</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">SKS</th>
-                                    <th class="bg-[#C2E7FF]" style=" border: none;">Dosen Pengampu</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">NIP Dosen Pengampu</th>
                                     {{-- <th class="bg-[#C2E7FF]" style=" border: none;">CPMK</th> --}}
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Action</th>
                                 </tr>
@@ -123,12 +123,11 @@
                                         <label for="Nama_Dosen"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Dosen
                                             Pengampu</label>
-                                        <select name="Nama_Dosen" id="Nama_Dosen"
+                                        <select name="NIP" id="NIP"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
                                             <option value="" disabled selected>Pilih Dosen</option>
                                             @foreach ($dosens as $dosen)
-                                                <option value="{{ $dosen->Nama_Dosen }}">{{ $dosen->Nama_Dosen }}
-                                                </option>
+                                                <option value="{{ $dosen->NIP }}">{{ $dosen->Nama_Dosen }}</option>
                                             @endforeach
                                         </select>
                                         <label for="cpmk"
@@ -265,8 +264,8 @@
                         name: 'SKS'
                     },
                     {
-                        data: 'Nama_Dosen',
-                        name: 'Nama_Dosen'
+                        data: 'NIP',
+                        name: 'NIP'
                     },
                     {
                         data: 'action',
@@ -328,7 +327,7 @@
                     $('#Mata_Kuliah').val(res.Mata_Kuliah);
                     $('#semester').val(res.semester);
                     $('#SKS').val(res.SKS);
-                    $('#Nama_Dosen').val(res.Nama_Dosen);
+                    $('#NIP').val(res.NIP);
                     $('#cpmk').val(res.cpmk);
                 }
             });

@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('mata_kuliahs', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_MK');
+            $table->string('kode_MK')->index();
             $table->string('Mata_Kuliah');
             $table->string('semester');
             $table->integer('SKS');
-            $table->string('Nama_Dosen');
+            $table->string('NIP');
             $table->text('cpmk');
             $table->softDeletes();
             $table->timestamps();
