@@ -12,6 +12,8 @@ class excelsdl extends Model
     protected $table = "excelsdls";
     protected $primaryKey = "id";
     protected $fillable = [
-        'nim', 'nama', 'cpl3'
+        'nim', 'nama',
+        'cpl3', 'outcome',
+        'cpmk1', 'cpmk2', 'cpmk3', 'cpmk4'
     ];
 }

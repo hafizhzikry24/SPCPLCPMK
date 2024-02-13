@@ -18,6 +18,11 @@ return new class extends Migration
             $table->string('nim');
             $table->string('nama');
             $table->integer('cpl3');
+            $table->string('outcome');
+            $table->integer('cpmk1');
+            $table->integer('cpmk2');
+            $table->integer('cpmk3');
+            $table->integer('cpmk4');
             $table->timestamps();
         });
     }

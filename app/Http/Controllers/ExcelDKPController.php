@@ -40,7 +40,7 @@ class ExcelDKPController extends Controller
         $file->move('DataMatkul', $namaFile);
 
         Excel::import(new ExcelDKPimport, public_path('/DataMatkul/'.$namaFile));
-        return redirect('PTSK6103');
+        return redirect('/matakuliah/PTSK6103');
     }
 
 

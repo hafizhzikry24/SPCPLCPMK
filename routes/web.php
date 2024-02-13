@@ -52,19 +52,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/matakuliah/PTSK6506', [ExcelsdlController::class, 'index'])->name('PTSK6506');
     Route::post('/importexcelsdl', [ExcelsdlController::class, 'excelsdlimport'])->name('importexcelsdl');
+    Route::match(['get', 'post'], '/matakuliah/PTSK6506/{selectedCpmk?}', [ExcelsdlController::class, 'index'])->name('cpmkPTSK6506');
 
     Route::get('/matakuliah/PTSK6103', [ExcelDKPController::class, 'index'])->name('PTSK6103');
     Route::post('/importexceldkp', [ExcelDKPController::class, 'exceldkpimport'])->name('importexceldkp');
 
+
+
+
+
     // Route without selectedCpmk
     Route::get('/matakuliah/PTSK6660', [PTSK6660Controller::class, 'index'])->name('PTSK6660');
-
     // Route with selectedCpmk
     Route::match(['get', 'post'], '/matakuliah/PTSK6660/{selectedCpmk?}', [PTSK6660Controller::class, 'index'])->name('cpmkPTSK6660');
+    Route::post('/ExcelPTSK6660', [PTSK6660Controller::class, 'ExcelPTSK6660'])->name('ExcelPTSK6660');
 
     // Route::get('/matakuliah/PTSK6660', [PTSK6660Controller::class, 'index'])->name('PTSK6660');
     // Route::post('/matakuliah/PTSK6660/{selectedCpmk}', [PTSK6660Controller::class, 'index'])->name('cpmkPTSK6660');
-    Route::post('/ExcelPTSK6660', [PTSK6660Controller::class, 'ExcelPTSK6660'])->name('ExcelPTSK6660');
+
 
     // Route::view('/dosen', 'content.dosen')->name('dosen');
     Route::view('/nilai', 'content.nilai')->name('nilai');

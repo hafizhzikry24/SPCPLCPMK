@@ -12,7 +12,7 @@
                 <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
                     <a class="text-3xl font-bold"> Rekap CPL </a>
                     <div class="py-12">
-
+                        {{--
                         <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
                             <div class="max-w-7x1">
@@ -103,7 +103,7 @@
                             </div>
 
 
-                        </div>
+                        </div> --}}
 
 
 
