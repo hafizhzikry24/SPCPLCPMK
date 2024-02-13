@@ -49,11 +49,11 @@
                                                     <td class="px-2 py-1 whitespace-no-wrap">{{ $info->Mata_Kuliah }}
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                {{-- <tr>
                                                     <td class="px-2 py-1 whitespace-no-wrap">Dosen Pengampu</td>
                                                     <td class="px-2 py-1 whitespace-no-wrap">{{ $info->Nama_Dosen }}
                                                     </td>
-                                                </tr>
+                                                </tr> --}}
                                                 <tr>
                                                     <td class="px-2 py-1 whitespace-no-wrap">Semester</td>
                                                     <td class="px-2 py-1 whitespace-no-wrap">{{ $info->semester }}</td>
@@ -115,16 +115,6 @@
                                     <th class="bg-[#C2E7FF]" style=" border: none;">CPMK 7</th>
                                 </tr>
                             </thead>
-                            {{-- <tbody>
-                                    <!-- Tampilkan data menggunakan loop -->
-                                    @foreach ($nilai as $item)
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-no-wrap">{{ $item->nim }}</td>
-                            <td class="px-6 py-4 whitespace-no-wrap">{{ $item->nama }}</td>
-                            <td class="px-6 py-4 whitespace-no-wrap">{{ $item->cpl3 }}</td>
-                            </tr>
-                            @endforeach
-                            </tbody> --}}
                         </table>
                     </div>
                     <div>

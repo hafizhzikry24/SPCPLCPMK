@@ -87,6 +87,11 @@
                                     <th class="bg-[#C2E7FF]" style=" border: none;">NIM</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">NAMA</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">CPL 3</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">Outcome</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPMK 1</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPMK 2</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPMK 3</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">CPMK 4</th>
                                 </tr>
                             </thead>
                             {{-- <tbody>
@@ -104,20 +109,40 @@
                     <div>
 
                         <body class="h-screen bg-gray-100">
+
                             <div class="container px-4 mx-auto">
+
+                                <div class="p-6 m-20 bg-white rounded shadow" id="pieChartContainer">
+                                    <form id="cpmkForm" method="POST"
+                                        action="{{ route('cpmkPTSK6506', ['selectedCpmk' => $selectedCpmk]) }}">
+                                        @csrf
+                                        <label for="selectedCpmk">Select CPMK:</label>
+                                        <select name="selectedCpmk" id="selectedCpmk" style="min-width: 100px;">
+
+                                            <option value="1" {{ $selectedCpmk == 1 ? 'selected' : '' }}>CPMK 1
+                                            </option>
+                                            <option value="2" {{ $selectedCpmk == 2 ? 'selected' : '' }}>CPMK 2
+                                            </option>
+                                            <option value="3" {{ $selectedCpmk == 3 ? 'selected' : '' }}>CPMK 3
+                                            </option>
+                                            <option value="4" {{ $selectedCpmk == 4 ? 'selected' : '' }}>CPMK 4
+                                            </option>
+                                        </select>
+                                        <button type="button" onclick="changeCpmk()">Submit</button>
+                                    </form>
+                                    {!! $PieChart->container() !!}
+                                </div>
+
                                 <div class="p-6 m-20 bg-white rounded shadow" id="barChartContainer">
                                     {!! $chart->container() !!}
                                 </div>
 
-                                <div class="p-6 m-20 bg-white rounded shadow" id="pieChartContainer">
-                                    {!! $piechart->container() !!}
-                                </div>
                             </div>
 
                             <script src="{{ $chart->cdn() }}"></script>
-                            <script src="{{ $piechart->cdn() }}"></script>
+                            <script src="{{ $PieChart->cdn() }}"></script>
                             {{ $chart->script() }}
-                            {{ $piechart->script() }}
+                            {{ $PieChart->script() }}
                         </body>
 
                     </div>
@@ -175,6 +200,19 @@
         <script type="text/javascript">
             let modal = document.getElementById("matakuliah-modal");
 
+            function changeCpmk() {
+                var selectedCpmk = document.getElementById("selectedCpmk").value;
+                var csrfToken = document.getElementsByName("_token")[0].value;
+
+                // Change the form action dynamically
+                document.getElementById("cpmkForm").action = "{{ route('cpmkPTSK6506') }}/" + selectedCpmk + "?_token=" +
+                    csrfToken;
+
+                // Submit the form
+                document.getElementById("cpmkForm").submit();
+            }
+
+
             function modalHandler(val) {
                 if (val) {
                     fadeIn(modal);
@@ -226,6 +264,10 @@
                 });
 
                 $('#PTSK6506').DataTable({
+                    language: {
+                        search: '', // Mengosongkan teks pada kotak pencarian
+                        lengthMenu: '_MENU_', // Mengganti teks "Show Entries" dengan '_MENU_'
+                    },
                     processing: true,
                     serverSide: true,
                     ajax: "{{ url('/matakuliah/PTSK6506') }}",
@@ -241,11 +283,37 @@
                             data: 'cpl3',
                             name: 'cpl3'
                         },
+                        {
+                            data: 'outcome',
+                            name: 'outcome'
+                        },
+                        {
+                            data: 'cpmk1',
+                            name: 'cpmk1'
+                        },
+                        {
+                            data: 'cpmk2',
+                            name: 'cpmk2'
+                        },
+                        {
+                            data: 'cpmk3',
+                            name: 'cpmk3'
+                        },
+                        {
+                            data: 'cpmk4',
+                            name: 'cpmk4'
+                        },
                     ],
                     order: [
                         [0, 'desc']
-                    ]
+                    ],
+                    dom: '<"flex mb-3 mt-3"l<"flex-shrink-0 mr-3 ml-3"f>>rtip',
+                    initComplete: function() {
+                        // Menyesuaikan kotak pencarian
+                        $('.dataTables_filter input[type="search"]').addClass('custom-search');
+                    },
                 });
+                $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
             });
         </script>
 
