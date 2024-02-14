@@ -134,7 +134,17 @@
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CPMK</label>
                                         <textarea name="cpmk" id="cpmk" rows="5"
                                             class="mb-5 mt-2 block p-2.5 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full items-center text-sm border-gray-300 rounded border"
-                                            placeholder="Untuk memisahkan antara CPMK gunakan (titik(.) dan spasi)"></textarea>
+                                            placeholder="Untuk memisahkan antara CPMK gunakan (titik(.) dan spasi)">
+                                        </textarea>
+                                        <label for="cpl" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Pilih CPL</label>
+                                        <div class="columns-2 mb-5">
+                                        @foreach ($cpl as $cplItem)
+                                            <div class="flex items-center">
+                                                <input type="checkbox" name="cpl[]" value="{{ $cplItem->nama }}" id="cpl_{{ $cplItem->id }}">
+                                                <label for="cpl_{{ $cplItem->id }}" class="ml-2">{{ $cplItem->nama }}</label>
+                                            </div>
+                                        @endforeach
+                                        </div>
                                         <div class="flex items-center justify-start w-full">
                                             <button type="submit"
                                                 class="focus:outline-none

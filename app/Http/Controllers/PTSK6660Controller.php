@@ -13,16 +13,16 @@ use Maatwebsite\Excel\Facades\Excel;
 class PTSK6660Controller extends Controller
 {
 
-    public function index(PieChartPTSK6660 $PieChart, BarChartPTSK6660 $BarChart, Request $request)
+    public function index(Request $request)
     {
         $selectedCpmk = $request->input('selectedCpmk', 1); // Default to CPMK 1 if not provided
-
         $idToMatch = 'PTSK6660';
         $mataKuliahInfo = Mata_kuliah::where('kode_MK', $idToMatch)->get();
 
         $nilai = PTSK6660::all();
 
         $PieChart = new PieChartPTSK6660(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class), $selectedCpmk);
+        $BarChart = new BarChartPTSK6660(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class));
 
         if ($request->ajax()) {
             return datatables()->of(PTSK6660::select('*'))

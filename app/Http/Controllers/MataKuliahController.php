@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Mata_kuliah;
+use App\Models\Cpl;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -39,14 +40,15 @@ public function index()
     }
 
     $dosens = Dosen::all();
+    $cpl = Cpl::all();
 
-    return view('content.matakuliah', compact('dosens', 'user'));
+    return view('content.matakuliah', compact('dosens', 'user', 'cpl'));
 }
 
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        // dd($request->all(),$request->cpl);
         $matakuliahId = $request->id;
 
         $matakuliah   =   Mata_kuliah::updateOrCreate(
@@ -59,6 +61,7 @@ public function index()
                         'semester' => $request->semester,
                         'SKS' => $request->SKS,
                         'NIP' => $request->NIP,
+                        'cpl' => json_encode($request->cpl),
                         'cpmk' => $request->cpmk,
                     ]);
         return Response()->json($matakuliah);

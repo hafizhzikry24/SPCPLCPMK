@@ -15,7 +15,7 @@
     </x-danger-button>
 @endif
 <x-nilai-button>
-    <a type="button" href="{{ url('/matakuliah/' . $kode_MK) }}" data-toggle="tooltip"
+    <a type="button" href="{{ url('/mata_kuliah/' . $kode_MK) }}" data-toggle="tooltip"
         data-original-title="View Details" class="btn btn-info">
         Nilai Mata Kuliah
     </a>

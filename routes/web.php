@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
+use App\Http\Controllers\NilaiMahasiswaController;
 use App\Http\Controllers\PTSK6660Controller;
 
 /*
@@ -49,6 +50,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/cpmk', [CpmkController::class, 'index'])->name('cpmk');
     Route::get('/dosen', [DosenController::class, 'index'])->name('dosen');
     Route::get('/rekap', [ChartAllController::class, 'index'])->name('rekap');
+
+    Route::get('/mata_kuliah/{matkul_id}', [NilaiMahasiswaController::class, 'view'])->name('mata_kuliah');
 
     Route::get('/matakuliah/PTSK6506', [ExcelsdlController::class, 'index'])->name('PTSK6506');
     Route::post('/importexcelsdl', [ExcelsdlController::class, 'excelsdlimport'])->name('importexcelsdl');
