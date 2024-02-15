@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ExcelImportNilaiMahasiswa;
 use App\Models\Mata_kuliah;
 use App\Models\NilaiMahasiswa;
 use Illuminate\Http\Request;
@@ -15,9 +16,10 @@ class NilaiMahasiswaController extends Controller
         $matakuliah_info = Mata_kuliah::where("kode_MK", $kode_MK)->first();
 
         $cplColumns = json_decode($matakuliah_info->cpl, true);
+        $matkul_id = $kode_MK;
 
         // Pass the $matakuliah_info to the view
-        return view('content.excel.nilai_mahasiswa', compact('matakuliah_info', 'cplColumns'));
+        return view('content.excel.nilai_mahasiswa', compact('matakuliah_info', 'cplColumns', 'matkul_id'));
     }
 
     public function datatables(Request $request, $kode_MK)
@@ -43,7 +45,13 @@ class NilaiMahasiswaController extends Controller
                 ->make(true);
         }
     }
-    public function inputexcel(){
 
+    public function inputexcel(Request $request, $matkul_id){
+        $file = $request->file('file');
+        $namaFile = $file->getClientOriginalName();
+        $file->move('DataMatkul', $namaFile);
+
+        Excel::import(new ExcelImportNilaiMahasiswa, public_path('/DataMatkul/'.$namaFile));
+        return redirect()->route('mata_kuliah', ['matkul_id' => $matkul_id]);
     }
 }
