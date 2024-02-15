@@ -97,29 +97,42 @@
                                     <form action="javascript:void(0)" id="MatakuliahForm" name="MatakuliahForm"
                                         class="form-horizontal" method="POST">
                                         <input type="hidden" name="id" id="id" />
+
                                         <label for="kode_MK"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Kode
                                             Mata Kuliah</label>
                                         <input name="kode_MK" id="kode_MK"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                                             placeholder="133742069" />
+
                                         <label for="Mata_Kuliah"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Mata
                                             Kuliah</label>
                                         <input name="Mata_Kuliah" id="Mata_Kuliah"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="Pemorgraman Jaringan" />
+                                            placeholder="Pemrograman Jaringan" />
+
                                         <label for="semester"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Semester
-                                        </label>
-                                        <input name="semester" id="semester"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="3" />
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Semester</label>
+                                        <select name="semester" id="semester"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                                            @for ($i = 1; $i <= 7; $i++)
+                                                <option value="{{ $i }}">Semester {{ $i }}
+                                                </option>
+                                            @endfor
+                                            <option value="Ganjil">Ganjil</option>
+                                            <option value="Genap">Genap</option>
+                                        </select>
+
                                         <label for="SKS"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">SKS</label>
-                                        <input name="SKS" id="SKS"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="3" />
+                                        <select name="SKS" id="SKS"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                                            @for ($i = 1; $i <= 4; $i++)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+                                        </select>
+
                                         <label for="Nama_Dosen"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Dosen
                                             Pengampu</label>
@@ -130,38 +143,36 @@
                                                 <option value="{{ $dosen->NIP }}">{{ $dosen->Nama_Dosen }}</option>
                                             @endforeach
                                         </select>
+
                                         <label for="cpmk"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CPMK</label>
                                         <textarea name="cpmk" id="cpmk" rows="5"
                                             class="mb-5 mt-2 block p-2.5 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full items-center text-sm border-gray-300 rounded border"
-                                            placeholder="Untuk memisahkan antara CPMK gunakan (titik(.) dan spasi)">
-                                        </textarea>
-                                        <label for="cpl" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Pilih CPL</label>
+                                            placeholder="Untuk memisahkan antara CPMK gunakan (titik(.) dan spasi)"></textarea>
+
+                                        <label for="cpl"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Pilih
+                                            CPL</label>
                                         <div class="columns-2 mb-5">
-                                        @foreach ($cpl as $cplItem)
-                                            <div class="flex items-center">
-                                                <input type="checkbox" name="cpl[]" value="{{ $cplItem->nama }}" id="cpl_{{ $cplItem->id }}">
-                                                <label for="cpl_{{ $cplItem->id }}" class="ml-2">{{ $cplItem->nama }}</label>
-                                            </div>
-                                        @endforeach
+                                            @foreach ($cpl as $cplItem)
+                                                <div class="flex items-center">
+                                                    <input type="checkbox" name="cpl[]" value="{{ $cplItem->id }}"
+                                                        id="cpl_{{ $cplItem->id }}">
+                                                    <label for="cpl_{{ $cplItem->id }}"
+                                                        class="ml-2">{{ $cplItem->nama }}</label>
+                                                </div>
+                                            @endforeach
                                         </div>
+
                                         <div class="flex items-center justify-start w-full">
                                             <button type="submit"
-                                                class="focus:outline-none
-                                                focus:ring-2
-                                                focus:ring-offset-2
-                                                focus:ring-green-700
-                                                transition duration-150
-                                                ease-in-out
-                                                hover:bg-green-300
-                                                bg-green-400 rounded
-                                                text-white px-8 py-2
-                                                text-sm">
-                                                Submit</button>
+                                                class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700 transition duration-150 ease-in-out hover:bg-green-300 bg-green-400 rounded text-white px-8 py-2 text-sm">Submit</button>
                                             <button type="button"
-                                                class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                                                class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
                                                 onclick="modalHandler(false)">Cancel</button>
+                                        </div>
                                     </form>
+
 
                                 </div>
                                 <button

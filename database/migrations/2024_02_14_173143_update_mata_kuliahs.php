@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('mata_kuliahs', function (Blueprint $table) {
-            $table->text('cpl');
+            $table->int('cpl');
         });
     }
 

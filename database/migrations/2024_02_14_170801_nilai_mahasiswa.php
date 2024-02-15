@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('id_matkul');
             $table->integer('tahun');
             $table->string('semester');
-            $table->integer('nim');
+            $table->bigInteger('nim');
             $table->string('nama');
             $table->integer('cpl1')->nullable();
             $table->integer('cpl2')->nullable();
@@ -44,8 +44,9 @@ return new class extends Migration
             $table->integer('cpmk9')->nullable();
             $table->integer('cpmk10')->nullable();
             $table->timestamps();
-            
+
             $table->foreign('id_matkul')->references('kode_MK')->on('mata_kuliahs')->onDelete('cascade');
+            $table->foreign('semester')->references('semester')->on('mata_kuliahs')->onDelete('cascade');
         });
     }
 
