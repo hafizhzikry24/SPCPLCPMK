@@ -229,6 +229,7 @@
             $('#SKS').val("");
             $('#Nama_Dosen').val("");
             $('#cpmk').val("");
+            $('cpl').val("");
         }
 
         function fadeIn(el, display) {
@@ -341,6 +342,7 @@
                 success: function(res) {
                     // Show the modal using your custom modalHandler
                     console.log(res);
+
                     // Set the data in the form fields
                     modalHandler(true);
                     $('#id').val(res.id);
@@ -350,6 +352,23 @@
                     $('#SKS').val(res.SKS);
                     $('#NIP').val(res.NIP);
                     $('#cpmk').val(res.cpmk);
+
+                    // Uncheck all checkboxes before checking the selected ones
+                    $('input[name="cpl[]"]').prop('checked', false);
+
+                    // Check checkboxes based on cpl values
+                    if (res.cpl) {
+                        var cplValues = JSON.parse(res.cpl); // Parse the JSON string
+
+                        cplValues.forEach(function(value) {
+                            $('#cpl_' + value).prop('checked', true);
+                        });
+                    }
+
+                    // Additional code or corrections can be added here
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error:", error);
                 }
             });
         }
