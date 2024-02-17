@@ -142,9 +142,41 @@
                             </thead>
                         </table>
                     </div>
+                    <div>
+
+                        <body class="h-screen bg-gray-100">
+                            <div class="container px-4 mx-auto">
+                                <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
+                                    <div class="p-6 m-20 bg-white rounded shadow">
+                                        {!! $pieChartCPMK->container() !!}
+
+                                        <script src="{{ $pieChartCPMK->cdn() }}"></script>
+                                        {{ $pieChartCPMK->script() }}
+                                    </div>
+                                </div>
+                                <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
+                                    <div class="p-6 m-20 bg-white rounded shadow">
+                                        {!! $pieChartCPL->container() !!}
+
+                                        <script src="{{ $pieChartCPL->cdn() }}"></script>
+                                        {{ $pieChartCPL->script() }}
+                                    </div>
+                                </div>
+                                <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
+                                    <div class="p-6 m-20 bg-white rounded shadow">
+                                        {!! $barChartCPL->container() !!}
+
+                                        <script src="{{ $barChartCPL->cdn() }}"></script>
+                                        {{ $barChartCPL->script() }}
+                                    </div>
+                                </div>
+                            </div>
+                        </body>
+
+                    </div>
                 </div>
+            </main>
         </div>
-        </main>
     </div>
 
 

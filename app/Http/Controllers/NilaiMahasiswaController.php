@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\BarChartCPL;
+use App\Charts\PieChartCPMK;
+use App\Charts\PieChartCPL;
 use App\Imports\ExcelImportNilaiMahasiswa;
 use App\Models\Mata_kuliah;
 use App\Models\NilaiMahasiswa;
@@ -10,7 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class NilaiMahasiswaController extends Controller
 {
-    public function view($kode_MK)
+    public function view(Request $request, $kode_MK, PieChartCPMK $pieChartCPMK, PieChartCPL $pieChartCPL, BarChartCPL $barChartCPL)
     {
         // Assuming you retrieve $matakuliah_info from your database
         $matakuliah_info = Mata_kuliah::where("kode_MK", $kode_MK)->first();
@@ -18,8 +21,14 @@ class NilaiMahasiswaController extends Controller
         $cplColumns = json_decode($matakuliah_info->cpl, true);
         $matkul_id = $kode_MK;
 
-        // Pass the $matakuliah_info to the view
-        return view('content.excel.nilai_mahasiswa', compact('matakuliah_info', 'cplColumns', 'matkul_id'));
+        return view('content.excel.nilai_mahasiswa', [
+            'matakuliah_info' => $matakuliah_info,
+            'cplColumns' => $cplColumns,
+            'matkul_id' => $matkul_id,
+            'pieChartCPMK' => $pieChartCPMK->build(),
+            'pieChartCPL' => $pieChartCPL->build(),
+            'barChartCPL' => $barChartCPL->build()
+        ]);
     }
 
     public function datatables(Request $request, $kode_MK)
@@ -39,7 +48,6 @@ class NilaiMahasiswaController extends Controller
             return datatables()->of($data)
                 ->addIndexColumn()
                 ->addColumn('cpmkCount', function ($row) use ($cpmkCount) {
-                    // Add a new column for the count of CPMK values
                     return $cpmkCount;
                 })
                 ->make(true);
