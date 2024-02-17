@@ -11,5 +11,6 @@ class Mata_kuliah extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['id', 'kode_MK', 'Mata_Kuliah', 'semester', 'SKS', 'cpmk', 'NIP'];
+    protected $fillable = [
+        'id', 'kode_MK', 'Mata_Kuliah', 'semester', 'cpl', 'SKS', 'cpmk', 'NIP'];
 }
