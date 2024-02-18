@@ -14,12 +14,21 @@ class PieChartCPMK
         $this->pieChartCPMK = $pieChartCPMK;
     }
 
-    public function build($selectedCpmk): \ArielMejiaDev\LarapexCharts\PieChart
+    public function build($selectedCpmk, $kode_MK): \ArielMejiaDev\LarapexCharts\PieChart
     {
         // Fetch data based on your logic (replace this with your actual data fetching logic)
-        $remidi = NilaiMahasiswa::where('cpmk' . $selectedCpmk, '<', 60)->count();
-        $lulus = NilaiMahasiswa::where('cpmk' . $selectedCpmk, '>=', 60)->count();
-        $tidaklulus = NilaiMahasiswa::where('outcome', 'TIDAK LULUS')->count();
+        // $remidi = NilaiMahasiswa::where('cpmk' . $selectedCpmk, '<', 60)->count();
+        $remidi = NilaiMahasiswa::where('id_matkul', $kode_MK)
+    ->where('cpmk' . $selectedCpmk, '<', 60)
+    ->count();
+    $lulus = NilaiMahasiswa::where('id_matkul', $kode_MK)
+    ->where('cpmk' . $selectedCpmk, '>=', 60)
+    ->count();
+    $tidaklulus = NilaiMahasiswa::where('id_matkul', $kode_MK)
+    ->where('outcome', 'TIDAK LULUS')
+    ->count();
+        // $lulus = NilaiMahasiswa::where('cpmk' . $selectedCpmk, '>=', 60)->count();
+        // $tidaklulus = NilaiMahasiswa::where('outcome', 'TIDAK LULUS')->count();
         $labels = ['Tidak Lulus', 'Remidi CPMK', 'Lulus'];
 
         return $this->pieChartCPMK->pieChart()
