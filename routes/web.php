@@ -55,7 +55,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/mata_kuliah/excel/{matkul_id}', [NilaiMahasiswaController::class, 'inputexcel'])->name('mata_kuliah.inputexcel');
     Route::get('/datatables/{matkul_id}', [NilaiMahasiswaController::class, 'datatables'])->name('mata_kuliah.datatables');
     Route::match(['get', 'post'], '/mata_kuliah/{matkul_id}/{selectedCpmk?}', [NilaiMahasiswaController::class, 'view'])->name('chartcpmk');
-    Route::post('/mata_kuliah/chart', [NilaiMahasiswaController::class, 'getChartContent'])->name('chart');
 
     Route::get('/matakuliah/PTSK6506', [ExcelsdlController::class, 'index'])->name('PTSK6506');
     Route::post('/importexcelsdl', [ExcelsdlController::class, 'excelsdlimport'])->name('importexcelsdl');
