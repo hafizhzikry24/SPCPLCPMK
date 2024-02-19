@@ -10,12 +10,18 @@ use App\Models\Mata_kuliah;
 use App\Models\NilaiMahasiswa;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\View;
 
 class NilaiMahasiswaController extends Controller
 {
     public function view(Request $request, $kode_MK, PieChartCPMK $pieChartCPMK, PieChartCPL $pieChartCPL, BarChartCPL $barChartCPL)
     {
-        // Assuming you retrieve $matakuliah_info from your database
+        $selectedCpmk = $request->input('selectedCpmk', 1);
+        $selectedCpl = $request->input('selectedCpl', 3);
+
+        $pieChartCPMK = new PieChartCPMK(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class));
+        $pieChartCPL = new PieChartCPL(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class));
+
         $matakuliah_info = Mata_kuliah::where("kode_MK", $kode_MK)->first();
 
         $cplColumns = json_decode($matakuliah_info->cpl, true);
@@ -25,11 +31,14 @@ class NilaiMahasiswaController extends Controller
             'matakuliah_info' => $matakuliah_info,
             'cplColumns' => $cplColumns,
             'matkul_id' => $matkul_id,
-            'pieChartCPMK' => $pieChartCPMK->build(),
-            'pieChartCPL' => $pieChartCPL->build(),
-            'barChartCPL' => $barChartCPL->build()
+            'selectedCpl' => $selectedCpl,
+            'selectedCpmk' => $selectedCpmk,
+            'pieChartCPMK' => $pieChartCPMK->build($selectedCpmk, $kode_MK),
+            'pieChartCPL' => $pieChartCPL->build($selectedCpl, $kode_MK),
+            'barChartCPL' => $barChartCPL->build($kode_MK)
         ]);
     }
+
 
     public function datatables(Request $request, $kode_MK)
     {

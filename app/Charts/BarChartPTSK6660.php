@@ -15,6 +15,8 @@ class BarChartPTSK6660
 
     public function build(): \ArielMejiaDev\LarapexCharts\BarChart
     {
+        
+
         return $this->BarChart->barChart()
             ->setTitle('Grafik CPL')
             ->setSubtitle('Perbandingan Nilai CPL')

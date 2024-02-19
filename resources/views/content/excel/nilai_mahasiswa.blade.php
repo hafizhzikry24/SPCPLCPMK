@@ -147,32 +147,90 @@
                         <body class="h-screen bg-gray-100">
                             <div class="container px-4 mx-auto">
                                 <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
-                                    <div class="p-6 m-20 bg-white rounded shadow">
-                                        {!! $pieChartCPMK->container() !!}
-
-                                        <script src="{{ $pieChartCPMK->cdn() }}"></script>
-                                        {{ $pieChartCPMK->script() }}
+                                    <!-- Buttons to switch between charts -->
+                                    <div class="flex justify-between mb-3">
+                                        <button onclick="showChart('pieChartCPMK')">CPMK Chart</button>
+                                        <button onclick="showChart('pieChartCPL')">CPL Chart</button>
+                                        <button onclick="showChart('barChartCPL')">CPL Total</button>
                                     </div>
-                                </div>
-                                <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
-                                    <div class="p-6 m-20 bg-white rounded shadow">
-                                        {!! $pieChartCPL->container() !!}
 
-                                        <script src="{{ $pieChartCPL->cdn() }}"></script>
-                                        {{ $pieChartCPL->script() }}
+                                    <!-- Pie Chart CPMK Container -->
+                                    <div class="p-6 m-20 bg-white rounded shadow" id="chartContent">
+                                        <!-- Select CPMK Dropdown -->
+                                        <div class="mt-4">
+                                            <label for="selectedCpmk">Select CPMK:</label>
+                                            <select id="selectedCpmk" onchange="updateCharts()"
+                                                style="min-width: 100px;">
+                                                @for ($i = 1; $i <= $cpmkCount; $i++)
+                                                    <option value="{{ $i }}"
+                                                        @if ($selectedCpmk == $i) selected @endif>CPMK
+                                                        {{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+
+                                        <script>
+                                            function updateCharts() {
+                                                var selectedCpmk = document.getElementById('selectedCpmk').value;
+                                                var url = "{{ route('chartcpmk', ['matkul_id' => $matkul_id]) }}/" + selectedCpmk;
+
+                                                $.ajax({
+                                                    type: 'GET',
+                                                    url: url,
+                                                    success: function(data) {
+                                                        var chartContent = $(data).find('#pieChartContainer').html();
+                                                        document.getElementById('chartContainer').innerHTML = chartContent;
+                                                    },
+                                                    error: function(xhr, status, error) {
+                                                        console.error("Error:", error);
+                                                    }
+                                                });
+                                            }
+                                        </script>
+
+                                        <!-- Pie Chart CPMK -->
+                                        <div id="pieChartContainer">
+                                            <!-- Pie Chart CPMK -->
+                                            {!! $pieChartCPMK->container() !!}
+                                            <script src="{{ $pieChartCPMK->cdn() }}"></script>
+                                            {{ $pieChartCPMK->script() }}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
-                                    <div class="p-6 m-20 bg-white rounded shadow">
-                                        {!! $barChartCPL->container() !!}
 
-                                        <script src="{{ $barChartCPL->cdn() }}"></script>
-                                        {{ $barChartCPL->script() }}
+                                    <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
+                                        <!-- Pie Chart CPL Container -->
+                                        <div id="pieChartCPLContainer">
+                                            <div class="mt-4">
+                                                <label for="selectedCpl">Select CPL:</label>
+                                                <select id="selectedCpl" onchange="updateCharts()"
+                                                    style="min-width: 100px;">
+                                                    @foreach ($cplData as $cpl)
+                                                        <option value="{{ $cpl }}"
+                                                            @if ($selectedCpl == $i) selected @endif>CPL
+                                                            {{ $cpl }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            {!! $pieChartCPL->container() !!}
+                                            <script src="{{ $pieChartCPL->cdn() }}"></script>
+                                            {{ $pieChartCPL->script() }}
+                                            </d iv>
+                                        </div>
+                                    </div>
+                                    <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
+                                        <!-- Bar Chart CPL Container -->
+                                        <div id="barChartCPLContainer">
+                                            {!! $barChartCPL->container() !!}
+                                            <script src="{{ $barChartCPL->cdn() }}"></script>
+                                            {{ $barChartCPL->script() }}
+                                        </div>
+
+                                        <div id="pieChartCPLPlaceholder" style="display: none;"></div>
+                                        <div id="barChartCPLPlaceholder" style="display: none;"></div>
                                     </div>
                                 </div>
                             </div>
                         </body>
-
                     </div>
                 </div>
             </main>
