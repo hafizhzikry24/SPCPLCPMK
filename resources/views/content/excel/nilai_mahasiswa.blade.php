@@ -208,7 +208,7 @@
                                         {!! $pieChartCPL->container() !!}
                                         <script src="{{ $pieChartCPL->cdn() }}"></script>
                                         {{ $pieChartCPL->script() }}
-                                    </div>
+                                    </d iv>
                                 </div>                
                                 <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">                
                                     <!-- Bar Chart CPL Container -->

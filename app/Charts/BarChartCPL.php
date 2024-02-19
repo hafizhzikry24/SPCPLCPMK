@@ -2,6 +2,7 @@
 
 namespace App\Charts;
 
+use App\Models\NilaiMahasiswa;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class BarChartCPL
@@ -13,8 +14,21 @@ class BarChartCPL
         $this->barChartCPL = $barChartCPL;
     }
 
-    public function build(): \ArielMejiaDev\LarapexCharts\BarChart
+    public function build($kode_MK): \ArielMejiaDev\LarapexCharts\BarChart
     {
+        $unggul = NilaiMahasiswa::where('id_matkul', $kode_MK)
+        ->where('cpl1', 4)
+        ->count();
+        $baik = NilaiMahasiswa::where('id_matkul', $kode_MK)
+        ->where('cpl1', 3)
+        ->count();
+        $cukup = NilaiMahasiswa::where('id_matkul', $kode_MK)
+        ->where('cpl1', 2)
+        ->count();
+        $kurang = NilaiMahasiswa::where('id_matkul', $kode_MK)
+        ->where('cpl1', 1)
+        ->count();
+
         return $this->barChartCPL->barChart()
             ->setTitle('San Francisco vs Boston.')
             ->setSubtitle('Wins during season 2021.')

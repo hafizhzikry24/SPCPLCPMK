@@ -35,7 +35,7 @@ class NilaiMahasiswaController extends Controller
             'selectedCpmk' => $selectedCpmk,
             'pieChartCPMK' => $pieChartCPMK->build($selectedCpmk, $kode_MK),
             'pieChartCPL' => $pieChartCPL->build($selectedCpl, $kode_MK),
-            'barChartCPL' => $barChartCPL->build()
+            'barChartCPL' => $barChartCPL->build($kode_MK)
         ]);
     }
 
