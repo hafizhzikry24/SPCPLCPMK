@@ -155,14 +155,6 @@
                                     </div>
 
                                     <!-- Pie Chart CPMK Container -->
-                                    <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
-    <!-- Buttons to switch between charts -->
-    <div class="flex justify-between mb-3">
-        <button onclick="showChart('pieChartCPMK')">CPMK Chart</button>
-        <button onclick="showChart('pieChartCPL')">CPL Chart</button>
-        <button onclick="showChart('barChartCPL')">CPL Total</button>
-    </div>
-
     <div class="p-6 m-20 bg-white rounded shadow" id="chartContent">
         <!-- Select CPMK Dropdown -->
         <div class="mt-4">
@@ -200,14 +192,25 @@
                                         <script src="{{ $pieChartCPMK->cdn() }}"></script>
                                         {{ $pieChartCPMK->script() }}
                                     </div>
+                                </div>
 
+                                    <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
                                     <!-- Pie Chart CPL Container -->
                                     <div id="pieChartCPLContainer">
+                                        <div class="mt-4">
+                                            <label for="selectedCpl">Select CPL:</label>
+                                            <select id="selectedCpl" onchange="updateCharts()" style="min-width: 100px;">
+                                                @foreach ($cplData as $cpl)
+                                                    <option value="{{ $cpl }}" @if ($selectedCpl == $i) selected @endif>CPL {{ $cpl }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         {!! $pieChartCPL->container() !!}
                                         <script src="{{ $pieChartCPL->cdn() }}"></script>
                                         {{ $pieChartCPL->script() }}
                                     </div>
-
+                                </div>                
+                                <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">                
                                     <!-- Bar Chart CPL Container -->
                                     <div id="barChartCPLContainer">
                                         {!! $barChartCPL->container() !!}
@@ -218,6 +221,7 @@
                                     <div id="pieChartCPLPlaceholder" style="display: none;"></div>
                                     <div id="barChartCPLPlaceholder" style="display: none;"></div>
                                 </div>
+                            </div>
 
                             </div>
                         </body>
