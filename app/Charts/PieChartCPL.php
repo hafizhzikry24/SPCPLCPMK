@@ -33,9 +33,9 @@ class PieChartCPL
         $labels = ['Kurang (D)', 'Cukup (C)', 'Baik (B)', 'Unggul (A)'];
 
         return $this->pieChartCPL->pieChart()
-            ->setTitle('Distribusi Nilai CPL')
+            ->setTitle('Distribusi Nilai CPL Mahasiswa')
             ->setSubtitle('Berdasarkan CPL yang dipilih')
-            ->setColors(['#ff455f', '#feb019', '#00E396', '#80effe'])
+            ->setColors(['#ff455f', '#feb019', '#00E396', '#008FFB'])
             ->addData([$kurang, $cukup, $baik, $unggul])
             ->setLabels($labels);
     }

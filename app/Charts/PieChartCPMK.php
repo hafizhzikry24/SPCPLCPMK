@@ -32,7 +32,7 @@ class PieChartCPMK
         $labels = ['Tidak Lulus', 'Remidi CPMK', 'Lulus'];
 
         return $this->pieChartCPMK->pieChart()
-            ->setTitle('Distribusi Nilai CPMK')
+            ->setTitle('Distribusi Nilai CPMK Mahasiswa')
             ->setSubtitle('Berdasarkan CPMK yang dipilih')
             ->setColors(['#ff455f', '#feb019', '#00E396'])
             ->addData([$tidaklulus, $remidi, $lulus])

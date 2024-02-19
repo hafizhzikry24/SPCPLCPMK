@@ -17,7 +17,7 @@ class NilaiMahasiswaController extends Controller
     public function view(Request $request, $kode_MK, PieChartCPMK $pieChartCPMK, PieChartCPL $pieChartCPL, BarChartCPL $barChartCPL)
     {
         $selectedCpmk = $request->input('selectedCpmk', 1);
-        $selectedCpl = $request->input('selectedCpl', 5);
+        $selectedCpl = $request->input('selectedCpl', 3);
 
         $pieChartCPMK = new PieChartCPMK(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class));
         $pieChartCPL = new PieChartCPL(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class));
