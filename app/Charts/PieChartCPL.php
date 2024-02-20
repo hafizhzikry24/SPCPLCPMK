@@ -8,6 +8,7 @@ use ArielMejiaDev\LarapexCharts\LarapexChart;
 class PieChartCPL
 {
     protected $pieChartCPL;
+    protected $selectedCpl;
 
 
     public function __construct(LarapexChart $pieChartCPL)
@@ -37,6 +38,7 @@ class PieChartCPL
             ->setSubtitle('Berdasarkan CPL yang dipilih')
             ->setColors(['#ff455f', '#feb019', '#00E396', '#008FFB'])
             ->addData([$kurang, $cukup, $baik, $unggul])
+            ->setFontFamily('sans-serif')
             ->setLabels($labels);
     }
 }

@@ -10,7 +10,6 @@ use App\Models\Mata_kuliah;
 use App\Models\NilaiMahasiswa;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\View;
 
 class NilaiMahasiswaController extends Controller
 {
@@ -19,13 +18,13 @@ class NilaiMahasiswaController extends Controller
         $selectedCpmk = $request->input('selectedCpmk', 1);
         $selectedCpl = $request->input('selectedCpl', 3);
 
-        $pieChartCPMK = new PieChartCPMK(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class));
-        $pieChartCPL = new PieChartCPL(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class));
-
         $matakuliah_info = Mata_kuliah::where("kode_MK", $kode_MK)->first();
 
-        $cplColumns = json_decode($matakuliah_info->cpl, true);
+        $pieChartCPMK = new PieChartCPMK(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class), $selectedCpmk);
+        $pieChartCPL = new PieChartCPL(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class), $selectedCpl);
+
         $matkul_id = $kode_MK;
+        $cplColumns = json_decode($matakuliah_info->cpl, true);
 
         return view('content.excel.nilai_mahasiswa', [
             'matakuliah_info' => $matakuliah_info,
