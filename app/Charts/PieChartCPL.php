@@ -37,6 +37,7 @@ class PieChartCPL
             ->setSubtitle('Berdasarkan CPL yang dipilih')
             ->setColors(['#ff455f', '#feb019', '#00E396', '#008FFB'])
             ->addData([$kurang, $cukup, $baik, $unggul])
+            ->setFontFamily('sans-serif')
             ->setLabels($labels);
     }
 }

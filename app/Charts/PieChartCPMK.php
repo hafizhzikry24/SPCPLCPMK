@@ -36,6 +36,7 @@ class PieChartCPMK
             ->setSubtitle('Berdasarkan CPMK yang dipilih')
             ->setColors(['#ff455f', '#feb019', '#00E396'])
             ->addData([$tidaklulus, $remidi, $lulus])
+            ->setFontFamily('sans-serif')
             ->setLabels($labels);
     }
 }

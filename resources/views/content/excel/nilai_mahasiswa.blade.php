@@ -202,8 +202,7 @@
                                         <div id="pieChartCPLContainer">
                                             <div class="mt-4">
                                                 <label for="selectedCpl">Select CPL:</label>
-                                                <select id="selectedCpl" onchange="updateCharts()"
-                                                    style="min-width: 100px;">
+                                                <select id="selectedCpl" onchange="" style="min-width: 100px;">
                                                     @foreach ($cplData as $cpl)
                                                         <option value="{{ $cpl }}"
                                                             @if ($selectedCpl == $i) selected @endif>CPL
