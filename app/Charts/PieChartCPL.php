@@ -8,6 +8,7 @@ use ArielMejiaDev\LarapexCharts\LarapexChart;
 class PieChartCPL
 {
     protected $pieChartCPL;
+    protected $selectedCpl;
 
 
     public function __construct(LarapexChart $pieChartCPL)

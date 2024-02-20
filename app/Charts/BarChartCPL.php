@@ -97,7 +97,6 @@ class BarChartCPL
             ->addData('Cukup (C) %', array_values(array_column($gradeData, 'percentageCukup')))
             ->addData('Kurang (D) %', array_values(array_column($gradeData, 'percentageKurang')))
             ->setFontFamily('sans-serif')
-            ->setGrid()
             ->setXAxis($xAxisLabels);
     }
 }

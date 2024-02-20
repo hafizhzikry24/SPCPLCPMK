@@ -158,82 +158,66 @@
                                     <div class="p-6 m-20 bg-white rounded shadow" id="chartContent">
                                         <!-- Select CPMK Dropdown -->
                                         <div class="mt-4">
-                                            <label for="selectedCpmk">Select CPMK:</label>
-                                            <select id="selectedCpmk" onchange="updateCharts()"
-                                                style="min-width: 100px;">
-                                                @for ($i = 1; $i <= $cpmkCount; $i++)
-                                                    <option value="{{ $i }}"
-                                                        @if ($selectedCpmk == $i) selected @endif>CPMK
-                                                        {{ $i }}</option>
-                                                @endfor
-                                            </select>
+                                            <form id="cpmkForm" method="POST"
+                                                action="{{ route('pieChartCpmk', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpmk' => $selectedCpmk]) }}">
+                                                @csrf
+                                                <label for="selectedCpmk">Select CPMK:</label>
+                                                <select name="selectedCpmk" id="selectedCpmk" onchange="changeCpmk()"
+                                                    style="min-width: 100px;">
+                                                    @for ($i = 1; $i <= $cpmkCount; $i++)
+                                                        <option value="{{ $i }}"
+                                                            @if ($selectedCpmk == $i) selected @endif>CPMK
+                                                            {{ $i }}</option>
+                                                    @endfor
+                                                </select>
+                                            </form>
                                         </div>
-
-                                        <script>
-                                            function updateCharts() {
-                                                var selectedCpmk = document.getElementById('selectedCpmk').value;
-                                                var url = "{{ route('chartcpmk', ['matkul_id' => $matkul_id]) }}/" + selectedCpmk;
-
-                                                $.ajax({
-                                                    type: 'GET',
-                                                    url: url,
-                                                    success: function(data) {
-                                                        var chartContent = $(data).find('#pieChartContainer').html();
-                                                        document.getElementById('chartContainer').innerHTML = chartContent;
-                                                    },
-                                                    error: function(xhr, status, error) {
-                                                        console.error("Error:", error);
-                                                    }
-                                                });
-                                            }
-                                        </script>
-
                                         <!-- Pie Chart CPMK -->
                                         <div id="pieChartContainer">
-                                            <!-- Pie Chart CPMK -->
                                             {!! $pieChartCPMK->container() !!}
                                             <script src="{{ $pieChartCPMK->cdn() }}"></script>
                                             {{ $pieChartCPMK->script() }}
                                         </div>
                                     </div>
-
-                                    <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
-                                        <!-- Pie Chart CPL Container -->
-                                        <div id="pieChartCPLContainer">
-                                            <div class="mt-4">
+                                </div>
+                                <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
+                                    <!-- Pie Chart CPL Container -->
+                                    <div id="pieChartCPLContainer">
+                                        <div class="mt-4">
+                                            <form id="cplForm" method="POST"
+                                                action="{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpl' => $selectedCpl]) }}">
+                                                @csrf
                                                 <label for="selectedCpl">Select CPL:</label>
-                                                <select id="selectedCpl" onchange="" style="min-width: 100px;">
+                                                <select name="selectedCpl" id="selectedCpl" onchange="changeCpl()"
+                                                    style="min-width: 100px;">
                                                     @foreach ($cplData as $cpl)
                                                         <option value="{{ $cpl }}"
-                                                            @if ($selectedCpl == $i) selected @endif>CPL
+                                                            @if ($selectedCpl == $cpl) selected @endif>CPL
                                                             {{ $cpl }}</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                            {!! $pieChartCPL->container() !!}
-                                            <script src="{{ $pieChartCPL->cdn() }}"></script>
-                                            {{ $pieChartCPL->script() }}
-                                            </d iv>
+                                            </form>
                                         </div>
+                                        {!! $pieChartCPL->container() !!}
+                                        <script src="{{ $pieChartCPL->cdn() }}"></script>
+                                        {{ $pieChartCPL->script() }}
                                     </div>
-                                    <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
-                                        <!-- Bar Chart CPL Container -->
-                                        <div id="barChartCPLContainer">
-                                            {!! $barChartCPL->container() !!}
-                                            <script src="{{ $barChartCPL->cdn() }}"></script>
-                                            {{ $barChartCPL->script() }}
-                                        </div>
-
-                                        <div id="pieChartCPLPlaceholder" style="display: none;"></div>
-                                        <div id="barChartCPLPlaceholder" style="display: none;"></div>
+                                </div>
+                                <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
+                                    <!-- Bar Chart CPL Container -->
+                                    <div id="barChartCPLContainer">
+                                        {!! $barChartCPL->container() !!}
+                                        <script src="{{ $barChartCPL->cdn() }}"></script>
+                                        {{ $barChartCPL->script() }}
                                     </div>
                                 </div>
                             </div>
-                        </body>
                     </div>
+                    </body>
                 </div>
-            </main>
         </div>
+        </main>
+    </div>
     </div>
 
 
@@ -279,6 +263,34 @@
 
         <script type="text/javascript">
             let modal = document.getElementById("modal-excel");
+
+            function changeCpmk() {
+                var selectedCpmk = document.getElementById("selectedCpmk").value;
+                console.log("Selected Cpmk:", selectedCpmk);
+                var csrfToken = document.getElementsByName("_token")[0].value;
+
+                // Change the form action dynamically
+                document.getElementById("cpmkForm").action =
+                    "{{ route('pieChartCpmk', ['matkul_id' => $matakuliah_info->kode_MK]) }}/" +
+                    selectedCpmk + "?_token=" + csrfToken;
+
+                // Submit the form
+                document.getElementById("cpmkForm").submit();
+            }
+
+            function changeCpl() {
+                var selectedCpl = document.getElementById("selectedCpl").value;
+                // console.log("Selected CPL:", selectedCpl);
+                var csrfToken = document.getElementsByName("_token")[0].value;
+
+                // Change the form action dynamically
+                document.getElementById("cplForm").action =
+                    "{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK]) }}/" +
+                    selectedCpl + "?_token=" + csrfToken;
+
+                // Submit the form
+                document.getElementById("cplForm").submit();
+            }
 
             function modalHandler(val) {
                 if (val) {
