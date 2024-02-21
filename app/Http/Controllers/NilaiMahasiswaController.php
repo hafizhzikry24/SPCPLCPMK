@@ -15,10 +15,12 @@ class NilaiMahasiswaController extends Controller
 {
     public function view(Request $request, $kode_MK, PieChartCPMK $pieChartCPMK, PieChartCPL $pieChartCPL, BarChartCPL $barChartCPL)
     {
-        $selectedCpmk = $request->input('selectedCpmk', 1);
-        $selectedCpl = $request->input('selectedCpl', 3);
-
         $matakuliah_info = Mata_kuliah::where("kode_MK", $kode_MK)->first();
+
+        $defaultCpl = json_decode($matakuliah_info->cpl, true);
+
+        $selectedCpmk = $request->input('selectedCpmk', 1);
+        $selectedCpl = $request->input('selectedCpl', reset($defaultCpl));
 
         $pieChartCPMK = new PieChartCPMK(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class), $selectedCpmk);
         $pieChartCPL = new PieChartCPL(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class), $selectedCpl);

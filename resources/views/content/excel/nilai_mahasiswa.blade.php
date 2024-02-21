@@ -153,9 +153,9 @@
                                         <button onclick="showChart('pieChartCPL')">CPL Chart</button>
                                         <button onclick="showChart('barChartCPL')">CPL Total</button>
                                     </div>
-
+                        
                                     <!-- Pie Chart CPMK Container -->
-                                    <div class="p-6 m-20 bg-white rounded shadow" id="chartContent">
+                                    <div class="p-6 m-20 bg-white rounded shadow" id="pieChartContent">
                                         <!-- Select CPMK Dropdown -->
                                         <div class="mt-4">
                                             <form id="cpmkForm" method="POST"
@@ -165,8 +165,7 @@
                                                 <select name="selectedCpmk" id="selectedCpmk" onchange="changeCpmk()"
                                                     style="min-width: 100px;">
                                                     @for ($i = 1; $i <= $cpmkCount; $i++)
-                                                        <option value="{{ $i }}"
-                                                            @if ($selectedCpmk == $i) selected @endif>CPMK
+                                                        <option value="{{ $i }}" @if ($selectedCpmk == $i) selected @endif>CPMK
                                                             {{ $i }}</option>
                                                     @endfor
                                                 </select>
@@ -179,11 +178,30 @@
                                             {{ $pieChartCPMK->script() }}
                                         </div>
                                     </div>
-                                </div>
-                                <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
+                        
                                     <!-- Pie Chart CPL Container -->
-                                    <div id="pieChartCPLContainer">
-                                        <div class="mt-4">
+                                    <div class="p-6 m-20 bg-white rounded shadow hidden" id="pieChartCPLContainer">
+                                        <!-- Select CPL Dropdown -->
+                                        <!-- Select CPL Dropdown -->
+<div class="mt-4">
+    <form id="cplForm" method="POST" action="{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpl' => $selectedCpl]) }}">
+        @csrf
+        <label for="selectedCpl">Select CPL:</label>
+        <select name="selectedCpl" id="selectedCpl" onchange="changeCpl()" style="min-width: 100px;">
+            @foreach ($cplData as $cpl)
+                <option value="{{ $cpl }}" @if ($selectedCpl == $cpl) selected @endif>CPL {{ $cpl }}</option>
+            @endforeach
+        </select>
+        <input type="hidden" name="chartType" id="chartType" value="pieChartCPL">
+    </form>
+</div>
+<!-- Pie Chart CPL -->
+<div id="pieChartCPLContainer">
+    {!! $pieChartCPL->container() !!}
+    <script src="{{ $pieChartCPL->cdn() }}"></script>
+    {{ $pieChartCPL->script() }}
+</div>
+                                        {{-- <div class="mt-4">
                                             <form id="cplForm" method="POST"
                                                 action="{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpl' => $selectedCpl]) }}">
                                                 @csrf
@@ -191,29 +209,48 @@
                                                 <select name="selectedCpl" id="selectedCpl" onchange="changeCpl()"
                                                     style="min-width: 100px;">
                                                     @foreach ($cplData as $cpl)
-                                                        <option value="{{ $cpl }}"
-                                                            @if ($selectedCpl == $cpl) selected @endif>CPL
+                                                        <option value="{{ $cpl }}" @if ($selectedCpl == $cpl) selected @endif>CPL
                                                             {{ $cpl }}</option>
                                                     @endforeach
                                                 </select>
                                             </form>
                                         </div>
+                                        <!-- Pie Chart CPL -->
+                                        <div id="pieChartCPLContainer">
                                         {!! $pieChartCPL->container() !!}
                                         <script src="{{ $pieChartCPL->cdn() }}"></script>
                                         {{ $pieChartCPL->script() }}
+                                        </div> --}}
                                     </div>
-                                </div>
-                                <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
+                        
                                     <!-- Bar Chart CPL Container -->
-                                    <div id="barChartCPLContainer">
+                                    <div class="p-6 m-20 bg-white rounded shadow hidden" id="barChartCPLContainer">
                                         {!! $barChartCPL->container() !!}
                                         <script src="{{ $barChartCPL->cdn() }}"></script>
                                         {{ $barChartCPL->script() }}
                                     </div>
                                 </div>
                             </div>
-                    </div>
-                    </body>
+                        
+                            <script>
+                                function showChart(chartType) {
+                                    // Hide all chart containers
+                                    document.getElementById('pieChartContent').style.display = 'none';
+                                    document.getElementById('pieChartCPLContainer').style.display = 'none';
+                                    document.getElementById('barChartCPLContainer').style.display = 'none';
+                        
+                                    // Show the selected chart container
+                                    if (chartType === 'pieChartCPMK') {
+                                        document.getElementById('pieChartContent').style.display = 'block';
+                                    } else if (chartType === 'pieChartCPL') {
+                                        document.getElementById('pieChartCPLContainer').style.display = 'block';
+                                    } else if (chartType === 'barChartCPL') {
+                                        document.getElementById('barChartCPLContainer').style.display = 'block';
+                                    }
+                                }
+                            </script>
+                        </body>
+                        
                 </div>
         </div>
         </main>
@@ -278,19 +315,33 @@
                 document.getElementById("cpmkForm").submit();
             }
 
+            // function changeCpl() {
+            //     var selectedCpl = document.getElementById("selectedCpl").value;
+            //     // console.log("Selected CPL:", selectedCpl);
+            //     var csrfToken = document.getElementsByName("_token")[0].value;
+
+            //     // Change the form action dynamically
+            //     document.getElementById("cplForm").action =
+            //         "{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK]) }}/" +
+            //         selectedCpl + "?_token=" + csrfToken;
+
+            //     // Submit the form
+            //     document.getElementById("cplForm").submit();
+            // }
+
             function changeCpl() {
-                var selectedCpl = document.getElementById("selectedCpl").value;
-                // console.log("Selected CPL:", selectedCpl);
-                var csrfToken = document.getElementsByName("_token")[0].value;
+        // Get the selected CPL value
+        var selectedCpl = document.getElementById('selectedCpl').value;
 
-                // Change the form action dynamically
-                document.getElementById("cplForm").action =
-                    "{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK]) }}/" +
-                    selectedCpl + "?_token=" + csrfToken;
-
-                // Submit the form
-                document.getElementById("cplForm").submit();
-            }
+        // Use AJAX to fetch the updated chart data
+        fetch("{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK]) }}?selectedCpl=" + selectedCpl)
+            .then(response => response.text())
+            .then(data => {
+                // Update the chart container with the new chart data
+                document.getElementById('pieChartCPLContainer').innerHTML = data;
+            })
+            .catch(error => console.error('Error:', error));
+    }
 
             function modalHandler(val) {
                 if (val) {
