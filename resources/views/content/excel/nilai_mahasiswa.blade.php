@@ -147,20 +147,22 @@
                         <body class="h-screen bg-gray-100">
                             <div class="container px-4 ml-auto">
                                 <div class="p-6 m-5 bg-white rounded shadow" id="chartContainer">
-                                    <!-- Buttons to switch between charts -->
-                                    <div class="mt-2 flex justify-end">
-                                        <select name="chartType" id="chartType" onchange="showChart(this.value)" style="min-width: 130px;" class="px-2 py-1 w-16 rounded">
-                                            <option value="pieChartCPMK">CPMK</option>
-                                            <option value="pieChartCPL">Grafik CPL</option>
-                                            <option value="barChartCPL">Rekap CPL</option>
-                                        </select>
-                                    </div>                                    
+                                        <!-- Buttons to switch between charts -->
+                                        <div class="mt-2 flex justify-end">
+                                            <select name="chartType" id="chartType" onchange="showChart(this.value)" style="min-width: 130px;" class="px-2 py-1 w-16 rounded">
+                                                <option value="pieChartCPMK">CPMK</option>
+                                                <option value="pieChartCPL">Grafik CPL</option>
+                                                <option value="barChartCPL">Rekap CPL</option>
+                                            </select>
+                                        </div>                                    
                         
                                     <!-- Pie Chart CPMK Container -->
                                     <div class="p-6 m-5 bg-white rounded shadow" id="pieChartContent">
                                         <!-- Pie Chart CPMK -->
                                         <div id="pieChartContainer">
-                                                                                    <!-- Select CPMK Dropdown -->
+                                            <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPMK Mahasiswa</h2>
+                                            <p class="text-base mb-2">Berdasarkan CPMK yang dipilih</p>
+                                        <!-- Select CPMK Dropdown -->
                                         <div class="mt-4">
                                             <form id="cpmkForm" method="POST"
                                                 action="{{ route('pieChartCpmk', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpmk' => $selectedCpmk]) }}">
@@ -185,6 +187,8 @@
                                     <div class="p-6 m-5 bg-white rounded shadow hidden" id="pieChartCPLContainer">
                                         <!-- Pie Chart CPL -->
                                         <div id="pieChartCPLContainer">
+                                            <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPL Mahasiswa</h2>
+                                            <p class="text-base mb-2">Berdasarkan CPL yang dipilih</p>
                                                                                     <!-- Select CPL Dropdown -->
                                         <div class="mt-4">
                                             <form id="cplForm" method="POST"
@@ -208,9 +212,13 @@
                         
                                     <!-- Bar Chart CPL Container -->
                                     <div class="p-6 m-5 bg-white rounded shadow hidden" id="barChartCPLContainer">
+                                        <div id="pieChartCPLContainer">
+                                        <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPL Mahasiswa dalam Persen</h2>
+                                        <p class="text-base mb-2">Berdasarkan CPL Mata Kuliah</p>
                                         {!! $barChartCPL->container() !!}
                                         <script src="{{ $barChartCPL->cdn() }}"></script>
                                         {{ $barChartCPL->script() }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -90,8 +90,6 @@ class BarChartCPL
         }
 
         return $this->barChartCPL->barChart()
-            ->setTitle('Distribusi Nilai CPL Mahasiswa dalam Persen')
-            ->setSubtitle('Berdasarkan CPL Mata Kuliah')
             ->addData('Unggul (A) %', array_values(array_column($gradeData, 'percentageUnggul')))
             ->addData('Baik (B) %', array_values(array_column($gradeData, 'percentageBaik')))
             ->addData('Cukup (C) %', array_values(array_column($gradeData, 'percentageCukup')))
