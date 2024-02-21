@@ -143,16 +143,131 @@
                         </table>
                     </div>
                     <div>
-
                         <body class="h-screen bg-gray-100">
+                            <div class="container px-4 ml-auto">
+                                <div class="p-6 m-5 bg-white rounded shadow" id="chartContainer">
+                                    <h2 class="text-2xl font-bold mb-2" id="chartTitle">Distribusi Nilai CPL Mahasiswa dalam Persen
+                                    </h2>
+                                    <p class="text-base mb-2" id="chartDescription">Berdasarkan CPL Mata Kuliah</p>
+                                    <!-- Select Dropdowns -->
+                                    <div class="mt-4 flex justify-between">
+                                        <form id="cpmkForm" method="POST"
+                                            action="{{ route('pieChartCpmk', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpmk' => $selectedCpmk]) }}">
+                                            @csrf
+                                            <select name="selectedCpmk" id="selectedCpmk" onchange="changeCpmk()" style="min-width: 100px;"
+                                                class="px-2 py-1 w-16 rounded">
+                                                @for ($i = 1; $i <= $cpmkCount; $i++)
+                                                    <option value="{{ $i }}" @if ($selectedCpmk == $i) selected @endif>CPMK {{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                        </form>
+                                        <form id="cplForm" method="POST"
+                                        action="{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpl' => $selectedCpl]) }}">
+                                        @csrf
+                                        <select name="selectedCpl" id="selectedCpl" onchange="changeCpl()" style="min-width: 100px;"
+                                            class="px-2 py-1 w-16 rounded">
+                                            @foreach ($cplData as $cpl)
+                                                <option value="{{ $cpl }}" @if ($selectedCpl == $cpl) selected @endif>CPL
+                                                    {{ $cpl }}</option>
+                                            @endforeach
+                                        </select>
+                                        </form>
+                                        <select name="chartType" id="chartType" onchange="showChart(this.value)" style="min-width: 130px;"
+                                            class="px-2 py-1 w-16 rounded">
+                                            <option value="pieChartCPMK">CPMK</option>
+                                            <option value="pieChartCPL">Grafik CPL</option>
+                                            <option value="barChartCPL">Rekap CPL</option>
+                                        </select>
+                                    </div>
+                                    <!-- Chart Containers -->
+                                    <div id="pieChartContent">
+                                        <div id="pieChartContainer">
+                                            {!! $pieChartCPMK->container() !!}
+                                            <script src="{{ $pieChartCPMK->cdn() }}"></script>
+                                            {{ $pieChartCPMK->script() }}
+                                        </div>
+                                    </div>
+                        
+                                    <div id="pieChartCPLContainer">
+                                        <div id="pieChartCPLContainer">
+                                            {!! $pieChartCPL->container() !!}
+                                            <script src="{{ $pieChartCPL->cdn() }}"></script>
+                                            {{ $pieChartCPL->script() }}
+                                        </div>
+                                    </div>
+                        
+                                    <div id="barChartCPLContainer">
+                                        <div id="pieChartCPLContainer">
+                                            {!! $barChartCPL->container() !!}
+                                            <script src="{{ $barChartCPL->cdn() }}"></script>
+                                            {{ $barChartCPL->script() }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <script>
+                                function showChart(chartType) {
+                                    // Hide all chart containers
+                                    document.getElementById('pieChartContent').style.display = 'none';
+                                    document.getElementById('pieChartCPLContainer').style.display = 'none';
+                                    document.getElementById('barChartCPLContainer').style.display = 'none';
+                        
+                                    // Show the selected chart container
+                                    if (chartType === 'pieChartCPMK') {
+                                        document.getElementById('pieChartContent').style.display = 'block';
+                                        document.getElementById('cpmkForm').style.display = 'block';
+                                        document.getElementById('cplForm').style.display = 'none';
+                                        document.getElementById('chartTitle').innerText = 'Distribusi Nilai CPMK Mahasiswa';
+                                        document.getElementById('chartDescription').innerText = 'Berdasarkan CPMK yang dipilih';
+                                    } else if (chartType === 'pieChartCPL') {
+                                        document.getElementById('pieChartCPLContainer').style.display = 'block';
+                                        document.getElementById('cpmkForm').style.display = 'none';
+                                        document.getElementById('cplForm').style.display = 'block';
+                                        document.getElementById('chartTitle').innerText = 'Distribusi Nilai CPL Mahasiswa';
+                                        document.getElementById('chartDescription').innerText = 'Berdasarkan CPL yang dipilih';
+                                    } else if (chartType === 'barChartCPL') {
+                                        document.getElementById('barChartCPLContainer').style.display = 'block';
+                                        document.getElementById('cpmkForm').style.display = 'none';
+                                        document.getElementById('cplForm').style.display = 'none';
+                                        document.getElementById('chartTitle').innerText = 'Distribusi Nilai CPL Mahasiswa dalam Persen';
+                                        document.getElementById('chartDescription').innerText = 'Berdasarkan CPL Mata Kuliah';
+                                    }                        
+                                    // Update the title and description based on the selected chart type
+                                    // if (chartType === 'pieChartCPMK') {
+                                    //     document.getElementById('chartTitle').innerText = 'Distribusi Nilai CPMK Mahasiswa';
+                                    //     document.getElementById('chartDescription').innerText = 'Berdasarkan CPMK yang dipilih';
+                                    // } else if (chartType === 'pieChartCPL') {
+                                    //     document.getElementByIdx('chartTitle').innerText = 'Distribusi Nilai CPL Mahasiswa';
+                                    //     document.getElementById('chartDescription').innerText = 'Berdasarkan CPL yang dipilih';
+                                    // } else if (chartType === 'barChartCPL') {
+                                    //     document.getElementById('chartTitle').innerText = 'Distribusi Nilai CPL Mahasiswa dalam Persen';
+                                    //     document.getElementById('chartDescription').innerText = 'Berdasarkan CPL Mata Kuliah';
+                                    // }
+                        
+                                    // Update the chartType dropdown to reflect the change
+                                     document.getElementById('chartType').value = chartType;
+
+                                    // Save the selected chart type in localStorage
+                                    localStorage.setItem('selectedChartType', chartType);
+                                }
+                        
+                                // Retrieve the last selected chart type from localStorage
+                                var lastSelectedChartType = localStorage.getItem('selectedChartType');
+                        
+                                // Set the last selected chart type as the default value
+                                if (lastSelectedChartType) {
+                                    showChart(lastSelectedChartType);
+                                }
+                            </script>
+                        </body>
+                        
+                            
+                        {{-- <body class="h-screen bg-gray-100">
                             <div class="container px-4 ml-auto">
                                 <div class="p-6 m-5 bg-white rounded shadow" id="chartContainer">                                
                                             <!-- Pie Chart CPMK Container -->
-                                    <div class="p-6 m-5 bg-white rounded shadow" id="pieChartContent">
-                                        <!-- Pie Chart CPMK -->
-                                        <div id="pieChartContainer">
-                                            <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPMK Mahasiswa</h2>
-                                            <p class="text-base mb-2">Berdasarkan CPMK yang dipilih</p>
+                                            <!-- Pie Chart CPMK -->
                                         <!-- Select CPMK Dropdown -->
                                         <div class="mt-4 flex justify-between">
                                                 <form id="cpmkForm" method="POST"
@@ -173,6 +288,10 @@
                                                     <option value="barChartCPL">Rekap CPL</option>
                                                 </select>
                                         </div>
+                                    <div class="p-6 m-5 bg-white rounded shadow" id="pieChartContent">
+                                        <div id="pieChartContainer">
+                                            <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPMK Mahasiswa</h2>
+                                            <p class="text-base mb-2">Berdasarkan CPMK yang dipilih</p> 
                                             {!! $pieChartCPMK->container() !!}
                                             <script src="{{ $pieChartCPMK->cdn() }}"></script>
                                             {{ $pieChartCPMK->script() }}
@@ -261,7 +380,7 @@
                                 }
                             </script>
                             
-                        </body>
+                        </body> --}}
                         
                 </div>
         </div>
