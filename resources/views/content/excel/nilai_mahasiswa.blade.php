@@ -145,54 +145,60 @@
                     <div>
 
                         <body class="h-screen bg-gray-100">
-                            <div class="container px-4 mx-auto">
-                                <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
-                                    <!-- Buttons to switch between charts -->
-                                    <div class="flex justify-between mb-3">
-                                        <button onclick="showChart('pieChartCPMK')">CPMK Chart</button>
-                                        <button onclick="showChart('pieChartCPL')">CPL Chart</button>
-                                        <button onclick="showChart('barChartCPL')">CPL Total</button>
-                                    </div>
-
+                            <div class="container px-4 ml-auto">
+                                <div class="p-6 m-5 bg-white rounded shadow" id="chartContainer">
+                                        <!-- Buttons to switch between charts -->
+                                        <div class="mt-2 flex justify-end">
+                                            <select name="chartType" id="chartType" onchange="showChart(this.value)" style="min-width: 130px;" class="px-2 py-1 w-16 rounded">
+                                                <option value="pieChartCPMK">CPMK</option>
+                                                <option value="pieChartCPL">Grafik CPL</option>
+                                                <option value="barChartCPL">Rekap CPL</option>
+                                            </select>
+                                        </div>                                    
+                        
                                     <!-- Pie Chart CPMK Container -->
-                                    <div class="p-6 m-20 bg-white rounded shadow" id="chartContent">
+                                    <div class="p-6 m-5 bg-white rounded shadow" id="pieChartContent">
+                                        <!-- Pie Chart CPMK -->
+                                        <div id="pieChartContainer">
+                                            <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPMK Mahasiswa</h2>
+                                            <p class="text-base mb-2">Berdasarkan CPMK yang dipilih</p>
                                         <!-- Select CPMK Dropdown -->
                                         <div class="mt-4">
                                             <form id="cpmkForm" method="POST"
                                                 action="{{ route('pieChartCpmk', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpmk' => $selectedCpmk]) }}">
                                                 @csrf
-                                                <label for="selectedCpmk">Select CPMK:</label>
                                                 <select name="selectedCpmk" id="selectedCpmk" onchange="changeCpmk()"
-                                                    style="min-width: 100px;">
+                                                    style="min-width: 100px;"
+                                                    class="px-2 py-1 w-16 rounded">
                                                     @for ($i = 1; $i <= $cpmkCount; $i++)
-                                                        <option value="{{ $i }}"
-                                                            @if ($selectedCpmk == $i) selected @endif>CPMK
+                                                        <option value="{{ $i }}" @if ($selectedCpmk == $i) selected @endif>CPMK
                                                             {{ $i }}</option>
                                                     @endfor
                                                 </select>
                                             </form>
                                         </div>
-                                        <!-- Pie Chart CPMK -->
-                                        <div id="pieChartContainer">
                                             {!! $pieChartCPMK->container() !!}
                                             <script src="{{ $pieChartCPMK->cdn() }}"></script>
                                             {{ $pieChartCPMK->script() }}
                                         </div>
                                     </div>
-                                </div>
-                                <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
+                        
                                     <!-- Pie Chart CPL Container -->
-                                    <div id="pieChartCPLContainer">
+                                    <div class="p-6 m-5 bg-white rounded shadow hidden" id="pieChartCPLContainer">
+                                        <!-- Pie Chart CPL -->
+                                        <div id="pieChartCPLContainer">
+                                            <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPL Mahasiswa</h2>
+                                            <p class="text-base mb-2">Berdasarkan CPL yang dipilih</p>
+                                                                                    <!-- Select CPL Dropdown -->
                                         <div class="mt-4">
                                             <form id="cplForm" method="POST"
                                                 action="{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpl' => $selectedCpl]) }}">
                                                 @csrf
-                                                <label for="selectedCpl">Select CPL:</label>
                                                 <select name="selectedCpl" id="selectedCpl" onchange="changeCpl()"
-                                                    style="min-width: 100px;">
+                                                    style="min-width: 100px;"
+                                                    class="px-2 py-1 w-16 rounded">
                                                     @foreach ($cplData as $cpl)
-                                                        <option value="{{ $cpl }}"
-                                                            @if ($selectedCpl == $cpl) selected @endif>CPL
+                                                        <option value="{{ $cpl }}" @if ($selectedCpl == $cpl) selected @endif>CPL
                                                             {{ $cpl }}</option>
                                                     @endforeach
                                                 </select>
@@ -201,19 +207,55 @@
                                         {!! $pieChartCPL->container() !!}
                                         <script src="{{ $pieChartCPL->cdn() }}"></script>
                                         {{ $pieChartCPL->script() }}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="p-6 m-20 bg-white rounded shadow" id="chartContainer">
+                        
                                     <!-- Bar Chart CPL Container -->
-                                    <div id="barChartCPLContainer">
+                                    <div class="p-6 m-5 bg-white rounded shadow hidden" id="barChartCPLContainer">
+                                        <div id="pieChartCPLContainer">
+                                        <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPL Mahasiswa dalam Persen</h2>
+                                        <p class="text-base mb-2">Berdasarkan CPL Mata Kuliah</p>
                                         {!! $barChartCPL->container() !!}
                                         <script src="{{ $barChartCPL->cdn() }}"></script>
                                         {{ $barChartCPL->script() }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                    </div>
-                    </body>
+                        
+                            <script>
+                                function showChart(chartType) {
+                                    // Hide all chart containers
+                                    document.getElementById('pieChartContent').style.display = 'none';
+                                    document.getElementById('pieChartCPLContainer').style.display = 'none';
+                                    document.getElementById('barChartCPLContainer').style.display = 'none';
+
+                                    // Show the selected chart container
+                                    if (chartType === 'pieChartCPMK') {
+                                        document.getElementById('pieChartContent').style.display = 'block';
+                                    } else if (chartType === 'pieChartCPL') {
+                                        document.getElementById('pieChartCPLContainer').style.display = 'block';
+                                        // Update the chartType dropdown to reflect the change
+                                        document.getElementById('chartType').value = 'pieChartCPL';
+                                    } else if (chartType === 'barChartCPL') {
+                                        document.getElementById('barChartCPLContainer').style.display = 'block';
+                                        // Update the chartType dropdown to reflect the change
+                                        document.getElementById('chartType').value = 'barChartCPL';
+                                    }
+
+                                    // Save the selected chart type in localStorage
+                                    localStorage.setItem('selectedChartType', chartType);
+                                }
+                                // Retrieve the last selected chart type from localStorage
+                                var lastSelectedChartType = localStorage.getItem('selectedChartType');
+
+                                // Set the last selected chart type as the default value
+                                if (lastSelectedChartType) {
+                                    showChart(lastSelectedChartType);
+                                }
+                            </script>
+                        </body>
+                        
                 </div>
         </div>
         </main>
@@ -276,6 +318,7 @@
 
                 // Submit the form
                 document.getElementById("cpmkForm").submit();
+                showChart('pieChartCPMK');
             }
 
             function changeCpl() {
@@ -290,6 +333,7 @@
 
                 // Submit the form
                 document.getElementById("cplForm").submit();
+                showChart('pieChartCPL');
             }
 
             function modalHandler(val) {
