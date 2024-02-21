@@ -146,25 +146,16 @@
 
                         <body class="h-screen bg-gray-100">
                             <div class="container px-4 ml-auto">
-                                <div class="p-6 m-5 bg-white rounded shadow" id="chartContainer">
-                                        <!-- Buttons to switch between charts -->
-                                        <div class="mt-2 flex justify-end">
-                                            <select name="chartType" id="chartType" onchange="showChart(this.value)" style="min-width: 130px;" class="px-2 py-1 w-16 rounded">
-                                                <option value="pieChartCPMK">CPMK</option>
-                                                <option value="pieChartCPL">Grafik CPL</option>
-                                                <option value="barChartCPL">Rekap CPL</option>
-                                            </select>
-                                        </div>                                    
-                        
-                                    <!-- Pie Chart CPMK Container -->
+                                <div class="p-6 m-5 bg-white rounded shadow" id="chartContainer">                                
+                                            <!-- Pie Chart CPMK Container -->
                                     <div class="p-6 m-5 bg-white rounded shadow" id="pieChartContent">
                                         <!-- Pie Chart CPMK -->
                                         <div id="pieChartContainer">
                                             <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPMK Mahasiswa</h2>
                                             <p class="text-base mb-2">Berdasarkan CPMK yang dipilih</p>
                                         <!-- Select CPMK Dropdown -->
-                                        <div class="mt-4">
-                                            <form id="cpmkForm" method="POST"
+                                        <div class="mt-4 flex justify-between">
+                                                <form id="cpmkForm" method="POST"
                                                 action="{{ route('pieChartCpmk', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpmk' => $selectedCpmk]) }}">
                                                 @csrf
                                                 <select name="selectedCpmk" id="selectedCpmk" onchange="changeCpmk()"
@@ -176,6 +167,11 @@
                                                     @endfor
                                                 </select>
                                             </form>
+                                                <select name="chartType" id="chartType" onchange="showChart(this.value)" style="min-width: 130px;" class="px-2 py-1 w-16 rounded">
+                                                    <option value="pieChartCPMK">CPMK</option>
+                                                    <option value="pieChartCPL">Grafik CPL</option>
+                                                    <option value="barChartCPL">Rekap CPL</option>
+                                                </select>
                                         </div>
                                             {!! $pieChartCPMK->container() !!}
                                             <script src="{{ $pieChartCPMK->cdn() }}"></script>
@@ -190,7 +186,7 @@
                                             <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPL Mahasiswa</h2>
                                             <p class="text-base mb-2">Berdasarkan CPL yang dipilih</p>
                                                                                     <!-- Select CPL Dropdown -->
-                                        <div class="mt-4">
+                                        <div class="mt-4 flex justify-between">
                                             <form id="cplForm" method="POST"
                                                 action="{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpl' => $selectedCpl]) }}">
                                                 @csrf
@@ -203,6 +199,11 @@
                                                     @endforeach
                                                 </select>
                                             </form>
+                                            <select name="chartType" id="chartType" onchange="showChart(this.value)" style="min-width: 130px;" class="px-2 py-1 w-16 rounded">
+                                                <option value="pieChartCPMK">CPMK</option>
+                                                <option value="pieChartCPL">Grafik CPL</option>
+                                                <option value="barChartCPL">Rekap CPL</option>
+                                            </select>
                                         </div>
                                         {!! $pieChartCPL->container() !!}
                                         <script src="{{ $pieChartCPL->cdn() }}"></script>
@@ -215,6 +216,11 @@
                                         <div id="pieChartCPLContainer">
                                         <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPL Mahasiswa dalam Persen</h2>
                                         <p class="text-base mb-2">Berdasarkan CPL Mata Kuliah</p>
+                                        <select name="chartType" id="chartType" onchange="showChart(this.value)" style="min-width: 130px;" class="px-2 py-1 w-16 rounded">
+                                            <option value="pieChartCPMK">CPMK</option>
+                                            <option value="pieChartCPL">Grafik CPL</option>
+                                            <option value="barChartCPL">Rekap CPL</option>
+                                        </select>
                                         {!! $barChartCPL->container() !!}
                                         <script src="{{ $barChartCPL->cdn() }}"></script>
                                         {{ $barChartCPL->script() }}
@@ -229,31 +235,32 @@
                                     document.getElementById('pieChartContent').style.display = 'none';
                                     document.getElementById('pieChartCPLContainer').style.display = 'none';
                                     document.getElementById('barChartCPLContainer').style.display = 'none';
-
+                            
                                     // Show the selected chart container
                                     if (chartType === 'pieChartCPMK') {
                                         document.getElementById('pieChartContent').style.display = 'block';
                                     } else if (chartType === 'pieChartCPL') {
                                         document.getElementById('pieChartCPLContainer').style.display = 'block';
-                                        // Update the chartType dropdown to reflect the change
-                                        document.getElementById('chartType').value = 'pieChartCPL';
                                     } else if (chartType === 'barChartCPL') {
                                         document.getElementById('barChartCPLContainer').style.display = 'block';
-                                        // Update the chartType dropdown to reflect the change
-                                        document.getElementById('chartType').value = 'barChartCPL';
                                     }
-
+                            
+                                    // Update the chartType dropdown to reflect the change
+                                    document.getElementById('chartType').value = chartType;
+                            
                                     // Save the selected chart type in localStorage
                                     localStorage.setItem('selectedChartType', chartType);
                                 }
+                            
                                 // Retrieve the last selected chart type from localStorage
                                 var lastSelectedChartType = localStorage.getItem('selectedChartType');
-
+                            
                                 // Set the last selected chart type as the default value
                                 if (lastSelectedChartType) {
                                     showChart(lastSelectedChartType);
                                 }
                             </script>
+                            
                         </body>
                         
                 </div>
