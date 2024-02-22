@@ -27,6 +27,7 @@
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Mata Kuliah</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Semester</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">SKS</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">NIP Dosen Pengampu</th>
                                     {{-- <th class="bg-[#C2E7FF]" style=" border: none;">CPMK</th> --}}
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Action</th>
                                 </tr>
@@ -84,7 +85,7 @@
                                 }
                             </style>
                         </head>
-                        <div class=" py-12 bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
+                        <div class="py-12 bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
                             id="matakuliah-modal">
                             <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
                                 <div
@@ -96,50 +97,81 @@
                                     <form action="javascript:void(0)" id="MatakuliahForm" name="MatakuliahForm"
                                         class="form-horizontal" method="POST">
                                         <input type="hidden" name="id" id="id" />
+
                                         <label for="kode_MK"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Kode
-                                            Mata Kuliah</label>
+                                            Mata Kuliah<span class="text-red-500">*</span></label>
                                         <input name="kode_MK" id="kode_MK"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                                             placeholder="133742069" />
+
                                         <label for="Mata_Kuliah"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Mata
-                                            Kuliah</label>
+                                            Kuliah<span class="text-red-500">*</span></label>
                                         <input name="Mata_Kuliah" id="Mata_Kuliah"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="Pemorgraman Jaringan" />
-                                        <label for="semester"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Semester
-                                        </label>
-                                        <input name="semester" id="semester"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="3" />
-                                        <label for="SKS"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">SKS</label>
-                                        <input name="SKS" id="SKS"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="3" />
-                                        <label for="cpmk"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CPMK</label>
+                                            placeholder="Pemrograman Jaringan" />
 
-                                            <textarea name="cpmk" id="cpmk" rows="5" class="mb-5 mt-2 block p-2.5 w-full text-sm text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal border-gray-300 rounded border" placeholder="Untuk memisahkan antara CPMK gunakan (titik(.) dan spasi)"></textarea>
+                                        <label for="semester"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Semester<span class="text-red-500">*</span></label>
+                                        <select name="semester" id="semester"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                                            @for ($i = 1; $i <= 7; $i++)
+                                                <option value="{{ $i }}">Semester {{ $i }}
+                                                </option>
+                                            @endfor
+                                            <option value="Ganjil">Ganjil</option>
+                                            <option value="Genap">Genap</option>
+                                        </select>
+
+                                        <label for="SKS"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">SKS<span class="text-red-500">*</span></label>
+                                        <select name="SKS" id="SKS"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                                            @for ($i = 1; $i <= 4; $i++)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+                                        </select>
+
+                                        <label for="Nama_Dosen"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Dosen
+                                            Pengampu<span class="text-red-500">*</span></label>
+                                        <select name="NIP" id="NIP"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                                            <option value="" disabled selected>Pilih Dosen</option>
+                                            @foreach ($dosens as $dosen)
+                                                <option value="{{ $dosen->NIP }}">{{ $dosen->Nama_Dosen }}</option>
+                                            @endforeach
+                                        </select>
+
+                                        <label for="cpmk"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CPMK<span class="text-red-500">*</span></label>
+                                        <textarea name="cpmk" id="cpmk" rows="5"
+                                            class="mb-5 mt-2 block p-2.5 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full items-center text-sm border-gray-300 rounded border"
+                                            placeholder="Untuk memisahkan antara CPMK gunakan (titik(.) dan spasi)"></textarea>
+
+                                        <label for="cpl"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Pilih
+                                            CPL<span class="text-red-500">*</span></label>
+                                        <div class="columns-2 mb-5">
+                                            @foreach ($cpl as $cplItem)
+                                                <div class="flex items-center">
+                                                    <input type="checkbox" name="cpl[]" value="{{ $cplItem->id }}"
+                                                        id="cpl_{{ $cplItem->id }}">
+                                                    <label for="cpl_{{ $cplItem->id }}"
+                                                        class="ml-2">{{ $cplItem->nama }}</label>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                         <div class="flex items-center justify-start w-full">
                                             <button type="submit"
-                                                class="focus:outline-none
-                                                focus:ring-2
-                                                focus:ring-offset-2
-                                                focus:ring-green-700
-                                                transition duration-150
-                                                ease-in-out
-                                                hover:bg-green-300
-                                                bg-green-400 rounded
-                                                text-white px-8 py-2
-                                                text-sm">
-                                                Submit</button>
+                                                class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700 transition duration-150 ease-in-out hover:bg-green-300 bg-green-400 rounded text-white px-8 py-2 text-sm">Submit</button>
                                             <button type="button"
-                                                class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                                                class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
                                                 onclick="modalHandler(false)">Cancel</button>
+                                        </div>
                                     </form>
+
 
                                 </div>
                                 <button
@@ -169,6 +201,7 @@
 
 
     <script type="text/javascript">
+        let isAdmin = {{ $user->isAdmin() ? 'true' : 'false' }};
         let modal = document.getElementById("matakuliah-modal");
 
         function modalHandler(val) {
@@ -193,7 +226,9 @@
             $('#Mata_Kuliah').val("");
             $('#semester').val("");
             $('#SKS').val("");
+            $('#Nama_Dosen').val("");
             $('#cpmk').val("");
+            $('cpl').val("");
         }
 
         function fadeIn(el, display) {
@@ -223,10 +258,12 @@
                 }
             });
 
+            // Check if the logged-in user is an admin
+
             $('#matakuliah').DataTable({
                 language: {
-                    search: '', // Mengosongkan teks pada kotak pencarian
-                    lengthMenu: '_MENU_', // Mengganti teks "Show Entries" dengan '_MENU_'
+                    search: '',
+                    lengthMenu: '_MENU_',
                 },
                 processing: true,
                 serverSide: true,
@@ -247,34 +284,10 @@
                         data: 'SKS',
                         name: 'SKS'
                     },
-                    // {
-                    //     data: 'cpmk',
-                    //     name: 'cpmk',
-                    //     render: function(data, type, row) {
-                    //         // Your rendering logic for 'cpmk' column
-                    //         var cpmkData = data;
-
-                    //         // Convert sentences to an array
-                    //         var cpmkList = cpmkData.split('. ');
-
-                    //         // Remove empty elements from the array
-                    //         cpmkList = cpmkList.filter(Boolean);
-
-                    //         // Format as a numbered list
-                    //         if (cpmkList.length > 0) {
-                    //             var listHTML = '<ol>';
-                    //             cpmkList.forEach(function(item, index) {
-                    //                 // Add 1 to index since numbering starts from 1
-                    //                 var number = index + 1;
-                    //                 listHTML += '<li>' + number + '. ' + item + '</li>';
-                    //             });
-                    //             listHTML += '</ol>';
-                    //             return listHTML;
-                    //         } else {
-                    //             return data; // Return original data if empty
-                    //         }
-                    //     }
-                    // },
+                    {
+                        data: 'NIP',
+                        name: 'NIP'
+                    },
                     {
                         data: 'action',
                         name: 'action',
@@ -284,21 +297,21 @@
                 order: [
                     [0, 'desc']
                 ],
-                // Customizing the DataTables elements position
                 dom: '<"flex justify-between mb-3 mt-3 items-center"l<"flex-shrink-0 justify-between mr-3 ml-3 items-center"f>>rtip',
                 initComplete: function() {
-                    // Menyesuaikan kotak pencarian
                     $('.dataTables_filter input[type="search"]').addClass('custom-search');
 
-                    // Append "Tambah data" button to DataTables container
-                    var addButton = $(
+                    // Append "Tambah data" button only if the user is an admin
+                    if (isAdmin) {
+                        var addButton = $(
                             `<div class="p-3 flex justify-between items-center">
-                                <x-add-button type="submit" class="ml-auto" id="button">
-                                    Tambah data
-                                </x-add-button>
-                            </div>`)
-                        .addClass('ml-auto');
-                    $('#matakuliah_wrapper').find('.flex.mb-3').append(addButton);
+                        <x-add-button type="submit" class="ml-auto" id="button">
+                            Tambah data
+                        </x-add-button>
+                    </div>`
+                        ).addClass('ml-auto');
+                        $('#matakuliah_wrapper').find('.flex.mb-3').append(addButton);
+                    }
                 }
             });
 
@@ -306,12 +319,12 @@
                 var data = table.row(this).data();
                 var kode_mk = data.kode_MK;
 
-                // Update the href attribute of the nilai button link
                 $('.nilai-button').attr('href', "{{ url('/matakuliah/') }}/" + kode_mk);
             });
 
             $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
         });
+
 
         function add() {
             modalHandler(true);
@@ -328,6 +341,7 @@
                 success: function(res) {
                     // Show the modal using your custom modalHandler
                     console.log(res);
+
                     // Set the data in the form fields
                     modalHandler(true);
                     $('#id').val(res.id);
@@ -335,7 +349,25 @@
                     $('#Mata_Kuliah').val(res.Mata_Kuliah);
                     $('#semester').val(res.semester);
                     $('#SKS').val(res.SKS);
+                    $('#NIP').val(res.NIP);
                     $('#cpmk').val(res.cpmk);
+
+                    // Uncheck all checkboxes before checking the selected ones
+                    $('input[name="cpl[]"]').prop('checked', false);
+
+                    // Check checkboxes based on cpl values
+                    if (res.cpl) {
+                        var cplValues = JSON.parse(res.cpl); // Parse the JSON string
+
+                        cplValues.forEach(function(value) {
+                            $('#cpl_' + value).prop('checked', true);
+                        });
+                    }
+
+                    // Additional code or corrections can be added here
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error:", error);
                 }
             });
         }

@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('excel_d_k_p_s');
+        Schema::dropIfExists('exceldkps');
     }
 };

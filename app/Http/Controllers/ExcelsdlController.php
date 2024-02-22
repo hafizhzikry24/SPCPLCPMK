@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Charts\ChartExcelSDL;
-use App\Charts\PieChartSDL;
+use App\Charts\PieChartPTSK6506;
 use App\Imports\ExcelSDLimport;
 use App\Models\excelsdl;
 use Illuminate\Http\Request;
@@ -17,22 +17,28 @@ class ExcelsdlController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ChartExcelSDL $chart, PieChartSDL $piechart)
+    public function index(ChartExcelSDL $chart, PieChartPTSK6506 $PieChart,  Request $request)
     {
+        $selectedCpmk = $request->input('selectedCpmk', 1);
+
         $idToMatch = 'PTSK6506';
         $mataKuliahInfo = Mata_kuliah::where('kode_MK', $idToMatch)->get();
 
         $nilai = excelsdl::all();
+
+        $PieChart = new PieChartPTSK6506(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class), $selectedCpmk);
+
         if(request()->ajax()) {
             return datatables()->of(excelsdl::select('*'))
             ->addIndexColumn()
             ->make(true);
         }
         return view('content.excel.excel', [
+            'PieChart' => $PieChart->build($selectedCpmk),
             'chart' => $chart->build(),
-            'piechart' => $piechart->build(),
             'mataKuliahInfo' => $mataKuliahInfo,
             'nilai' => $nilai,
+            'selectedCpmk' => $selectedCpmk,
         ]);
     }
 
@@ -42,7 +48,7 @@ class ExcelsdlController extends Controller
         $file->move('DataMatkul', $namaFile);
 
         Excel::import(new ExcelSDLimport, public_path('/DataMatkul/'.$namaFile));
-        return redirect('PTSK6506');
+        return redirect('/matakuliah/PTSK6506');
     }
 
 
