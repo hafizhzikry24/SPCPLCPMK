@@ -46,7 +46,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('id_matkul')->references('kode_MK')->on('mata_kuliahs')->onDelete('cascade');
-            $table->foreign('semester')->references('semester')->on('mata_kuliahs')->onDelete('cascade');
         });
     }
 

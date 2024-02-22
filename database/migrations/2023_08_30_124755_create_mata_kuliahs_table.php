@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('SKS');
             $table->string('NIP');
             $table->text('cpmk');
+            $table->text('cpl');
             $table->softDeletes();
             $table->timestamps();
         });
