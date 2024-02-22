@@ -2,106 +2,90 @@
 
 namespace App\Charts;
 
-use App\Models\ExcelDKP;
-use App\Models\ExcelSDL;
-use App\Models\PTSK6660;
+use App\Models\Mata_kuliah;
+use App\Models\NilaiMahasiswa;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class ChartAll
 {
-    protected $chart;
+    protected $barChartCplAll;
+    protected $selectedSemester;
 
-    public function __construct(LarapexChart $chart)
+    public function __construct(LarapexChart $barChartCplAll)
     {
-        $this->chart = $chart;
+        $this->barChartCplAll = $barChartCplAll;
     }
 
-    public function build(): \ArielMejiaDev\LarapexCharts\BarChart
+    public function build($selectedSemester): \ArielMejiaDev\LarapexCharts\BarChart
     {
-        $data = [
-            'cpl1' => [
-                '4' => ExcelDKP::where('cpl3', 4)->count() + ExcelSDL::where('cpl3', 4)->count(),
-                '3' => ExcelDKP::where('cpl3', 3)->count() + ExcelSDL::where('cpl3', 3)->count(),
-                '2' => ExcelDKP::where('cpl3', 2)->count() + ExcelSDL::where('cpl3', 2)->count(),
-                '1' => ExcelDKP::where('cpl3', 1)->count() + ExcelSDL::where('cpl3', 1)->count(),
-            ],
-            'cpl2' => [
-                '4' => ExcelDKP::where('cpl2', 4)->count() + PTSK6660::where('cpl2', 4)->count(),
-                '3' => ExcelDKP::where('cpl2', 3)->count() + PTSK6660::where('cpl2', 3)->count(),
-                '2' => ExcelDKP::where('cpl2', 2)->count() + PTSK6660::where('cpl2', 2)->count(),
-                '1' => ExcelDKP::where('cpl2', 1)->count() + PTSK6660::where('cpl2', 1)->count(),
-            ],
-            'cpl3' => [
-                '4' => ExcelDKP::where('cpl3', 4)->count() + ExcelSDL::where('cpl3', 4)->count() + PTSK6660::where('cpl3', 4)->count(),
-                '3' => ExcelDKP::where('cpl3', 3)->count() + ExcelSDL::where('cpl3', 3)->count() + PTSK6660::where('cpl3', 3)->count(),
-                '2' => ExcelDKP::where('cpl3', 2)->count() + ExcelSDL::where('cpl3', 2)->count() + PTSK6660::where('cpl3', 2)->count(),
-                '1' => ExcelDKP::where('cpl3', 1)->count() + ExcelSDL::where('cpl3', 1)->count() + PTSK6660::where('cpl3', 1)->count(),
-            ],
-            'cpl5' => [
-                '4' => ExcelDKP::where('cpl5', 4)->count(),
-                '3' => ExcelDKP::where('cpl5', 3)->count(),
-                '2' => ExcelDKP::where('cpl5', 2)->count(),
-                '1' => ExcelDKP::where('cpl5', 1)->count(),
-            ],
-            'cpl6' => [
-                '4' => ExcelDKP::where('cpl6', 4)->count() + PTSK6660::where('cpl2', 4)->count(),
-                '3' => ExcelDKP::where('cpl6', 3)->count() + PTSK6660::where('cpl2', 3)->count(),
-                '2' => ExcelDKP::where('cpl6', 2)->count() + PTSK6660::where('cpl2', 2)->count(),
-                '1' => ExcelDKP::where('cpl6', 1)->count() + PTSK6660::where('cpl2', 1)->count(),
-            ],
-            'cpl7' => [
-                '4' => ExcelDKP::where('cpl7', 4)->count(),
-                '3' => ExcelDKP::where('cpl7', 3)->count(),
-                '2' => ExcelDKP::where('cpl7', 2)->count(),
-                '1' => ExcelDKP::where('cpl7', 1)->count(),
-            ],
-            'cpl9' => [
-                '4' => ExcelDKP::where('cpl9', 4)->count(),
-                '3' => ExcelDKP::where('cpl9', 3)->count(),
-                '2' => ExcelDKP::where('cpl9', 2)->count(),
-                '1' => ExcelDKP::where('cpl9', 1)->count(),
-            ],
-        ];
+        $gradeData = [];
 
-        return $this->chart->barChart()
-            ->setTitle('Grafik CPL')
-            ->setSubtitle('Perbandingan Nilai')
-            ->addData('4', [
-                $data['cpl1']['4'],
-                $data['cpl2']['4'],
-                $data['cpl3']['4'],
-                $data['cpl5']['4'],
-                $data['cpl6']['4'],
-                $data['cpl7']['4'],
-                $data['cpl9']['4'],
-            ])
-            ->addData('3', [
-                $data['cpl1']['3'],
-                $data['cpl2']['3'],
-                $data['cpl3']['3'],
-                $data['cpl5']['3'],
-                $data['cpl6']['3'],
-                $data['cpl7']['3'],
-                $data['cpl9']['3'],
-            ])
-            ->addData('2', [
-                $data['cpl1']['2'],
-                $data['cpl2']['2'],
-                $data['cpl3']['2'],
-                $data['cpl5']['2'],
-                $data['cpl6']['2'],
-                $data['cpl7']['2'],
-                $data['cpl9']['2'],
-            ])
-            ->addData('1', [
-                $data['cpl1']['1'],
-                $data['cpl2']['1'],
-                $data['cpl3']['1'],
-                $data['cpl5']['1'],
-                $data['cpl6']['1'],
-                $data['cpl7']['1'],
-                $data['cpl9']['1'],
-            ])
-            ->setXAxis(['CPL 1', 'CPL 2', 'CPL 3', 'CPL 5', 'CPL 5', 'CPL 7', 'CPL 9']);
+        // Check if the model exists
+        if ($mataKuliah = Mata_kuliah::all()) {
+            // Define the range of CPL columns (cpl1, cpl2, ..., cpl9)
+            $cplColumns = range(1, 9);
+
+            // Generate X-axis labels based on the CPL columns
+            $xAxisLabels = array_map(function ($cpl) {
+                return "CPL " . $cpl;
+            }, $cplColumns);
+
+            foreach ($cplColumns as $cpl) {
+                // Query to count occurrences for each grade in the corresponding column
+                $query = NilaiMahasiswa::query();
+
+                // Check if selectedSemester is not null, then filter by semester
+                if ($selectedSemester !== 13) {
+                    $query->where('semester', $selectedSemester);
+                }
+
+                // Count occurrences for each grade in the corresponding column
+                $gradeCounts = $query->selectRaw("SUM(cpl$cpl = 4) as unggul")
+                    ->selectRaw("SUM(cpl$cpl = 3) as baik")
+                    ->selectRaw("SUM(cpl$cpl = 2) as cukup")
+                    ->selectRaw("SUM(cpl$cpl = 1) as kurang")
+                    ->first();
+
+                // Calculate total counts for percentages
+                $total = $gradeCounts->unggul + $gradeCounts->baik + $gradeCounts->cukup + $gradeCounts->kurang;
+
+                // Calculate percentages
+                $percentageUnggul = ($total > 0) ? ($gradeCounts->unggul / $total) * 100 : 0;
+                $percentageBaik = ($total > 0) ? ($gradeCounts->baik / $total) * 100 : 0;
+                $percentageCukup = ($total > 0) ? ($gradeCounts->cukup / $total) * 100 : 0;
+                $percentageKurang = ($total > 0) ? ($gradeCounts->kurang / $total) * 100 : 0;
+
+                // Store the counts and percentages in the $gradeData array for each CPL
+                $gradeData["cpl$cpl"] = [
+                    'unggul' => $gradeCounts->unggul,
+                    'baik' => $gradeCounts->baik,
+                    'cukup' => $gradeCounts->cukup,
+                    'kurang' => $gradeCounts->kurang,
+                    'percentageUnggul' => $percentageUnggul,
+                    'percentageBaik' => $percentageBaik,
+                    'percentageCukup' => $percentageCukup,
+                    'percentageKurang' => $percentageKurang,
+                ];
+            }
+        } else {
+            // Default labels if mata_kuliah not found
+            $xAxisLabels = array_map(function ($cpl) {
+                return "CPL " . $cpl;
+            }, range(1, 9));
+            // Default percentages
+            $percentageUnggul = 0;
+            $percentageBaik = 0;
+            $percentageCukup = 0;
+            $percentageKurang = 0;
+        }
+
+        // dd($gradeData);
+        return $this->barChartCplAll->barChart()
+            ->addData('Unggul (A) %', array_values(array_column($gradeData, 'percentageUnggul')))
+            ->addData('Baik (B) %', array_values(array_column($gradeData, 'percentageBaik')))
+            ->addData('Cukup (C) %', array_values(array_column($gradeData, 'percentageCukup')))
+            ->addData('Kurang (D) %', array_values(array_column($gradeData, 'percentageKurang')))
+            ->setFontFamily('sans-serif')
+            ->setXAxis($xAxisLabels);
     }
 }
