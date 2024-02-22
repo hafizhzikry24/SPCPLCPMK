@@ -84,7 +84,7 @@
                                     /* Jarak antara kotak pencarian dan tabel */
                                 }
                             </style>
-                        </head> 
+                        </head>
                         <div class="py-12 bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
                             id="matakuliah-modal">
                             <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
@@ -113,7 +113,8 @@
                                             placeholder="Pemrograman Jaringan" />
 
                                         <label for="semester"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Semester<span class="text-red-500">*</span></label>
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Semester<span
+                                                class="text-red-500">*</span></label>
                                         <select name="semester" id="semester"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
                                             @for ($i = 1; $i <= 7; $i++)
@@ -125,7 +126,8 @@
                                         </select>
 
                                         <label for="SKS"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">SKS<span class="text-red-500">*</span></label>
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">SKS<span
+                                                class="text-red-500">*</span></label>
                                         <select name="SKS" id="SKS"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
                                             @for ($i = 1; $i <= 4; $i++)
@@ -145,7 +147,8 @@
                                         </select>
 
                                         <label for="cpmk"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CPMK<span class="text-red-500">*</span></label>
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CPMK<span
+                                                class="text-red-500">*</span></label>
                                         <textarea name="cpmk" id="cpmk" rows="5"
                                             class="mb-5 mt-2 block p-2.5 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full items-center text-sm border-gray-300 rounded border"
                                             placeholder="Untuk memisahkan antara CPMK gunakan (titik(.) dan spasi)"></textarea>
@@ -298,7 +301,7 @@
                 order: [
                     [0, 'desc']
                 ],
-                dom: '<"flex justify-between mb-3 mt-3 items-center"l<"flex-shrink-0 justify-between mr-3 ml-3 items-center"f>>rtip',
+                dom: '<"flex mb-3 mt-3 items-center"l<"flex-shrink-0 mr-3 ml-3 items-center"f>>rtip',
                 initComplete: function() {
                     $('.dataTables_filter input[type="search"]').addClass('custom-search');
 
