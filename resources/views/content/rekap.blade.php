@@ -17,27 +17,42 @@
                             @csrf
                             <select name="selectedSemester" id="selectedSemester" onchange="changeSemester()"
                                 style="min-width: 130px;" class="px-2 py-1 w-16 rounded">
-                                @for ($i = 1; $i <= 7; $i++)
-                                    <option value="{{ $i }}">Semester
-                                        {{ $i }}
-                                    </option>
-                                @endfor
+                                <option value="999">Semua</option>
+                                @php
+                                $semesterData = explode(',', $nilai_mahasiswa->semester);
+                            @endphp
+                            
+                            @foreach ($semesterData as $semester)
+                                <option value="{{ $semester }}" @if ($selectedSemester == $semester) selected @endif>
+                                    Semester {{ $semester }}
+                                </option>
+                            @endforeach
+                            
+                                {{-- <option value="999">Semua</option>
+                                <option value="1">Semester 1</option>
+                                <option value="2">Semester 2</option>
+                                <option value="3">Semester 3</option>
+                                <option value="4">Semester 4</option>
+                                <option value="5">Semester 5</option>
+                                <option value="6">Semester 6</option>
+                                <option value="7">Semester 7</option>
                                 <option value="Ganjil">Ganjil</option>
-                                <option value="Genap">Genap</option>
+                                <option value="Genap">Genap</option> --}}
                             </select>
                         </form>
                     </div>
-                    <div>
+                    <div id="barChartCPLAllContainer">
+                    <div id="barChartCplAll">
                         {!! $barChartCplAll->container() !!}
                         <script src="{{ $barChartCplAll->cdn() }}"></script>
                         {{ $barChartCplAll->script() }}
                     </div>
                 </div>
+                </div>
         </div>
     </div>
     </main>
-    </div>
-    </div>
+</div>
 
     <script>
         function changeSemester() {
@@ -45,14 +60,11 @@
             console.log("Selected Semester:", selectedSemester);
             var csrfToken = document.getElementsByName("_token")[0].value;
 
-            // Change the form action dynamically using the route helper
-            document.getElementById("semesterForm").action =
-                "{{ route('semesterChart', ['selectedSemester' => $selectedSemester]) }}/" +
-                "?_token=" +
-                csrfToken;
-
-            // Submit the form
-            document.getElementById("semesterForm").submit();
+            var url = "{{ route('semesterChart') }}/" + selectedSemester + "?_token=" + csrfToken;
+        // Set the form action directly
+        document.getElementById("semesterForm").action = url;
+        // Submit the form
+        document.getElementById("semesterForm").submit();
         }
-    </script>
+        </script>
 </x-app-layout>

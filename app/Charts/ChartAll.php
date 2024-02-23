@@ -9,7 +9,6 @@ use ArielMejiaDev\LarapexCharts\LarapexChart;
 class ChartAll
 {
     protected $barChartCplAll;
-    protected $selectedSemester;
 
     public function __construct(LarapexChart $barChartCplAll)
     {
@@ -31,43 +30,75 @@ class ChartAll
             }, $cplColumns);
 
             foreach ($cplColumns as $cpl) {
-                // Query to count occurrences for each grade in the corresponding column
-                $query = NilaiMahasiswa::query();
-
                 // Check if selectedSemester is not null, then filter by semester
-                if ($selectedSemester !== 13) {
-                    $query->where('semester', $selectedSemester);
-                }
-
-                // Count occurrences for each grade in the corresponding column
-                $gradeCounts = $query->selectRaw("SUM(cpl$cpl = 4) as unggul")
-                    ->selectRaw("SUM(cpl$cpl = 3) as baik")
-                    ->selectRaw("SUM(cpl$cpl = 2) as cukup")
-                    ->selectRaw("SUM(cpl$cpl = 1) as kurang")
-                    ->first();
+                if ($selectedSemester === 999) {
+                    $cpl = (int)$cpl;
+                // Query to count occurrences for each grade in the corresponding column
+                $unggul = NilaiMahasiswa::where("cpl" . $cpl, 4)
+                ->count();
+                $baik = NilaiMahasiswa::where("cpl" . $cpl, 3)
+                ->count();
+                $cukup = NilaiMahasiswa::where("cpl" . $cpl, 2)
+                ->count();
+                $kurang = NilaiMahasiswa::where("cpl" . $cpl, 1)
+                ->count();
 
                 // Calculate total counts for percentages
-                $total = $gradeCounts->unggul + $gradeCounts->baik + $gradeCounts->cukup + $gradeCounts->kurang;
+                 $total = $unggul + $baik + $cukup + $kurang;
+                // Calculate percentages
+                $percentageUnggul = ($total > 0) ? ($unggul / $total) * 100 : 0;
+                $percentageBaik = ($total > 0) ? ($baik / $total) * 100 : 0;
+                $percentageCukup = ($total > 0) ? ($cukup / $total) * 100 : 0;
+                $percentageKurang = ($total > 0) ? ($kurang / $total) * 100 : 0;
+
+                $gradeData["cpl$cpl"] = [
+                    'unggul' => $unggul,
+                    'baik' => $baik,
+                    'cukup' => $cukup,
+                    'kurang' => $kurang,
+                    'percentageUnggul' => $percentageUnggul,
+                    'percentageBaik' => $percentageBaik,
+                    'percentageCukup' => $percentageCukup,
+                    'percentageKurang' => $percentageKurang,
+                ];
+                } else {
+                $cpl = (int)$cpl;
+                // Count occurrences for each grade in the corresponding column
+                $unggul = NilaiMahasiswa::where('semester', $selectedSemester)
+                    ->where("cpl" . $cpl, 4)
+                    ->count();
+                $baik = NilaiMahasiswa::where('semester', $selectedSemester)
+                    ->where("cpl" . $cpl, 3)
+                    ->count();
+                $cukup = NilaiMahasiswa::where('semester', $selectedSemester)
+                    ->where("cpl" . $cpl, 2)
+                    ->count();
+                $kurang = NilaiMahasiswa::where('semester', $selectedSemester)
+                    ->where("cpl" . $cpl, 1)
+                    ->count();
+
+                // Calculate total counts for percentages
+                $total = $unggul + $baik + $cukup + $kurang;
 
                 // Calculate percentages
-                $percentageUnggul = ($total > 0) ? ($gradeCounts->unggul / $total) * 100 : 0;
-                $percentageBaik = ($total > 0) ? ($gradeCounts->baik / $total) * 100 : 0;
-                $percentageCukup = ($total > 0) ? ($gradeCounts->cukup / $total) * 100 : 0;
-                $percentageKurang = ($total > 0) ? ($gradeCounts->kurang / $total) * 100 : 0;
+                $percentageUnggul = ($total > 0) ? ($unggul / $total) * 100 : 0;
+                $percentageBaik = ($total > 0) ? ($baik / $total) * 100 : 0;
+                $percentageCukup = ($total > 0) ? ($cukup / $total) * 100 : 0;
+                $percentageKurang = ($total > 0) ? ($kurang / $total) * 100 : 0;
 
                 // Store the counts and percentages in the $gradeData array for each CPL
                 $gradeData["cpl$cpl"] = [
-                    'unggul' => $gradeCounts->unggul,
-                    'baik' => $gradeCounts->baik,
-                    'cukup' => $gradeCounts->cukup,
-                    'kurang' => $gradeCounts->kurang,
+                    'unggul' => $unggul,
+                    'baik' => $baik,
+                    'cukup' => $cukup,
+                    'kurang' => $kurang,
                     'percentageUnggul' => $percentageUnggul,
                     'percentageBaik' => $percentageBaik,
                     'percentageCukup' => $percentageCukup,
                     'percentageKurang' => $percentageKurang,
                 ];
             }
-        } else {
+        }
             // Default labels if mata_kuliah not found
             $xAxisLabels = array_map(function ($cpl) {
                 return "CPL " . $cpl;
@@ -86,6 +117,7 @@ class ChartAll
             ->addData('Cukup (C) %', array_values(array_column($gradeData, 'percentageCukup')))
             ->addData('Kurang (D) %', array_values(array_column($gradeData, 'percentageKurang')))
             ->setFontFamily('sans-serif')
+            ->setGrid()
             ->setXAxis($xAxisLabels);
     }
 }
