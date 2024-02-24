@@ -28,7 +28,6 @@
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Semester</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">SKS</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Dosen Pengampu</th>
-                                    {{-- <th class="bg-[#C2E7FF]" style=" border: none;">CPMK</th> --}}
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Action</th>
                                 </tr>
                             </thead>
