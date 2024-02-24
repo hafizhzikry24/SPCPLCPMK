@@ -31,7 +31,7 @@ class ChartAll
 
             foreach ($cplColumns as $cpl) {
                 // Check if selectedSemester is not null, then filter by semester
-                if ($selectedSemester === 999) {
+                if ($selectedSemester == 999) {
                     $cpl = (int)$cpl;
                 // Query to count occurrences for each grade in the corresponding column
                 $unggul = NilaiMahasiswa::where("cpl" . $cpl, 4)

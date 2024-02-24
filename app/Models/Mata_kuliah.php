@@ -13,4 +13,9 @@ class Mata_kuliah extends Model
 
     protected $fillable = [
         'id', 'kode_MK', 'Mata_Kuliah', 'semester', 'cpl', 'SKS', 'cpmk', 'NIP'];
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'NIP', 'NIP');
+    }
 }

@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('mata_kuliahs', function (Blueprint $table) {
-            $table->integer('cpl');
+            $table->string('Nama_Dosen');
+
+            $table->foreign('Nama_Dosen')->references('NIP')->on('dosens')->onDelete('cascade');
         });
     }
 
@@ -27,4 +29,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('mata_kuliahs');
     }
+
 };
