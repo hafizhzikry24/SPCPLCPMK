@@ -27,8 +27,7 @@
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Mata Kuliah</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Semester</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">SKS</th>
-                                    <th class="bg-[#C2E7FF]" style=" border: none;">NIP Dosen Pengampu</th>
-                                    {{-- <th class="bg-[#C2E7FF]" style=" border: none;">CPMK</th> --}}
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">Dosen Pengampu</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Action</th>
                                 </tr>
                             </thead>
@@ -289,8 +288,8 @@
                         name: 'SKS'
                     },
                     {
-                        data: 'NIP',
-                        name: 'NIP'
+                        data: 'dosen_name',
+                        name: 'dosen_name'
                     },
                     {
                         data: 'action',

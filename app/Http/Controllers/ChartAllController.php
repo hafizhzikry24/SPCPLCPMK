@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Charts\ChartAll;
-use App\Models\Mata_kuliah;
+use App\Models\NilaiMahasiswa;
 use Illuminate\Http\Request;
 
 class ChartAllController extends Controller
 {
     public function index(Request $request, ChartAll $barChartCplAll)
     {
-        $matakuliah_info = Mata_kuliah::all()->first();
-        $selectedSemester = $request->input('selectedSemester', 13);
+        $nilai_mahasiswa = NilaiMahasiswa::all()->first();
+        $selectedSemester = $request->input('selectedSemester', 999);
 
         $barChartCplAll = new ChartAll(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class), $selectedSemester);
 
         return view('content.rekap', [
-            'matakuliah_info' => $matakuliah_info,
+            'nilai_mahasiswa' => $nilai_mahasiswa,
             'barChartCplAll' => $barChartCplAll->build($selectedSemester),
             'selectedSemester' => $selectedSemester
         ]);
