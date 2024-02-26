@@ -10,4 +10,9 @@ class Dosen extends Model
     use HasFactory;
 
     protected $fillable = ['NIP', 'Nama_Dosen'];
+
+    public function mataKuliahs()
+    {
+        return $this->hasMany(Mata_kuliah::class, 'NIP', 'NIP');
+    }
 }

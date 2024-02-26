@@ -13,17 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('mata_kuliahs', function (Blueprint $table) {
-            $table->id();
-            $table->string('kode_MK')->index();
-            $table->string('Mata_Kuliah');
-            $table->string('semester');
-            $table->integer('SKS');
-            $table->string('NIP');
-            $table->text('cpmk');
-            $table->text('cpl');
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('mata_kuliahs', function (Blueprint $table) {
+            $table->integer('cpl');
         });
     }
 
