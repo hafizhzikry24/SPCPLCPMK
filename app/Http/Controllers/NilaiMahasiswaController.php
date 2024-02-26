@@ -17,6 +17,8 @@ class NilaiMahasiswaController extends Controller
     {
         $matakuliah_info = Mata_kuliah::where("kode_MK", $kode_MK)->first();
 
+        $this->authorize('view', $matakuliah_info);
+
         $defaultCpl = json_decode($matakuliah_info->cpl, true);
 
         $selectedCpmk = $request->input('selectedCpmk', 1);
