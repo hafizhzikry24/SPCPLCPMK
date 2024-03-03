@@ -26,7 +26,7 @@
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Kode Mata Kuliah</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Mata Kuliah</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Semester</th>
-                                    <th class="bg-[#C2E7FF]" style=" border: none;">SKS</th>
+                                    <th class="bg-[#C2E7FF]" style=" border: none;">Tahun Akademik</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Dosen Pengampu</th>
                                     <th class="bg-[#C2E7FF]" style=" border: none;">Action</th>
                                 </tr>
@@ -116,12 +116,22 @@
                                                 class="text-red-500">*</span></label>
                                         <select name="semester" id="semester"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
-                                            @for ($i = 1; $i <= 7; $i++)
-                                                <option value="{{ $i }}">Semester {{ $i }}
-                                                </option>
-                                            @endfor
                                             <option value="Ganjil">Ganjil</option>
                                             <option value="Genap">Genap</option>
+                                        </select>
+
+                                        <label for="tahun_akademik"
+                                        class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Tahun<span
+                                            class="text-red-500">*</span></label>
+                                        <select name="tahun_akademik" id="tahun_akademik"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                            placeholder="Pilih Tahun Akademik">
+                                            <option value="2023/2024">2023/2024</option>
+                                            <option value="2024/2025">2024/2025</option>
+                                            <option value="2025/2026">2025/2026</option>
+                                            <option value="2026/2027">2026/2027</option>
+                                            <option value="2027/2028">2027/2028</option>
+                                            <option value="2028/2029">2028/2029</option>
                                         </select>
 
                                         <label for="SKS"
@@ -220,6 +230,7 @@
             (function fade() {
                 if ((el.style.opacity -= 0.1) < 0) {
                     el.style.display = "none";
+                    $('input[name="cpl[]"]').prop('checked', false);
                 } else {
                     requestAnimationFrame(fade);
                 }
@@ -228,10 +239,11 @@
             $('#kode_MK').val("");
             $('#Mata_Kuliah').val("");
             $('#semester').val("");
+            $('#tahun_akademik').val("");
             $('#SKS').val("");
-            $('#Nama_Dosen').val("");
+            $('#NIP').val("");
             $('#cpmk').val("");
-            $('cpl').val("");
+            $('#cpl').val("");
         }
 
         function fadeIn(el, display) {
@@ -284,8 +296,8 @@
                         name: 'semester'
                     },
                     {
-                        data: 'SKS',
-                        name: 'SKS'
+                        data: 'tahun_akademik',
+                        name: 'tahun_akademik'
                     },
                     {
                         data: 'dosen_name',
@@ -307,7 +319,7 @@
                     // Append "Tambah data" button only if the user is an admin
                     if (isAdmin) {
                         var addButton = $(
-                            `<div class="p-3 flex justify-between items-center">
+                            `<div class="flex justify-between items-center">
                         <x-add-button type="submit" class="ml-auto" id="button">
                             Tambah data
                         </x-add-button>
@@ -351,6 +363,7 @@
                     $('#kode_MK').val(res.kode_MK);
                     $('#Mata_Kuliah').val(res.Mata_Kuliah);
                     $('#semester').val(res.semester);
+                    $('#tahun_akademik').val(res.tahun_akademik);
                     $('#SKS').val(res.SKS);
                     $('#NIP').val(res.NIP);
                     $('#cpmk').val(res.cpmk);

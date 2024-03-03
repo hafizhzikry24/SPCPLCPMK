@@ -59,6 +59,7 @@ class MatakuliahController extends Controller
                         'kode_MK' => $request->kode_MK,
                         'Mata_Kuliah' => $request->Mata_Kuliah,
                         'semester' => $request->semester,
+                        'tahun_akademik' => $request->tahun_akademik,
                         'SKS' => $request->SKS,
                         'NIP' => $request->NIP,
                         'cpl' => json_encode($request->cpl),

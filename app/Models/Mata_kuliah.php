@@ -12,7 +12,7 @@ class Mata_kuliah extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'id', 'kode_MK', 'Mata_Kuliah', 'semester', 'cpl', 'SKS', 'cpmk', 'NIP'];
+        'id', 'kode_MK', 'Mata_Kuliah', 'semester', 'cpl', 'SKS', 'cpmk', 'NIP', 'tahun_akademik'];
 
     public function dosen()
     {
