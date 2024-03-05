@@ -10,6 +10,6 @@ class AdminController extends Controller
     {
         $isAdmin = auth()->user()->isAdmin(); // Adjust this based on your logic
 
-        return view('components.sidebar', compact('isAdmin'));
+        return view('content.admin', compact('isAdmin'));
     }
 }

@@ -5,15 +5,13 @@
         <div class="col-span-2">
         </div>
 
-
         <!-- Main Content -->
         <div class="col-span-10 overflow-y-auto mt-4 ">
 
             <body>
                 <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">
                     <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
-                        AA
-                    </div>
+                        Admin Mimin
                 </main>
             </body>
         </div>
