@@ -69,6 +69,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/importexceldkp', [ExcelDKPController::class, 'exceldkpimport'])->name('importexceldkp');
 
     Route::get('/admin', [AdminController::class, 'view'])->name('admin');
+    Route::post('/admin/edit', [AdminController::class, 'edit'])->name('admin.edit');;
+    Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
+    Route::post('/admin/delete', [AdminController::class, 'destroy'])->name('admin.delete');;
 
     // Route without selectedCpmk
     Route::get('/matakuliah/PTSK6660', [PTSK6660Controller::class, 'index'])->name('PTSK6660');
