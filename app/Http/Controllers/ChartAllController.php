@@ -10,15 +10,25 @@ class ChartAllController extends Controller
 {
     public function index(Request $request, ChartAll $barChartCplAll)
     {
-        $nilai_mahasiswa = NilaiMahasiswa::all()->first();
+        $nilai_mahasiswa = NilaiMahasiswa::all();
+        // dd($nilai_mahasiswa);
+        $uniqueSemesters = $nilai_mahasiswa->unique('semester_matkul')->pluck('semester_matkul');
+        // dd($uniqueSemesters);
+        $uniqueTahunAkademik = $nilai_mahasiswa->unique('tahun_akademik_matkul')->pluck('tahun_akademik_matkul');
+        // dd($uniqueTahunAkademik);
+
+        $selectedTahunAkademik = $request->input('selectedTahunAkademik', 999);
         $selectedSemester = $request->input('selectedSemester', 999);
 
-        $barChartCplAll = new ChartAll(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class), $selectedSemester);
+        $barChartCplAll = new ChartAll(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class), $selectedSemester, $selectedTahunAkademik);
 
         return view('content.rekap', [
             'nilai_mahasiswa' => $nilai_mahasiswa,
-            'barChartCplAll' => $barChartCplAll->build($selectedSemester),
-            'selectedSemester' => $selectedSemester
+            'uniqueSemesters' => $uniqueSemesters,
+            'uniqueTahunAkademik' => $uniqueTahunAkademik,
+            'barChartCplAll' => $barChartCplAll->build($selectedTahunAkademik, $selectedSemester),
+            'selectedSemester' => $selectedSemester,
+            'selectedTahunAkademik' => $selectedTahunAkademik
         ]);
     }
 }

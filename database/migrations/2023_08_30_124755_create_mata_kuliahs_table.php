@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('NIP');
             $table->text('cpmk');
             $table->text('cpl');
+            $table->string('tahun_akademik');
             $table->softDeletes();
             $table->timestamps();
         });

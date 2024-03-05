@@ -2,6 +2,7 @@
 
 namespace App\Charts;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\NilaiMahasiswa;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
@@ -16,20 +17,32 @@ class PieChartCPL
         $this->pieChartCPL = $pieChartCPL;
     }
 
-    public function build($selectedCpl, $kode_MK): \ArielMejiaDev\LarapexCharts\PieChart
+    public function build($selectedCpl, $tahun_akademik, $semester, $kode_MK): \ArielMejiaDev\LarapexCharts\PieChart
     {
-        $unggul = NilaiMahasiswa::where('id_matkul', $kode_MK)
+        // dd($tahun_akademik, $kode_MK, $semester, $selectedCpl);
+        // DB::enableQueryLog();
+        $unggul = NilaiMahasiswa::where('tahun_akademik_matkul', $tahun_akademik)
+        ->where('semester_matkul', $semester)
+        ->where('id_matkul', $kode_MK)
         ->where('cpl' . $selectedCpl, 4)
         ->count();
-        $baik = NilaiMahasiswa::where('id_matkul', $kode_MK)
+        // dd(DB::getQueryLog());
+        $baik = NilaiMahasiswa::where('tahun_akademik_matkul', $tahun_akademik)
+        ->where('semester_matkul', $semester)
+        ->where('id_matkul', $kode_MK)
         ->where('cpl' . $selectedCpl, 3)
         ->count();
-        $cukup = NilaiMahasiswa::where('id_matkul', $kode_MK)
+        $cukup = NilaiMahasiswa::where('tahun_akademik_matkul', $tahun_akademik)
+        ->where('semester_matkul', $semester)
+        ->where('id_matkul', $kode_MK)
         ->where('cpl' . $selectedCpl, 2)
         ->count();
-        $kurang = NilaiMahasiswa::where('id_matkul', $kode_MK)
+        $kurang = NilaiMahasiswa::where('tahun_akademik_matkul', $tahun_akademik)
+        ->where('semester_matkul', $semester)
+        ->where('id_matkul', $kode_MK)
         ->where('cpl' . $selectedCpl, 1)
         ->count();
+
 
         $labels = ['Kurang (D)', 'Cukup (C)', 'Baik (B)', 'Unggul (A)'];
 

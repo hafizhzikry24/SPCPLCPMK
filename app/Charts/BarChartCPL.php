@@ -15,10 +15,15 @@ class BarChartCPL
         $this->barChartCPL = $barChartCPL;
     }
 
-    public function build($kode_MK): \ArielMejiaDev\LarapexCharts\BarChart
+    public function build($tahun_akademik, $semester, $kode_MK): \ArielMejiaDev\LarapexCharts\BarChart
     {
+        // Initialize an array to store data for each grade and percentage
+        $gradeData = [];
         // Fetch the mata_kuliah model for the given $kode_MK
-        $mataKuliah = Mata_kuliah::where("kode_MK", $kode_MK)->first();
+        $mataKuliah = Mata_kuliah::where("tahun_akademik", $tahun_akademik)
+        ->where("semester", $semester)
+        ->where("kode_MK", $kode_MK)
+        ->first();
 
         // Check if the model and cpl column exist
         if ($mataKuliah && isset($mataKuliah->cpl)) {
@@ -33,27 +38,32 @@ class BarChartCPL
                 return "CPL " . $cpl;
             }, $uniqueCplArray);
 
-            // Initialize an array to store data for each grade and percentage
-            $gradeData = [];
-
             // Iterate through unique CPL values
             foreach ($uniqueCplArray as $cpl) {
                 // Cast $cpl to integer to ensure correct key in $gradeData
                 $cpl = (int)$cpl;
 
                 // Query to count occurrences for each grade in the corresponding column
-                $unggul = NilaiMahasiswa::where('id_matkul', $kode_MK)
-                    ->whereRaw("cpl$cpl = 4")
-                    ->count();
-                $baik = NilaiMahasiswa::where('id_matkul', $kode_MK)
-                    ->where("cpl" . $cpl, 3)
-                    ->count();
-                $cukup = NilaiMahasiswa::where('id_matkul', $kode_MK)
-                    ->where("cpl" . $cpl, 2)
-                    ->count();
-                $kurang = NilaiMahasiswa::where('id_matkul', $kode_MK)
-                    ->where("cpl" . $cpl, 1)
-                    ->count();
+                $unggul = NilaiMahasiswa::where('tahun_akademik_matkul', $tahun_akademik)
+                ->where('semester_matkul', $semester)
+                ->where('id_matkul', $kode_MK)
+                ->where('cpl' . $cpl, 4)
+                ->count();
+                $baik = NilaiMahasiswa::where('tahun_akademik_matkul', $tahun_akademik)
+                ->where('semester_matkul', $semester)
+                ->where('id_matkul', $kode_MK)
+                ->where("cpl" . $cpl, 3)
+                ->count();
+                $cukup = NilaiMahasiswa::where('tahun_akademik_matkul', $tahun_akademik)
+                ->where('semester_matkul', $semester)
+                ->where('id_matkul', $kode_MK)
+                ->where("cpl" . $cpl, 2)
+                ->count();
+                $kurang = NilaiMahasiswa::where('tahun_akademik_matkul', $tahun_akademik)
+                ->where('semester_matkul', $semester)
+                ->where('id_matkul', $kode_MK)
+                ->where("cpl" . $cpl, 1)
+                ->count();
 
                 // Calculate total counts for percentages
                 $total = $unggul + $baik + $cukup + $kurang;
