@@ -64,8 +64,9 @@
             console.log("Selected Semester:", selectedSemester);
             var csrfToken = document.getElementsByName("_token")[0].value;
 
-            var url = "{{ route('semesterChart') }}/" + "?selectedTahunAkademik=" +
-                selectedTahunAkademik + "&_token=" + csrfToken + "?selectedTahunAkademik=" + selectedSemester;
+            var url = "{{ route('semesterChart') }}/?selectedTahunAkademik=" +
+                selectedTahunAkademik + "&selectedSemester=" + selectedSemester + "&_token=" + csrfToken;
+
             // Set the form action directly
             document.getElementById("semesterForm").action = url;
             // Submit the form
@@ -76,16 +77,13 @@
             event.preventDefault();
             var selectedTahunAkademik = document.getElementById("selectedTahunAkademik").value;
             var selectedSemester = document.getElementById("selectedSemester").value;
-
-            document.getElementById("selectedSemester").value = previouslySelectedSemester;
-            var previouslySelectedSemester = document.getElementById("selectedSemester").value;
-
             console.log("Selected Tahun Akademik:", selectedTahunAkademik);
             console.log("Selected Semester:", selectedSemester);
             var csrfToken = document.getElementsByName("_token")[0].value;
 
-            var url = "{{ route('semesterChart') }}/" + "?selectedTahunAkademik=" +
-                selectedTahunAkademik + "&_token=" + csrfToken + "?selectedTahunAkademik=" + selectedSemester;
+            var url = "{{ route('semesterChart') }}/?selectedTahunAkademik=" +
+                selectedTahunAkademik + "&selectedSemester=" + selectedSemester + "&_token=" + csrfToken;
+
             // Set the form action directly
             document.getElementById("tahunAkademikForm").action = url;
             // Submit the form
