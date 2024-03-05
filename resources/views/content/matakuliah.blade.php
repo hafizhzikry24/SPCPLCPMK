@@ -7,7 +7,6 @@
         <!-- Main Content -->
         <div class="col-span-10 overflow-y-auto mt-4 ">
             <div class="">
-
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>

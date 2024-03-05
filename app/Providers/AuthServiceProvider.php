@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 use App\Models\Mata_kuliah;
+use App\Models\User;
+use App\Policies\AdminPolicy;
 use App\Policies\MataKuliahPolicy;
-
-
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -18,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         Mata_kuliah::class => MataKuliahPolicy::class,
+        User::class => AdminPolicy::class,
     ];
 
     /**
