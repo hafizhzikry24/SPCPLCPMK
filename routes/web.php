@@ -14,6 +14,7 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\NilaiMahasiswaController;
 use App\Http\Controllers\PTSK6660Controller;
+use App\Http\Controllers\RaporController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/cpmk', [CpmkController::class, 'index'])->name('cpmk');
     Route::get('/dosen', [DosenController::class, 'index'])->name('dosen');
     Route::get('/rekap', [ChartAllController::class, 'index'])->name('rekap');
+    Route::get('/rapor', [RaporController::class, 'index'])->name('rapor');
 
     Route::get('/mata_kuliah/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [NilaiMahasiswaController::class, 'view'])->name('mata_kuliah');
     Route::post('/mata_kuliah/excel/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [NilaiMahasiswaController::class, 'inputexcel'])->name('mata_kuliah.inputexcel');
@@ -86,7 +88,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/rapor', 'content.rapor')->name('rapor');
     Route::view('/bukupanduan', 'content.bukupanduan')->name('bukupanduan');
 });
-
+// Route::middleware(['is_admin'])->group(function () {
+// });
 
 
 Route::middleware('auth')->group(function () {
