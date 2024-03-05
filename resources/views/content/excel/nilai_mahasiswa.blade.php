@@ -61,8 +61,9 @@
                                                     {{ $matakuliah_info->semester }}</td>
                                             </tr>
                                             <tr>
-                                                <td class="px-2 py-1 whitespace-no-wrap">SKS</td>
-                                                <td class="px-2 py-1 whitespace-no-wrap">{{ $matakuliah_info->SKS }}
+                                                <td class="px-2 py-1 whitespace-no-wrap">Tahun Akademik</td>
+                                                <td class="px-2 py-1 whitespace-no-wrap">
+                                                    {{ $matakuliah_info->tahun_akademik }}
                                                 </td>
                                             </tr>
                                             <td class="px-2 py-1 whitespace-no-wrap">CPL</td>
@@ -153,7 +154,12 @@
                                 <!-- Select Dropdowns -->
                                 <div class="mt-4 flex justify-between">
                                     <form id="cpmkForm" method="POST"
-                                        action="{{ route('pieChartCpmk', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpmk' => $selectedCpmk]) }}">
+                                        action="{{ route('pieChartCpmk', [
+                                            'tahun_akademik_matkul' => $matakuliah_info->tahun_akademik,
+                                            'semester_matkul' => $matakuliah_info->semester,
+                                            'matkul_id' => $matakuliah_info->kode_MK,
+                                            'selectedCpmk' => $selectedCpmk,
+                                        ]) }}">
                                         @csrf
                                         <select name="selectedCpmk" id="selectedCpmk" onchange="changeCpmk()"
                                             style="min-width: 100px;" class="px-2 py-1 w-16 rounded">
@@ -165,7 +171,12 @@
                                         </select>
                                     </form>
                                     <form id="cplForm" method="POST"
-                                        action="{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpl' => $selectedCpl]) }}">
+                                        action="{{ route('pieChartCpl', [
+                                            'tahun_akademik_matkul' => $matakuliah_info->tahun_akademik,
+                                            'semester_matkul' => $matakuliah_info->semester,
+                                            'matkul_id' => $matakuliah_info->kode_MK,
+                                            'selectedCpl' => $selectedCpl,
+                                        ]) }}">
                                         @csrf
                                         <select name="selectedCpl" id="selectedCpl" onchange="changeCpl()"
                                             style="min-width: 100px;" class="px-2 py-1 w-16 rounded">
@@ -273,8 +284,13 @@
                 <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel
                     Matakuliah Teknik Komputer </h1>
 
-                <form action="{{ route('mata_kuliah.inputexcel', ['matkul_id' => $matkul_id]) }}" method="post"
-                    enctype="multipart/form-data">
+                <form
+                    action="{{ route('mata_kuliah.inputexcel', [
+                        'tahun_akademik_matkul' => $tahun_akademik_matkul,
+                        'semester_matkul' => $semester_matkul,
+                        'matkul_id' => $matkul_id,
+                    ]) }}"
+                    method="post" enctype="multipart/form-data">
                     @csrf
                     <!-- Other form fields -->
                     <div class="form-group">
@@ -314,7 +330,7 @@
 
                 // Change the form action dynamically
                 document.getElementById("cpmkForm").action =
-                    "{{ route('pieChartCpmk', ['matkul_id' => $matakuliah_info->kode_MK]) }}/" +
+                    "{{ route('pieChartCpmk', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}/" +
                     selectedCpmk + "?_token=" + csrfToken;
 
                 // Submit the form
@@ -329,7 +345,7 @@
 
                 // Change the form action dynamically
                 document.getElementById("cplForm").action =
-                    "{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK]) }}/" +
+                    "{{ route('pieChartCpl', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}/" +
                     selectedCpl + "?_token=" + csrfToken;
 
                 // Submit the form
@@ -380,14 +396,15 @@
                 modalHandler(false);
             });
 
-
             $(document).ready(function() {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-
+                console.log("Constructed URL:",
+                    "{{ route('mata_kuliah.datatables', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}"
+                    );
                 var table = $('#tabelnilaimahasiswa').DataTable({
                     "error": function(xhr, error, thrown) {
                         console.error("DataTables error:", error, thrown);
@@ -399,7 +416,7 @@
                     processing: true,
                     serverSide: true,
                     "ajax": {
-                        "url": "{{ route('mata_kuliah.datatables', ['matkul_id' => $matakuliah_info->kode_MK]) }}",
+                        "url": "{{ route('mata_kuliah.datatables', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}",
                         "type": "GET",
                         "dataSrc": function(json) {
                             cplColumns = json.cplColumns;

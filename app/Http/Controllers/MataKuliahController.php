@@ -30,6 +30,8 @@ class MatakuliahController extends Controller
                 ->addColumn('action', function ($row) use ($user) {
                     return view('components.matakuliah-action', [
                         'id' => $row->id,
+                        'tahun_akademik' => $row->tahun_akademik,
+                        'semester' => $row->semester,
                         'kode_MK' => $row->kode_MK,
                         'isAdmin' => $user->isAdmin(),
                     ]);
