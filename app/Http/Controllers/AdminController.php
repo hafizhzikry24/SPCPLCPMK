@@ -2,51 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cpl;
 use App\Models\Dosen;
 use App\Models\Mata_kuliah;
-use App\Models\Cpl;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class MatakuliahController extends Controller
+class AdminController extends Controller
 {
-        public function index(){
+    public function view(User $user)
+    {
         $user = auth()->user();
+        $this->authorize('isAdmin', $user);// Check if the user is an admin
 
-        if (request()->ajax()) {
-            // Check if the user is an admin
-            if ($user->isAdmin()) {
-                $subjectsQuery = Mata_kuliah::with('dosen')->select('*');
-            } else {
-                // If not an admin, retrieve only the Matakuliah that has the same NIP as the user
-                $subjectsQuery = Mata_kuliah::with('dosen')->where('NIP', $user->NIP)->select('*');
-            }
-
-            return datatables()->of($subjectsQuery)
-                ->addColumn('dosen_name', function ($row) {
-                    // Access the Dosen name through the eager-loaded relationship
-                    return $row->dosen->Nama_Dosen;
-                })
-                ->addColumn('action', function ($row) use ($user) {
-                    return view('components.matakuliah-action', [
-                        'id' => $row->id,
-                        'tahun_akademik' => $row->tahun_akademik,
-                        'semester' => $row->semester,
-                        'kode_MK' => $row->kode_MK,
-                        'isAdmin' => $user->isAdmin(),
-                    ]);
-                })
-                ->rawColumns(['action'])
-                ->addIndexColumn()
-                ->make(true);
+        if(request()->ajax()) {
+            return datatables()->of(Mata_kuliah::select('*'))
+            ->addColumn('dosen_name', function ($row) {
+                // Access the Dosen name through the eager-loaded relationship
+                return $row->dosen->Nama_Dosen;
+            })
+            ->addColumn('action', function ($row) use ($user) {
+                return view('components.admin-action', [
+                    'id' => $row->id,
+                    'tahun_akademik' => $row->tahun_akademik,
+                    'semester' => $row->semester,
+                    'kode_MK' => $row->kode_MK,
+                    'isAdmin' => $user->isAdmin(),
+                ]);
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
         }
 
         $dosens = Dosen::all();
         $cpl = Cpl::all();
-
-        return view('content.matakuliah', compact('dosens', 'user', 'cpl'));
+        // If the user is an admin, continue to show the admin page
+        return view('content.admin', compact('dosens', 'user', 'cpl'));
     }
-
 
     public function store(Request $request)
     {
@@ -70,7 +63,6 @@ class MatakuliahController extends Controller
         return Response()->json($matakuliah);
     }
 
-
     public function edit(Request $request)
     {
         $where = array('id' => $request->id);
@@ -87,4 +79,3 @@ class MatakuliahController extends Controller
         return Response()->json($matakuliah);
     }
 }
-

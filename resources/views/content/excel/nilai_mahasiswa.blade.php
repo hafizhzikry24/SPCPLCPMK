@@ -61,8 +61,9 @@
                                                     {{ $matakuliah_info->semester }}</td>
                                             </tr>
                                             <tr>
-                                                <td class="px-2 py-1 whitespace-no-wrap">SKS</td>
-                                                <td class="px-2 py-1 whitespace-no-wrap">{{ $matakuliah_info->SKS }}
+                                                <td class="px-2 py-1 whitespace-no-wrap">Tahun Akademik</td>
+                                                <td class="px-2 py-1 whitespace-no-wrap">
+                                                    {{ $matakuliah_info->tahun_akademik }}
                                                 </td>
                                             </tr>
                                             <td class="px-2 py-1 whitespace-no-wrap">CPL</td>
@@ -153,7 +154,12 @@
                                 <!-- Select Dropdowns -->
                                 <div class="mt-4 flex justify-between">
                                     <form id="cpmkForm" method="POST"
-                                        action="{{ route('pieChartCpmk', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpmk' => $selectedCpmk]) }}">
+                                        action="{{ route('pieChartCpmk', [
+                                            'tahun_akademik_matkul' => $matakuliah_info->tahun_akademik,
+                                            'semester_matkul' => $matakuliah_info->semester,
+                                            'matkul_id' => $matakuliah_info->kode_MK,
+                                            'selectedCpmk' => $selectedCpmk,
+                                        ]) }}">
                                         @csrf
                                         <select name="selectedCpmk" id="selectedCpmk" onchange="changeCpmk()"
                                             style="min-width: 100px;" class="px-2 py-1 w-16 rounded">
@@ -165,7 +171,12 @@
                                         </select>
                                     </form>
                                     <form id="cplForm" method="POST"
-                                        action="{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpl' => $selectedCpl]) }}">
+                                        action="{{ route('pieChartCpl', [
+                                            'tahun_akademik_matkul' => $matakuliah_info->tahun_akademik,
+                                            'semester_matkul' => $matakuliah_info->semester,
+                                            'matkul_id' => $matakuliah_info->kode_MK,
+                                            'selectedCpl' => $selectedCpl,
+                                        ]) }}">
                                         @csrf
                                         <select name="selectedCpl" id="selectedCpl" onchange="changeCpl()"
                                             style="min-width: 100px;" class="px-2 py-1 w-16 rounded">
@@ -183,6 +194,7 @@
                                         <option value="barChartCPL">Rekap CPL</option>
                                     </select>
                                 </div>
+
                                 <!-- Chart Containers -->
                                 <div id="pieChartContent">
                                     <div id="pieChartContainer">
@@ -256,127 +268,6 @@
                                 showChart(lastSelectedChartType);
                             </script>
                         </body>
-
-
-                        {{-- <body class="h-screen bg-gray-100">
-                            <div class="container px-4 ml-auto">
-                                <div class="p-6 m-5 bg-white rounded shadow" id="chartContainer">
-                                            <!-- Pie Chart CPMK Container -->
-                                            <!-- Pie Chart CPMK -->
-                                        <!-- Select CPMK Dropdown -->
-                                        <div class="mt-4 flex justify-between">
-                                                <form id="cpmkForm" method="POST"
-                                                action="{{ route('pieChartCpmk', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpmk' => $selectedCpmk]) }}">
-                                                @csrf
-                                                <select name="selectedCpmk" id="selectedCpmk" onchange="changeCpmk()"
-                                                    style="min-width: 100px;"
-                                                    class="px-2 py-1 w-16 rounded">
-                                                    @for ($i = 1; $i <= $cpmkCount; $i++)
-                                                        <option value="{{ $i }}" @if ($selectedCpmk == $i) selected @endif>CPMK
-                                                            {{ $i }}</option>
-                                                    @endfor
-                                                </select>
-                                            </form>
-                                                <select name="chartType" id="chartType" onchange="showChart(this.value)" style="min-width: 130px;" class="px-2 py-1 w-16 rounded">
-                                                    <option value="pieChartCPMK">CPMK</option>
-                                                    <option value="pieChartCPL">Grafik CPL</option>
-                                                    <option value="barChartCPL">Rekap CPL</option>
-                                                </select>
-                                        </div>
-                                    <div class="p-6 m-5 bg-white rounded shadow" id="pieChartContent">
-                                        <div id="pieChartContainer">
-                                            <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPMK Mahasiswa</h2>
-                                            <p class="text-base mb-2">Berdasarkan CPMK yang dipilih</p>
-                                            {!! $pieChartCPMK->container() !!}
-                                            <script src="{{ $pieChartCPMK->cdn() }}"></script>
-                                            {{ $pieChartCPMK->script() }}
-                                        </div>
-                                    </div>
-
-                                    <!-- Pie Chart CPL Container -->
-                                    <div class="p-6 m-5 bg-white rounded shadow hidden" id="pieChartCPLContainer">
-                                        <!-- Pie Chart CPL -->
-                                        <div id="pieChartCPLContainer">
-                                            <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPL Mahasiswa</h2>
-                                            <p class="text-base mb-2">Berdasarkan CPL yang dipilih</p>
-                                                                                    <!-- Select CPL Dropdown -->
-                                        <div class="mt-4 flex justify-between">
-                                            <form id="cplForm" method="POST"
-                                                action="{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpl' => $selectedCpl]) }}">
-                                                @csrf
-                                                <select name="selectedCpl" id="selectedCpl" onchange="changeCpl()"
-                                                    style="min-width: 100px;"
-                                                    class="px-2 py-1 w-16 rounded">
-                                                    @foreach ($cplData as $cpl)
-                                                        <option value="{{ $cpl }}" @if ($selectedCpl == $cpl) selected @endif>CPL
-                                                            {{ $cpl }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </form>
-                                            <select name="chartType" id="chartType" onchange="showChart(this.value)" style="min-width: 130px;" class="px-2 py-1 w-16 rounded">
-                                                <option value="pieChartCPMK">CPMK</option>
-                                                <option value="pieChartCPL">Grafik CPL</option>
-                                                <option value="barChartCPL">Rekap CPL</option>
-                                            </select>
-                                        </div>
-                                        {!! $pieChartCPL->container() !!}
-                                        <script src="{{ $pieChartCPL->cdn() }}"></script>
-                                        {{ $pieChartCPL->script() }}
-                                        </div>
-                                    </div>
-
-                                    <!-- Bar Chart CPL Container -->
-                                    <div class="p-6 m-5 bg-white rounded shadow hidden" id="barChartCPLContainer">
-                                        <div id="pieChartCPLContainer">
-                                        <h2 class="text-2xl font-bold mb-2">Distribusi Nilai CPL Mahasiswa dalam Persen</h2>
-                                        <p class="text-base mb-2">Berdasarkan CPL Mata Kuliah</p>
-                                        <select name="chartType" id="chartType" onchange="showChart(this.value)" style="min-width: 130px;" class="px-2 py-1 w-16 rounded">
-                                            <option value="pieChartCPMK">CPMK</option>
-                                            <option value="pieChartCPL">Grafik CPL</option>
-                                            <option value="barChartCPL">Rekap CPL</option>
-                                        </select>
-                                        {!! $barChartCPL->container() !!}
-                                        <script src="{{ $barChartCPL->cdn() }}"></script>
-                                        {{ $barChartCPL->script() }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <script>
-                                function showChart(chartType) {
-                                    // Hide all chart containers
-                                    document.getElementById('pieChartContent').style.display = 'none';
-                                    document.getElementById('pieChartCPLContainer').style.display = 'none';
-                                    document.getElementById('barChartCPLContainer').style.display = 'none';
-
-                                    // Show the selected chart container
-                                    if (chartType === 'pieChartCPMK') {
-                                        document.getElementById('pieChartContent').style.display = 'block';
-                                    } else if (chartType === 'pieChartCPL') {
-                                        document.getElementById('pieChartCPLContainer').style.display = 'block';
-                                    } else if (chartType === 'barChartCPL') {
-                                        document.getElementById('barChartCPLContainer').style.display = 'block';
-                                    }
-
-                                    // Update the chartType dropdown to reflect the change
-                                    document.getElementById('chartType').value = chartType;
-
-                                    // Save the selected chart type in localStorage
-                                    localStorage.setItem('selectedChartType', chartType);
-                                }
-
-                                // Retrieve the last selected chart type from localStorage
-                                var lastSelectedChartType = localStorage.getItem('selectedChartType');
-
-                                // Set the last selected chart type as the default value
-                                if (lastSelectedChartType) {
-                                    showChart(lastSelectedChartType);
-                                }
-                            </script>
-
-                        </body> --}}
-
                     </div>
                 </div>
             </main>
@@ -393,8 +284,13 @@
                 <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel
                     Matakuliah Teknik Komputer </h1>
 
-                <form action="{{ route('mata_kuliah.inputexcel', ['matkul_id' => $matkul_id]) }}" method="post"
-                    enctype="multipart/form-data">
+                <form
+                    action="{{ route('mata_kuliah.inputexcel', [
+                        'tahun_akademik_matkul' => $tahun_akademik_matkul,
+                        'semester_matkul' => $semester_matkul,
+                        'matkul_id' => $matkul_id,
+                    ]) }}"
+                    method="post" enctype="multipart/form-data">
                     @csrf
                     <!-- Other form fields -->
                     <div class="form-group">
@@ -434,7 +330,7 @@
 
                 // Change the form action dynamically
                 document.getElementById("cpmkForm").action =
-                    "{{ route('pieChartCpmk', ['matkul_id' => $matakuliah_info->kode_MK]) }}/" +
+                    "{{ route('pieChartCpmk', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}/" +
                     selectedCpmk + "?_token=" + csrfToken;
 
                 // Submit the form
@@ -449,7 +345,7 @@
 
                 // Change the form action dynamically
                 document.getElementById("cplForm").action =
-                    "{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK]) }}/" +
+                    "{{ route('pieChartCpl', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}/" +
                     selectedCpl + "?_token=" + csrfToken;
 
                 // Submit the form
@@ -500,14 +396,15 @@
                 modalHandler(false);
             });
 
-
             $(document).ready(function() {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-
+                console.log("Constructed URL:",
+                    "{{ route('mata_kuliah.datatables', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}"
+                    );
                 var table = $('#tabelnilaimahasiswa').DataTable({
                     "error": function(xhr, error, thrown) {
                         console.error("DataTables error:", error, thrown);
@@ -519,7 +416,7 @@
                     processing: true,
                     serverSide: true,
                     "ajax": {
-                        "url": "{{ route('mata_kuliah.datatables', ['matkul_id' => $matakuliah_info->kode_MK]) }}",
+                        "url": "{{ route('mata_kuliah.datatables', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}",
                         "type": "GET",
                         "dataSrc": function(json) {
                             cplColumns = json.cplColumns;

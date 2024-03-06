@@ -7,140 +7,87 @@
 
 
         <!-- Main Content -->
-        <div class="col-span-10 overflow-y-auto mt-4">
-            <main class="flex w-full h-full justify-center pl-5 pr-5 pb-5">
-                <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
-                    <a class="text-3xl font-bold"> Rekap CPL </a>
-                    <div class="py-12">
-                        {{--
-                        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="col-span-10 overflow-y-auto mt-4 ">
 
-                            <div class="max-w-7x1">
-                                <a class="text-2xl font-bold ml-2 mb-4 mt-4"> S1 Teknik Komputer </a>
-                                <table class="min-w-full mt-4 ">
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                class="  px-6 py-3 bg-[#C2E7FF] text-center text-xs leading-4 font-medium text-dark uppercase tracking-wider">
-                                                Nama CPL</th>
-                                            <th
-                                                class=" px-6 py-3 bg-[#C2E7FF] text-center text-xs leading-4 font-medium text-dark uppercase tracking-wider">
-                                                Deskripsi</th>
-                                            <!-- Tambahkan kolom-kolom lain sesuai kebutuhan -->
-                                            <th
-                                                class="px-6 py-3 bg-[#C2E7FF] text-center text-xs leading-4 font-medium text-dark uppercase tracking-wider">
-                                                Capaian</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-center px-6 py-4 whitespace-no-wrap">CPL-A</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap"></td>
-                                            <!-- Tambahkan kolom-kolom lain sesuai kebutuhan -->
-                                            <td class="px-4 py-4 whitespace-no-wrap text-center">
-
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center px-6 py-4 whitespace-no-wrap">CPL-B</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap"></td>
-                                            <!-- Tambahkan kolom-kolom lain sesuai kebutuhan -->
-                                            <td class="px-4 py-4 whitespace-no-wrap text-center">
-
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center px-6 py-4 whitespace-no-wrap">CPL-C</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap"></td>
-                                            <!-- Tambahkan kolom-kolom lain sesuai kebutuhan -->
-                                            <td class="px-4 py-4 whitespace-no-wrap text-center">
-
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center px-6 py-4 whitespace-no-wrap">CPL-D</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap"></td>
-                                            <!-- Tambahkan kolom-kolom lain sesuai kebutuhan -->
-                                            <td class="px-4 py-4 whitespace-no-wrap text-center">
-
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center px-6 py-4 whitespace-no-wrap">CPL-E</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap"></td>
-                                            <!-- Tambahkan kolom-kolom lain sesuai kebutuhan -->
-                                            <td class="px-4 py-4 whitespace-no-wrap text-center">
-
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center px-6 py-4 whitespace-no-wrap">CPL-F</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap"></td>
-                                            <!-- Tambahkan kolom-kolom lain sesuai kebutuhan -->
-                                            <td class="px-4 py-4 whitespace-no-wrap text-center">
-
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center px-6 py-4 whitespace-no-wrap">CPL-G</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap"></td>
-                                            <!-- Tambahkan kolom-kolom lain sesuai kebutuhan -->
-                                            <td class="px-4 py-4 whitespace-no-wrap text-center">
-
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center px-6 py-4 whitespace-no-wrap">CPL-H</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap"></td>
-                                            <!-- Tambahkan kolom-kolom lain sesuai kebutuhan -->
-                                            <td class="px-4 py-4 whitespace-no-wrap text-center">
-
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center px-6 py-4 whitespace-no-wrap">CPL-I</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap"></td>
-                                            <!-- Tambahkan kolom-kolom lain sesuai kebutuhan -->
-                                            <td class="px-4 py-4 whitespace-no-wrap text-center">
-
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-
-                            </div>
-
-
-                        </div> --}}
-
-
-
-
-                        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 space-y-6 mt-16">
-
-                            <div class="max-w-7x1 ">
-
-
-                                <table class="min-w-full mt-4 ">
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                class="px-6 py-3 bg-[#C2E7FF] text-center text-xs leading-4 font-medium text-dark uppercase tracking-wider">
-                                                Grafik Nilai
-                                                <div class="container px-4 mx-auto">
-
-                                                    <div class="p-6 m-20 bg-white rounded shadow">
-                                                        {!! $chart->container() !!}
-                                                    </div>
-                                                    <script src="{{ $chart->cdn() }}"></script>
-
-                                                    {{ $chart->script() }}
-
-                                                </div>
-
-
-                                        </tr>
-                                        </th>
-                                    </thead>
-                                </table>
+            <body>
+                <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">
+                    <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
+                        <a class="text-3xl font-bold"> Grafik Rekap CPL </a>
+                        <div class="mt-2 flex">
+                            <form id="semesterForm" method="POST"
+                                action="{{ route('semesterChart', ['selectedSemester' => $selectedSemester]) }}">
+                                @csrf
+                                <select name="selectedSemester" id="selectedSemester" onchange="changeSemester()"
+                                    style="min-width: 130px;" class="px-2 py-1 w-16 rounded mr-3">
+                                    <option value="999">Semua</option>
+                                    @foreach ($uniqueSemesters as $data)
+                                        <option value="{{ $data }}"
+                                            @if ($selectedSemester == $data) selected @endif>{{ $data }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </form>
+                            <form id="tahunAkademikForm" method="POST"
+                                action="{{ route('semesterChart', ['selectedTahunAkademik' => $selectedTahunAkademik, 'selectedSemester' => $selectedSemester]) }}">
+                                @csrf
+                                <select name="selectedTahunAkademik" id="selectedTahunAkademik"
+                                    onchange="changeTahunAkademik()" style="min-width: 130px;"
+                                    class="px-2 py-1 w-16 rounded">
+                                    <option value="999">Semua</option>
+                                    @foreach ($uniqueTahunAkademik as $data)
+                                        <option value="{{ $data }}"
+                                            @if ($selectedTahunAkademik == $data) selected @endif>{{ $data }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </form>
+                        </div>
+                        <div id="barChartCPLAllContainer">
+                            <div id="barChartCplAll">
+                                {!! $barChartCplAll->container() !!}
+                                <script src="{{ $barChartCplAll->cdn() }}"></script>
+                                {{ $barChartCplAll->script() }}
                             </div>
                         </div>
                     </div>
-                </div>
-            </main>
+                </main>
+            </body>
         </div>
     </div>
 
+    <script>
+        function changeSemester() {
+            event.preventDefault();
+            var selectedTahunAkademik = document.getElementById("selectedTahunAkademik").value;
+            var selectedSemester = document.getElementById("selectedSemester").value;
+            console.log("Selected Tahun Akademik:", selectedTahunAkademik);
+            console.log("Selected Semester:", selectedSemester);
+            var csrfToken = document.getElementsByName("_token")[0].value;
+
+            var url = "{{ route('semesterChart') }}/?selectedTahunAkademik=" +
+                selectedTahunAkademik + "&selectedSemester=" + selectedSemester + "&_token=" + csrfToken;
+
+            // Set the form action directly
+            document.getElementById("semesterForm").action = url;
+            // Submit the form
+            document.getElementById("semesterForm").submit();
+        }
+
+        function changeTahunAkademik() {
+            event.preventDefault();
+            var selectedTahunAkademik = document.getElementById("selectedTahunAkademik").value;
+            var selectedSemester = document.getElementById("selectedSemester").value;
+            console.log("Selected Tahun Akademik:", selectedTahunAkademik);
+            console.log("Selected Semester:", selectedSemester);
+            var csrfToken = document.getElementsByName("_token")[0].value;
+
+            var url = "{{ route('semesterChart') }}/?selectedTahunAkademik=" +
+                selectedTahunAkademik + "&selectedSemester=" + selectedSemester + "&_token=" + csrfToken;
+
+            // Set the form action directly
+            document.getElementById("tahunAkademikForm").action = url;
+            // Submit the form
+            document.getElementById("tahunAkademikForm").submit();
+        }
+    </script>
 </x-app-layout>

@@ -4,6 +4,7 @@
         <x-sidebar />
         <div class="col-span-2">
         </div>
+
         <!-- Main Content -->
         <div class="col-span-10 overflow-y-auto mt-4 ">
             <div class="">
@@ -17,7 +18,7 @@
             <body>
                 <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">
                     <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
-                        <a class="text-3xl font-bold"> TABEL MATAKULIAH </a>
+                        <a class="text-3xl font-bold"> ADMIN PAGE </a>
                         <!-- Tabel Data -->
                         <table class="table table-bordered" id="matakuliah">
                             <thead>
@@ -174,6 +175,7 @@
                                                 </div>
                                             @endforeach
                                         </div>
+
                                         <div class="flex items-center justify-start w-full">
                                             <button type="submit"
                                                 class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700 transition duration-150 ease-in-out hover:bg-green-300 bg-green-400 rounded text-white px-8 py-2 text-sm">Submit</button>
@@ -182,8 +184,6 @@
                                                 onclick="modalHandler(false)">Cancel</button>
                                         </div>
                                     </form>
-
-
                                 </div>
                                 <button
                                     class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
@@ -199,17 +199,11 @@
                                 </button>
                             </div>
                         </div>
-
                     </div>
-
                 </main>
-
             </body>
-
         </div>
     </div>
-
-
 
     <script type="text/javascript">
         let isAdmin = {{ $user->isAdmin() ? 'true' : 'false' }};
@@ -280,7 +274,7 @@
                 },
                 processing: true,
                 serverSide: true,
-                ajax: "{{ url('matakuliah') }}",
+                ajax: "{{ route('admin') }}",
                 columns: [{
                         data: 'kode_MK',
                         name: 'kode_MK'
@@ -346,7 +340,7 @@
         function editFunc(id) {
             $.ajax({
                 type: "POST",
-                url: "{{ route('matakuliah.edit') }}",
+                url: "{{ route('admin.edit') }}",
                 data: {
                     id: id
                 },
@@ -392,7 +386,7 @@
                 // ajax
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('matakuliah.delete') }}",
+                    url: "{{ route('admin.delete') }}",
                     data: {
                         id: id
                     },
@@ -410,7 +404,7 @@
             var formData = new FormData(this);
             $.ajax({
                 type: 'POST',
-                url: "{{ route('matakuliah.store') }}",
+                url: "{{ route('admin.store') }}",
                 data: formData,
                 cache: false,
                 contentType: false,
@@ -429,6 +423,4 @@
             });
         });
     </script>
-
-
 </x-app-layout>

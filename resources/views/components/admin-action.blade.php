@@ -15,6 +15,16 @@
     </x-danger-button>
 @endif
 
+@if ($isAdmin)
+    <!-- Show admin-specific content or buttons -->
+    <x-danger-button>
+        <a href="javascript:void(0);" id="delete-company" onClick='deleteFunc({{ $id }})'
+            data-toggle="tooltip" data-original-title="Delete" class="delete btn btn-danger">
+            Restore
+        </a>
+        </x-edit-button>
+@endif
+
 <x-nilai-button>
     <a type="button"
         href="{{ route('mata_kuliah', ['tahun_akademik_matkul' => $tahun_akademik, 'semester_matkul' => $semester, 'matkul_id' => $kode_MK]) }}"
