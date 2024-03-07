@@ -72,6 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/admin/edit', [AdminController::class, 'edit'])->name('admin.edit');;
     Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
     Route::post('/admin/delete', [AdminController::class, 'destroy'])->name('admin.delete');;
+    Route::post('/admin/restore', [AdminController::class, 'restore'])->name('admin.restore');
 
     // Route without selectedCpmk
     Route::get('/matakuliah/PTSK6660', [PTSK6660Controller::class, 'index'])->name('PTSK6660');

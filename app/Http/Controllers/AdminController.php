@@ -16,7 +16,7 @@ class AdminController extends Controller
         $this->authorize('isAdmin', $user);// Check if the user is an admin
 
         if(request()->ajax()) {
-            return datatables()->of(Mata_kuliah::select('*'))
+            return datatables()->of(Mata_kuliah::onlyTrashed())
             ->addColumn('dosen_name', function ($row) {
                 // Access the Dosen name through the eager-loaded relationship
                 return $row->dosen->Nama_Dosen;
@@ -77,5 +77,13 @@ class AdminController extends Controller
         $matakuliah->delete();
 
         return Response()->json($matakuliah);
+    }
+
+    public function restore(Request $request)
+    {
+        $matakuliah = Mata_kuliah::withTrashed()->findOrFail($request->id);
+        $matakuliah->restore();
+
+        return $matakuliah;
     }
 }
