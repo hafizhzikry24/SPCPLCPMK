@@ -404,7 +404,7 @@
                 });
                 console.log("Constructed URL:",
                     "{{ route('mata_kuliah.datatables', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}"
-                    );
+                );
                 var table = $('#tabelnilaimahasiswa').DataTable({
                     "error": function(xhr, error, thrown) {
                         console.error("DataTables error:", error, thrown);
