@@ -10,12 +10,16 @@ use App\Models\Mata_kuliah;
 use App\Models\NilaiMahasiswa;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Redirect;
 
 class NilaiMahasiswaController extends Controller
 {
-    public function view(Request $request, $kode_MK, PieChartCPMK $pieChartCPMK, PieChartCPL $pieChartCPL, BarChartCPL $barChartCPL)
+    public function view(Request $request, $tahun_akademik, $semester, $kode_MK, PieChartCPMK $pieChartCPMK, PieChartCPL $pieChartCPL, BarChartCPL $barChartCPL)
     {
-        $matakuliah_info = Mata_kuliah::where("kode_MK", $kode_MK)->first();
+        $matakuliah_info = Mata_kuliah::where("kode_MK", $kode_MK)
+        ->where("semester", $semester)
+        ->where("tahun_akademik", $tahun_akademik)
+        ->first();
 
         $this->authorize('view', $matakuliah_info);
 
@@ -28,25 +32,32 @@ class NilaiMahasiswaController extends Controller
         $pieChartCPL = new PieChartCPL(app(\ArielMejiaDev\LarapexCharts\LarapexChart::class), $selectedCpl);
 
         $matkul_id = $kode_MK;
+        $semester_matkul = $semester;
+        $tahun_akademik_matkul = $tahun_akademik;
         $cplColumns = json_decode($matakuliah_info->cpl, true);
 
         return view('content.excel.nilai_mahasiswa', [
             'matakuliah_info' => $matakuliah_info,
             'cplColumns' => $cplColumns,
             'matkul_id' => $matkul_id,
+            'semester_matkul' => $semester_matkul,
+            'tahun_akademik_matkul' => $tahun_akademik_matkul,
             'selectedCpl' => $selectedCpl,
             'selectedCpmk' => $selectedCpmk,
-            'pieChartCPMK' => $pieChartCPMK->build($selectedCpmk, $kode_MK),
-            'pieChartCPL' => $pieChartCPL->build($selectedCpl, $kode_MK),
-            'barChartCPL' => $barChartCPL->build($kode_MK)
+            'pieChartCPMK' => $pieChartCPMK->build($selectedCpmk,  $tahun_akademik, $semester, $kode_MK),
+            'pieChartCPL' => $pieChartCPL->build($selectedCpl, $tahun_akademik, $semester, $kode_MK),
+            'barChartCPL' => $barChartCPL->build($tahun_akademik, $semester, $kode_MK)
         ]);
     }
 
 
-    public function datatables(Request $request, $kode_MK)
+    public function datatables(Request $request, $tahun_akademik, $semester, $kode_MK)
     {
         if ($request->ajax()) {
-            $matakuliah_info = Mata_kuliah::where("kode_MK", $kode_MK)->first();
+            $matakuliah_info = Mata_kuliah::where("tahun_akademik", $tahun_akademik)
+                ->where("semester", $semester)
+                ->where("kode_MK", $kode_MK)
+                ->first();
 
             if (!$matakuliah_info) {
                 return response()->json(['error' => 'Matakuliah not found.'], 404);
@@ -54,8 +65,10 @@ class NilaiMahasiswaController extends Controller
 
             $cpmkCount = count(explode('. ', $matakuliah_info->cpmk));
 
-            $data = NilaiMahasiswa::where('id_matkul', $matakuliah_info->kode_MK)->get();
-
+            $data = NilaiMahasiswa::where('tahun_akademik_matkul', $tahun_akademik)
+                ->where('semester_matkul', $semester)
+                ->where('id_matkul', $kode_MK)
+                ->get();
 
             return datatables()->of($data)
                 ->addIndexColumn()
@@ -66,12 +79,16 @@ class NilaiMahasiswaController extends Controller
         }
     }
 
-    public function inputexcel(Request $request, $matkul_id){
+    public function inputexcel(Request $request, $tahun_akademik_matkul, $semester_matkul, $matkul_id){
         $file = $request->file('file');
         $namaFile = $file->getClientOriginalName();
         $file->move('DataMatkul', $namaFile);
 
         Excel::import(new ExcelImportNilaiMahasiswa, public_path('/DataMatkul/'.$namaFile));
-        return redirect()->route('mata_kuliah', ['matkul_id' => $matkul_id]);
+        return redirect()->route('mata_kuliah', [
+            'tahun_akademik_matkul' => $tahun_akademik_matkul,
+            'semester_matkul' => $semester_matkul,
+            'matkul_id' => $matkul_id
+        ]);
     }
 }

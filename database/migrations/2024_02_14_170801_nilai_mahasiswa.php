@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('Nilai_Mahasiswa', function(Blueprint $table){
             $table->id();
             $table->string('id_matkul');
-            $table->integer('tahun');
-            $table->string('semester');
+            $table->string('tahun_akademik_matkul');
+            $table->string('semester_matkul');
             $table->bigInteger('nim');
             $table->string('nama');
             $table->integer('cpl1')->nullable();

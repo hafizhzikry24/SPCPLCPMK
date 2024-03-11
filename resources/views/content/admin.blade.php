@@ -4,6 +4,7 @@
         <x-sidebar />
         <div class="col-span-2">
         </div>
+
         <!-- Main Content -->
         <div class="col-span-10 overflow-y-auto mt-4 ">
             <div class="">
@@ -17,7 +18,7 @@
             <body>
                 <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">
                     <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
-                        <a class="text-3xl font-bold"> TABEL MATAKULIAH </a>
+                        <a class="text-3xl font-bold"> ADMIN PAGE </a>
                         <!-- Tabel Data -->
                         <table class="table table-bordered" id="matakuliah">
                             <thead>
@@ -83,11 +84,11 @@
                                 }
                             </style>
                         </head>
-                        <div class="overflow-y-auto py-12 bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
+                        <div class="py-12 bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
                             id="matakuliah-modal">
                             <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
                                 <div
-                                    class="absolute mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+                                    class="relative mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
                                     <div class="w-full flex justify-start text-gray-600 mb-3">
                                     </div>
                                     <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel
@@ -183,7 +184,6 @@
                                                 onclick="modalHandler(false)">Cancel</button>
                                         </div>
                                     </form>
-
                                 </div>
                                 <button
                                     class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
@@ -204,8 +204,6 @@
             </body>
         </div>
     </div>
-
-
 
     <script type="text/javascript">
         let isAdmin = {{ $user->isAdmin() ? 'true' : 'false' }};
@@ -238,8 +236,6 @@
             $('#NIP').val("");
             $('#cpmk').val("");
             $('#cpl').val("");
-            document.getElementById('matakuliah-modal').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Allow scrolling
         }
 
         function fadeIn(el, display) {
@@ -252,8 +248,6 @@
                     requestAnimationFrame(fade);
                 }
             })();
-            document.getElementById('matakuliah-modal').style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
         }
 
         // Hide the modal when the page is first rendered
@@ -280,7 +274,7 @@
                 },
                 processing: true,
                 serverSide: true,
-                ajax: "{{ url('matakuliah') }}",
+                ajax: "{{ route('admin') }}",
                 columns: [{
                         data: 'kode_MK',
                         name: 'kode_MK'
@@ -313,18 +307,6 @@
                 dom: '<"flex mb-3 mt-3 items-center"l<"flex-shrink-0 mr-3 ml-3 items-center"f>>rtip',
                 initComplete: function() {
                     $('.dataTables_filter input[type="search"]').addClass('custom-search');
-
-                    // Append "Tambah data" button only if the user is an admin
-                    if (isAdmin) {
-                        var addButton = $(
-                            `<div class="flex justify-between items-center">
-                        <x-add-button type="submit" class="ml-auto" id="button">
-                            Tambah data
-                        </x-add-button>
-                    </div>`
-                        ).addClass('ml-auto');
-                        $('#matakuliah_wrapper').find('.flex.mb-3').append(addButton);
-                    }
                 }
             });
 
@@ -343,10 +325,30 @@
             modalHandler(true);
         }
 
+        function restoreFunc(id) {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('admin.restore') }}",
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function(res) {
+                    var oTable = $('#matakuliah').dataTable();
+                    oTable.fnDraw(false);
+                },
+                error: function(error) {
+                    console.log(id);
+                    console.error("Error restoring company:", error);
+                    // Handle potential errors (e.g., display an error message to the user)
+                }
+            });
+        }
+
         function editFunc(id) {
             $.ajax({
                 type: "POST",
-                url: "{{ route('matakuliah.edit') }}",
+                url: "{{ route('admin.edit') }}",
                 data: {
                     id: id
                 },
@@ -392,7 +394,7 @@
                 // ajax
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('matakuliah.delete') }}",
+                    url: "{{ route('admin.delete') }}",
                     data: {
                         id: id
                     },
@@ -410,7 +412,7 @@
             var formData = new FormData(this);
             $.ajax({
                 type: 'POST',
-                url: "{{ route('matakuliah.store') }}",
+                url: "{{ route('admin.store') }}",
                 data: formData,
                 cache: false,
                 contentType: false,
@@ -429,6 +431,4 @@
             });
         });
     </script>
-
-
 </x-app-layout>

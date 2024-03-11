@@ -2,19 +2,17 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/1.11.6/css/dataTables.bootstrap4.min.css" />
-
-    <!-- DataTables JS -->
-    <script type="text/javascript" src="https://cdn.datatables.net/v/1.11.6/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/1.11.6/js/dataTables.bootstrap4.min.js"></script>
-
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -32,10 +30,15 @@
 
                     <div class="flex items-center justify-between my-8">
                         <a class="text-3xl font-bold mx-8"> Nilai Matakuliah {{ $matakuliah_info->Mata_Kuliah }}</a>
-                        <x-add-button type="button" class="mx-8" id="button">
-                            <x-assets.import />
-                            Import CSV
-                        </x-add-button>
+                        <div class="flex">
+                            <x-nilai-button type="button" class="mx-2" id="button">
+                                Download Template
+                            </x-nilai-button>
+                            <x-add-button type="button" class="mx-8" id="button">
+                                <x-assets.import />
+                                Import CSV
+                            </x-add-button>
+                        </div>
                     </div>
 
                     <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 space-y-6">
@@ -61,8 +64,9 @@
                                                     {{ $matakuliah_info->semester }}</td>
                                             </tr>
                                             <tr>
-                                                <td class="px-2 py-1 whitespace-no-wrap">SKS</td>
-                                                <td class="px-2 py-1 whitespace-no-wrap">{{ $matakuliah_info->SKS }}
+                                                <td class="px-2 py-1 whitespace-no-wrap">Tahun Akademik</td>
+                                                <td class="px-2 py-1 whitespace-no-wrap">
+                                                    {{ $matakuliah_info->tahun_akademik }}
                                                 </td>
                                             </tr>
                                             <td class="px-2 py-1 whitespace-no-wrap">CPL</td>
@@ -153,7 +157,12 @@
                                 <!-- Select Dropdowns -->
                                 <div class="mt-4 flex justify-between">
                                     <form id="cpmkForm" method="POST"
-                                        action="{{ route('pieChartCpmk', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpmk' => $selectedCpmk]) }}">
+                                        action="{{ route('pieChartCpmk', [
+                                            'tahun_akademik_matkul' => $matakuliah_info->tahun_akademik,
+                                            'semester_matkul' => $matakuliah_info->semester,
+                                            'matkul_id' => $matakuliah_info->kode_MK,
+                                            'selectedCpmk' => $selectedCpmk,
+                                        ]) }}">
                                         @csrf
                                         <select name="selectedCpmk" id="selectedCpmk" onchange="changeCpmk()"
                                             style="min-width: 100px;" class="px-2 py-1 w-16 rounded">
@@ -165,7 +174,12 @@
                                         </select>
                                     </form>
                                     <form id="cplForm" method="POST"
-                                        action="{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK, 'selectedCpl' => $selectedCpl]) }}">
+                                        action="{{ route('pieChartCpl', [
+                                            'tahun_akademik_matkul' => $matakuliah_info->tahun_akademik,
+                                            'semester_matkul' => $matakuliah_info->semester,
+                                            'matkul_id' => $matakuliah_info->kode_MK,
+                                            'selectedCpl' => $selectedCpl,
+                                        ]) }}">
                                         @csrf
                                         <select name="selectedCpl" id="selectedCpl" onchange="changeCpl()"
                                             style="min-width: 100px;" class="px-2 py-1 w-16 rounded">
@@ -264,17 +278,22 @@
     </div>
 
 
-    <div class="py-12  bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
+    <div class="overflow-auto py-12 bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
         id="modal-excel">
         <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
-            <div class="relative mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+            <div class="absolute mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
                 <div class="w-full flex justify-start text-gray-600 mb-3">
                 </div>
                 <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel
                     Matakuliah Teknik Komputer </h1>
 
-                <form action="{{ route('mata_kuliah.inputexcel', ['matkul_id' => $matkul_id]) }}" method="post"
-                    enctype="multipart/form-data">
+                <form
+                    action="{{ route('mata_kuliah.inputexcel', [
+                        'tahun_akademik_matkul' => $tahun_akademik_matkul,
+                        'semester_matkul' => $semester_matkul,
+                        'matkul_id' => $matkul_id,
+                    ]) }}"
+                    method="post" enctype="multipart/form-data">
                     @csrf
                     <!-- Other form fields -->
                     <div class="form-group">
@@ -314,7 +333,7 @@
 
                 // Change the form action dynamically
                 document.getElementById("cpmkForm").action =
-                    "{{ route('pieChartCpmk', ['matkul_id' => $matakuliah_info->kode_MK]) }}/" +
+                    "{{ route('pieChartCpmk', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}/" +
                     selectedCpmk + "?_token=" + csrfToken;
 
                 // Submit the form
@@ -329,7 +348,7 @@
 
                 // Change the form action dynamically
                 document.getElementById("cplForm").action =
-                    "{{ route('pieChartCpl', ['matkul_id' => $matakuliah_info->kode_MK]) }}/" +
+                    "{{ route('pieChartCpl', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}/" +
                     selectedCpl + "?_token=" + csrfToken;
 
                 // Submit the form
@@ -354,6 +373,8 @@
                         requestAnimationFrame(fade);
                     }
                 })();
+                document.getElementById('matakuliah-modal').style.display = 'none';
+                document.body.style.overflow = 'auto'; // Allow scrolling
             }
 
             function fadeIn(el, display) {
@@ -366,6 +387,8 @@
                         requestAnimationFrame(fade);
                     }
                 })();
+                document.getElementById('matakuliah-modal').style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
             }
 
             function add() {
@@ -380,14 +403,15 @@
                 modalHandler(false);
             });
 
-
             $(document).ready(function() {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-
+                console.log("Constructed URL:",
+                    "{{ route('mata_kuliah.datatables', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}"
+                );
                 var table = $('#tabelnilaimahasiswa').DataTable({
                     "error": function(xhr, error, thrown) {
                         console.error("DataTables error:", error, thrown);
@@ -399,13 +423,25 @@
                     processing: true,
                     serverSide: true,
                     "ajax": {
-                        "url": "{{ route('mata_kuliah.datatables', ['matkul_id' => $matakuliah_info->kode_MK]) }}",
+                        "url": "{{ route('mata_kuliah.datatables', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}",
                         "type": "GET",
                         "dataSrc": function(json) {
                             cplColumns = json.cplColumns;
                             // Return the actual data
                             return json.data;
                         }
+                    },
+                    createdRow: function(row, data, dataIndex) {
+                        // Get the value of the 'outcome' column
+                        var outcome = data.outcome;
+
+                        // Check the outcome value and apply the corresponding row color
+                        if (outcome === 'TIDAK LULUS') {
+                            $(row).css('background-color', 'red');
+                        } else if (outcome === 'REMIDI CPMK') {
+                            $(row).css('background-color', 'orange');
+                        }
+                        // Add more conditions as needed for other outcomes and colors
                     },
                     columns: [{
                             data: 'nim',
@@ -439,7 +475,12 @@
                     order: [
                         [0, 'desc']
                     ],
-                    dom: '<"flex mb-3 mt-3"l<"flex-shrink-0 mr-3 ml-3"f>>rtip',
+                    dom: '<"flex mb-3 mt-3"l<"flex-shrink-0 mr-3 ml-3"f><"flex-shrink-0 ml-auto"B>>rtip',
+                    buttons: [{
+                        extend: 'excel',
+                        text: 'Download Nilai',
+                        className: 'excel-download-button',
+                    }],
                     initComplete: function() {
                         // Adjust the search box
                         $('.dataTables_filter input[type="search"]').addClass('custom-search');

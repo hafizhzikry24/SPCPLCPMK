@@ -3,10 +3,22 @@
     <ul class=" py-2 px-1 mx-1 overflow-y-auto w-full ">
         {{-- <li class="my-8 mx-3 sm:rounded-xl hover:bg-[#DFF3FF]  @if (Request::route()->getName() === 'mahasiswa') bg-[#DFF3FF] @endif">
             <a href="{{ route('mahasiswa') }}" class="my-3 mx-3 inline-flex items-center text-gray-500 w-full">
-                <x-assets.user-group class="w-4 h-4 mr-1" />
-                <span class="ml-2 text-1xl">Mahasiswa</span>
-            </a>
+        <x-assets.user-group class="w-4 h-4 mr-1" />
+        <span class="ml-2 text-1xl">Mahasiswa</span>
+        </a>
         </li> --}}
+        {{-- yang diubah --}}
+        @auth
+            @if (auth()->user()->isAdmin())
+                <li class="my-8 mx-3 sm:rounded-xl hover:bg-[#DFF3FF] @if (Request::route()->getName() === 'admin') bg-[#DFF3FF] @endif">
+                    <a href="{{ route('admin') }}" class="my-3 mx-3 inline-flex items-center text-gray-500 w-full">
+                        <x-assets.user class="w-4 h-4 mr-1" />
+                        <span class="ml-2 text-1xl">Halaman Admin</span>
+                    </a>
+                </li>
+            @endif
+        @endauth
+        {{-- sampe sini --}}
         <li class="my-8 mx-3 sm:rounded-xl hover:bg-[#DFF3FF]  @if (Request::route()->getName() === 'matakuliah') bg-[#DFF3FF] @endif">
             <a href="{{ route('matakuliah') }}" class="my-3 mx-3 inline-flex items-center text-gray-500 w-full">
                 <x-assets.book-open class="w-4 h-4 mr-1" />
@@ -37,12 +49,6 @@
                 <span class="ml-2 text-1xl">Rekap CPL</span>
             </a>
         </li>
-        {{-- <li class="my-8 mx-3 sm:rounded-xl hover:bg-[#DFF3FF]  @if (Request::route()->getName() === 'mahasiswa') bg-[#DFF3FF]  @endif ">
-            <a href="{{ route('rapor') }}" class="my-3 mx-3 inline-flex flex items-center">
-        <x-assets.document-report class="w-4 h-4 mr-1" />
-        <span class="ml-2 text-1xl">Rapor Jurusan</span>
-        </a>
-        </li> --}}
         <li class="my-8 mx-3 sm:rounded-xl hover:bg-[#DFF3FF]  @if (Request::route()->getName() === 'bukupanduan') bg-[#DFF3FF] @endif ">
             <a href="https://drive.google.com/drive/u/0/folders/1vKBEsr2AyStjquE9XB0Sv300uhE6z18i" target="_blank"
                 class="my-3 mx-3 inline-flex items-center text-gray-400">

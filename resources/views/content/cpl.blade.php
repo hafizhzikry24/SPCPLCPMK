@@ -77,7 +77,7 @@
                                 .dataTables_filter {
                                     text-align: right;
                                     /* Posisi kotak pencarian di sisi kanan */
-                                    margin-bottom: 10px;
+                                    /* margin-bottom: 10px; */
                                     /* Jarak antara kotak pencarian dan tabel */
                                 }
                             </style>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ChartAllController;
 use App\Http\Controllers\CplController;
 use App\Http\Controllers\CpmkController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\NilaiMahasiswaController;
 use App\Http\Controllers\PTSK6660Controller;
+use App\Http\Controllers\RaporController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,13 +52,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/cpmk', [CpmkController::class, 'index'])->name('cpmk');
     Route::get('/dosen', [DosenController::class, 'index'])->name('dosen');
     Route::get('/rekap', [ChartAllController::class, 'index'])->name('rekap');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
-    Route::get('/mata_kuliah/{matkul_id}', [NilaiMahasiswaController::class, 'view'])->name('mata_kuliah');
-    Route::post('/mata_kuliah/excel/{matkul_id}', [NilaiMahasiswaController::class, 'inputexcel'])->name('mata_kuliah.inputexcel');
-    Route::get('/datatables/{matkul_id}', [NilaiMahasiswaController::class, 'datatables'])->name('mata_kuliah.datatables');
-    Route::match(['get', 'post'], '/mata_kuliah/{matkul_id}/cpmk_pie/{selectedCpmk?}', [NilaiMahasiswaController::class, 'view'])->name('pieChartCpmk');
-    Route::match(['get', 'post'], '/mata_kuliah/{matkul_id}/cpl_pie/{selectedCpl?}', [NilaiMahasiswaController::class, 'view'])->name('pieChartCpl');
-    Route::match(['get', 'post'], '/rekap/{selectedSemester?}', [ChartAllController::class, 'index'])->name('semesterChart');
+    Route::get('/mata_kuliah/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [NilaiMahasiswaController::class, 'view'])->name('mata_kuliah');
+    Route::post('/mata_kuliah/excel/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [NilaiMahasiswaController::class, 'inputexcel'])->name('mata_kuliah.inputexcel');
+    Route::get('/datatables/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [NilaiMahasiswaController::class, 'datatables'])->name('mata_kuliah.datatables');
+    Route::match(['get', 'post'], '/mata_kuliah/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}/cpmk_pie/{selectedCpmk?}', [NilaiMahasiswaController::class, 'view'])->name('pieChartCpmk');
+    Route::match(['get', 'post'], '/mata_kuliah/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}/cpl_pie/{selectedCpl?}', [NilaiMahasiswaController::class, 'view'])->name('pieChartCpl');
+    Route::match(['get', 'post'], '/rekap/{selectedTahunAkademik?}/{selectedSemester?}', [ChartAllController::class, 'index'])->name('semesterChart');
 
     Route::get('/matakuliah/PTSK6506', [ExcelsdlController::class, 'index'])->name('PTSK6506');
     Route::post('/importexcelsdl', [ExcelsdlController::class, 'excelsdlimport'])->name('importexcelsdl');
@@ -65,9 +68,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/matakuliah/PTSK6103', [ExcelDKPController::class, 'index'])->name('PTSK6103');
     Route::post('/importexceldkp', [ExcelDKPController::class, 'exceldkpimport'])->name('importexceldkp');
 
-
-
-
+    Route::get('/admin', [AdminController::class, 'view'])->name('admin');
+    Route::post('/admin/edit', [AdminController::class, 'edit'])->name('admin.edit');;
+    Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
+    Route::post('/admin/delete', [AdminController::class, 'destroy'])->name('admin.delete');;
+    Route::post('/admin/restore', [AdminController::class, 'restore'])->name('admin.restore');
 
     // Route without selectedCpmk
     Route::get('/matakuliah/PTSK6660', [PTSK6660Controller::class, 'index'])->name('PTSK6660');
@@ -87,7 +92,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/rapor', 'content.rapor')->name('rapor');
     Route::view('/bukupanduan', 'content.bukupanduan')->name('bukupanduan');
 });
-
 
 
 Route::middleware('auth')->group(function () {
