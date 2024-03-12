@@ -400,8 +400,13 @@
                     },
                     dataType: 'json',
                     success: function(res) {
+                        alert(res.message);
                         var oTable = $('#matakuliah').dataTable();
                         oTable.fnDraw(false);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", error);
+                        console.log(id);
                     }
                 });
             }
