@@ -71,12 +71,12 @@ class AdminController extends Controller
         return Response()->json($matakuliah);
     }
 
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
         $matakuliah = Mata_kuliah::findOrFail($request->id);
         $matakuliah->delete();
 
-        return Response()->json($matakuliah);
+        return response()->json(['message' => 'Matakuliah deleted successfully']);
     }
 
     public function restore(Request $request)
