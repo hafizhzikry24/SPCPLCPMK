@@ -8,7 +8,7 @@ use App\Models\Cpl;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class MatakuliahController extends Controller
+class MataKuliahController extends Controller
 {
         public function index(){
         $user = auth()->user();
@@ -83,7 +83,6 @@ class MatakuliahController extends Controller
     {
         $matakuliah = Mata_kuliah::findOrFail($request->id);
         $matakuliah->delete();
-
         return Response()->json($matakuliah);
     }
 }

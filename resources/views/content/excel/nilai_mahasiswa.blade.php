@@ -373,7 +373,7 @@
                         requestAnimationFrame(fade);
                     }
                 })();
-                document.getElementById('matakuliah-modal').style.display = 'none';
+                document.getElementById('modal-excel').style.display = 'none';
                 document.body.style.overflow = 'auto'; // Allow scrolling
             }
 
@@ -387,7 +387,7 @@
                         requestAnimationFrame(fade);
                     }
                 })();
-                document.getElementById('matakuliah-modal').style.display = 'block';
+                document.getElementById('modal-excel').style.display = 'block';
                 document.body.style.overflow = 'hidden'; // Prevent scrolling
             }
 
