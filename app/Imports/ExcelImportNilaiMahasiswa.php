@@ -52,8 +52,8 @@ class ExcelImportNilaiMahasiswa implements ToModel, WithMultipleSheets, WithHead
     {
         return new NilaiMahasiswa([
             'id_matkul' => $row['id_matkul'],
-            'tahun' => $row['tahun'],
-            'semester' => $row['semester'],
+            'tahun_akademik_matkul' => $row['tahun'],
+            'semester_matkul' => $row['semester'],
             'nim' => $row['nim'],
             'nama' => $row['nama'],
             'cpl1' => $row['cpl1'] ?? null,

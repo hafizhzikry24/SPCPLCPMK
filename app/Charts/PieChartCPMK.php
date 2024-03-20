@@ -26,10 +26,12 @@ class PieChartCPMK
         $lulus = NilaiMahasiswa::where('tahun_akademik_matkul', $tahun_akademik)
         ->where('semester_matkul', $semester)
         ->where('id_matkul', $kode_MK)
+        ->where('outcome' , "LULUS")
         ->count();
         $tidaklulus = NilaiMahasiswa::where('tahun_akademik_matkul', $tahun_akademik)
         ->where('semester_matkul', $semester)
         ->where('id_matkul', $kode_MK)
+        ->where('outcome' , "TIDAK LULUS")
         ->count();
         $labels = ['Tidak Lulus', 'Remidi CPMK', 'Lulus'];
 

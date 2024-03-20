@@ -10,6 +10,7 @@ use App\Models\Mata_kuliah;
 use App\Models\NilaiMahasiswa;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Redirect;
 
 class NilaiMahasiswaController extends Controller
 {
@@ -78,16 +79,16 @@ class NilaiMahasiswaController extends Controller
         }
     }
 
-    public function inputexcel(Request $request, $matkul_id, $tahun_akademik_matkul, $semester_matkul){
+    public function inputexcel(Request $request, $tahun_akademik_matkul, $semester_matkul, $matkul_id){
         $file = $request->file('file');
         $namaFile = $file->getClientOriginalName();
         $file->move('DataMatkul', $namaFile);
 
         Excel::import(new ExcelImportNilaiMahasiswa, public_path('/DataMatkul/'.$namaFile));
-        return redirect()->route('mata_kuliah',[
+        return redirect()->route('mata_kuliah', [
             'tahun_akademik_matkul' => $tahun_akademik_matkul,
             'semester_matkul' => $semester_matkul,
-            'matkul_id' => $matkul_id,
-    ]);
+            'matkul_id' => $matkul_id
+        ]);
     }
 }
