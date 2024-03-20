@@ -7,6 +7,7 @@ use App\Models\Dosen;
 use App\Models\Mata_kuliah;
 use App\Models\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -83,7 +84,7 @@ class AdminController extends Controller
     {
         $matakuliah = Mata_kuliah::withTrashed()->findOrFail($request->id);
         $matakuliah->restore();
-
+        
         return $matakuliah;
     }
 }

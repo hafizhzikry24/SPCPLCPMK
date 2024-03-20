@@ -18,6 +18,7 @@
     <body class="font-sans antialiased h-screen overflow-y-auto  ">
         <div class=" bg-gray-100">
             @include('layouts.navigation')
+            @include('sweetalert::alert')
 
             <!-- Page Heading -->
             @if (isset($header))

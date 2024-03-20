@@ -13,6 +13,7 @@
                 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
                 <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
                 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             </div>
 
             <body>
@@ -326,6 +327,17 @@
         }
 
         function restoreFunc(id) {
+            Swal.fire({
+                title: 'Restpre Mata Kuliah?',
+                text: 'Apakah Yakin Restore Mata Kuliah ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#22C55E',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Restore!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User confirmed deletion
             $.ajax({
                 type: "POST",
                 url: "{{ route('admin.restore') }}",
@@ -336,11 +348,19 @@
                 success: function(res) {
                     var oTable = $('#matakuliah').dataTable();
                     oTable.fnDraw(false);
+                    Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Mata Kuliah Berhasil di Restore',
+                                icon: 'success',
+                                showConfirmButton: false // Hide the confirm button
+                    });
                 },
                 error: function(error) {
                     console.log(id);
                     console.error("Error restoring company:", error);
                     // Handle potential errors (e.g., display an error message to the user)
+                }
+            });
                 }
             });
         }
