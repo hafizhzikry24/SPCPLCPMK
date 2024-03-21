@@ -7,7 +7,6 @@ use App\Models\Dosen;
 use App\Models\Mata_kuliah;
 use App\Models\User;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -25,9 +24,6 @@ class AdminController extends Controller
             ->addColumn('action', function ($row) use ($user) {
                 return view('components.admin-action', [
                     'id' => $row->id,
-                    'tahun_akademik' => $row->tahun_akademik,
-                    'semester' => $row->semester,
-                    'kode_MK' => $row->kode_MK,
                     'isAdmin' => $user->isAdmin(),
                 ]);
             })
@@ -42,37 +38,45 @@ class AdminController extends Controller
         return view('content.admin', compact('dosens', 'user', 'cpl'));
     }
 
-    public function store(Request $request)
+    public function cpl_datatables(User $user)
     {
-        // dd($request->all(),$request->cpl);
-        $matakuliahId = $request->id;
-
-        $matakuliah   =   Mata_kuliah::updateOrCreate(
-                    [
-                        'id' => $matakuliahId
-                    ],
-                    [
-                        'kode_MK' => $request->kode_MK,
-                        'Mata_Kuliah' => $request->Mata_Kuliah,
-                        'semester' => $request->semester,
-                        'tahun_akademik' => $request->tahun_akademik,
-                        'SKS' => $request->SKS,
-                        'NIP' => $request->NIP,
-                        'cpl' => json_encode($request->cpl),
-                        'cpmk' => $request->cpmk,
-                    ]);
-        return Response()->json($matakuliah);
+        $user = auth()->user();
+        $this->authorize('isAdmin', $user);// Check if the user is an admin
+        
+        if(request()->ajax()) {
+            return datatables()->of(Cpl::onlyTrashed())
+            ->addColumn('action', function ($row) use ($user) {
+                return view('components.admin_cpl-action', [
+                    'id' => $row->id,
+                    'isAdmin' => $user->isAdmin(),
+                ]);
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
     }
 
-    public function edit(Request $request)
+    public function dosen_datatables(User $user)
     {
-        $where = array('id' => $request->id);
-        $matakuliah  = Mata_kuliah::where($where)->first();
-
-        return Response()->json($matakuliah);
+        $user = auth()->user();
+        $this->authorize('isAdmin', $user);// Check if the user is an admin
+        
+        if(request()->ajax()) {
+            return datatables()->of(Dosen::onlyTrashed())
+            ->addColumn('action', function ($row) use ($user) {
+                return view('components.admin_dosen-action', [
+                    'id' => $row->id,
+                    'isAdmin' => $user->isAdmin(),
+                ]);
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
     }
 
-    public function delete(Request $request)
+    public function matkul_delete(Request $request)
     {
         $matakuliah = Mata_kuliah::findOrFail($request->id);
         $matakuliah->delete();
@@ -80,9 +84,41 @@ class AdminController extends Controller
         return response()->json(['message' => 'Matakuliah deleted successfully']);
     }
 
-    public function restore(Request $request)
+    public function matkul_restore(Request $request)
     {
         $matakuliah = Mata_kuliah::withTrashed()->findOrFail($request->id);
+        $matakuliah->restore();
+        
+        return $matakuliah;
+    }
+
+    public function cpl_delete(Request $request)
+    {
+        $matakuliah = Cpl::findOrFail($request->id);
+        $matakuliah->delete();
+
+        return response()->json(['message' => 'CPL deleted successfully']);
+    }
+
+    public function cpl_restore(Request $request)
+    {
+        $matakuliah = Cpl::withTrashed()->findOrFail($request->id);
+        $matakuliah->restore();
+        
+        return $matakuliah;
+    }
+
+    public function dosen_delete(Request $request)
+    {
+        $matakuliah = Dosen::findOrFail($request->id);
+        $matakuliah->delete();
+
+        return response()->json(['message' => 'Dosen deleted successfully']);
+    }
+
+    public function dosen_restore(Request $request)
+    {
+        $matakuliah = Dosen::withTrashed()->findOrFail($request->id);
         $matakuliah->restore();
         
         return $matakuliah;

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->text('desc');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

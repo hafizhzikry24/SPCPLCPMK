@@ -1,6 +1,6 @@
 @if ($isAdmin)
     <!-- Show admin-specific content or buttons -->
-    <x-restore-button onClick='matkul_restoreFunc({{ $id }})'>
+    <x-restore-button onClick='dosen_restoreFunc({{ $id }})'>
         <a href="javascript:void(0);" id="delete-company" data-toggle="tooltip" data-original-title="Delete"
             class="delete btn btn-danger">
             Restore
@@ -10,7 +10,7 @@
 
 @if ($isAdmin)
     <!-- Show admin-specific content or buttons -->
-    <x-danger-button onClick='matkul_deleteFunc({{ $id }})'>
+    <x-danger-button onClick='dosen_deleteFunc({{ $id }})'>
         <a href="javascript:void(0);" id="delete-company" data-toggle="tooltip" data-original-title="Delete"
             class="delete btn btn-danger">
             Delete

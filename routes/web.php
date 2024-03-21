@@ -60,10 +60,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::match(['get', 'post'], '/rekap/{selectedTahunAkademik?}/{selectedSemester?}', [ChartAllController::class, 'index'])->name('semesterChart');
 
     Route::get('/admin', [AdminController::class, 'view'])->name('admin');
-    Route::post('/admin/edit', [AdminController::class, 'edit'])->name('admin.edit');
-    Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
-    Route::post('/admin/delete', [AdminController::class, 'delete'])->name('admin.delete');
-    Route::post('/admin/restore', [AdminController::class, 'restore'])->name('admin.restore');
+    Route::get('/admin/datatables/cpl', [AdminController::class, 'cpl_datatables'])->name('admin.cpl_datatables');
+    Route::get('/admin/datatables/dosen', [AdminController::class, 'dosen_datatables'])->name('admin.dosen_datatables');
+    Route::post('/admin/delete/matakuliah', [AdminController::class, 'matkul_delete'])->name('matkul_admin.delete');
+    Route::post('/admin/restore/matakuliah', [AdminController::class, 'matkul_restore'])->name('matkul_admin.restore');
+    Route::post('/admin/delete/cpl', [AdminController::class, 'cpl_delete'])->name('cpl_admin.delete');
+    Route::post('/admin/restore/cpl', [AdminController::class, 'cpl_restore'])->name('cpl_admin.restore');
+    Route::post('/admin/delete/dosen', [AdminController::class, 'dosen_delete'])->name('dosen_admin.delete');
+    Route::post('/admin/restore/dosen', [AdminController::class, 'dosen_restore'])->name('dosen_admin.restore');
 
     Route::view('/nilai', 'content.nilai')->name('nilai');
     Route::view('/nilai', 'content.nilai')->name('nilai');
