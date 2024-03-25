@@ -347,8 +347,8 @@
                         name: 'Nama_Dosen'
                     },
                     {
-                        data: 'Aksi',
-                        name: 'Aksi'
+                        data: 'action',
+                        name: 'action'
                     },
                 ],
                 order: [
@@ -478,6 +478,69 @@
                     url: "{{ route('cpl_admin.delete') }}",
                     data: {
                         id: id
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        alert(res.message);
+                        var oTable = $('#dosen').dataTable();
+                        oTable.fnDraw(false);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", error);
+                        console.log(id);
+                    }
+                });
+            }
+        }
+
+        function dosen_restoreFunc(id) {
+            Swal.fire({
+                title: 'Restore Dosen?',
+                text: 'Apakah Yakin Restore Dosen ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#22C55E',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Restore!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User confirmed deletion
+            $.ajax({
+                type: "POST",
+                url: "{{ route('dosen_admin.restore') }}",
+                data: {
+                    id_dosen: id
+                },
+                dataType: 'json',
+                success: function(res) {
+                    var oTable = $('#dosen').dataTable();
+                    oTable.fnDraw(false);
+                    Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Dosen Berhasil di Restore',
+                                icon: 'success',
+                                showConfirmButton: false // Hide the confirm button
+                    });
+                },
+                error: function(error) {
+                    console.log(id);
+                    console.error("Error restoring company:", error);
+                    // Handle potential errors (e.g., display an error message to the user)
+                }
+            });
+                }
+            });
+        }
+
+        function dosen_deleteFunc(id) {
+            if (confirm("Delete Record?") == true) {
+                var id = id;
+                // ajax
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('dosen_admin.delete') }}",
+                    data: {
+                        id_dosen: id
                     },
                     dataType: 'json',
                     success: function(res) {

@@ -66,7 +66,7 @@ class AdminController extends Controller
             return datatables()->of(Dosen::onlyTrashed())
             ->addColumn('action', function ($row) use ($user) {
                 return view('components.admin_dosen-action', [
-                    'id' => $row->id,
+                    'id_dosen' => $row->id_dosen,
                     'isAdmin' => $user->isAdmin(),
                 ]);
             })
@@ -110,7 +110,7 @@ class AdminController extends Controller
 
     public function dosen_delete(Request $request)
     {
-        $matakuliah = Dosen::findOrFail($request->id);
+        $matakuliah = Dosen::findOrFail($request->id_dosen);
         $matakuliah->delete();
 
         return response()->json(['message' => 'Dosen deleted successfully']);
@@ -118,7 +118,7 @@ class AdminController extends Controller
 
     public function dosen_restore(Request $request)
     {
-        $matakuliah = Dosen::withTrashed()->findOrFail($request->id);
+        $matakuliah = Dosen::withTrashed()->findOrFail($request->id_dosen);
         $matakuliah->restore();
         
         return $matakuliah;

@@ -10,6 +10,8 @@ class Dosen extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    
+    protected $primaryKey = 'id_dosen';
 
     protected $fillable = ['NIP', 'Nama_Dosen'];
 

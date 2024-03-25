@@ -46,9 +46,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/matakuliah/store', [MataKuliahController::class, 'store'])->name('matakuliah.store');
     Route::post('/matakuliah/delete', [MataKuliahController::class, 'destroy'])->name('matakuliah.delete');
 
+    Route::get('/dosen', [DosenController::class, 'index'])->name('dosen');
+    Route::post('/dosen/edit', [DosenController::class, 'edit'])->name('dosen.edit');
+    Route::post('/dosen/store', [DosenController::class, 'store'])->name('dosen.store');
+    Route::post('/dosen/delete', [DosenController::class, 'destroy'])->name('dosen.delete');
+
+    
     Route::get('/cpl', [CplController::class, 'index'])->name('cpl');
     Route::get('/cpmk', [CpmkController::class, 'index'])->name('cpmk');
-    Route::get('/dosen', [DosenController::class, 'index'])->name('dosen');
     Route::get('/rekap', [ChartAllController::class, 'index'])->name('rekap');
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 

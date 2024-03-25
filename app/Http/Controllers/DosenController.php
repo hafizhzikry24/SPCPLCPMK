@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DosenController extends Controller
@@ -14,12 +15,21 @@ class DosenController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+        $this->authorize('isAdmin', $user);// Check if the user is an admin
+
         if(request()->ajax()) {
             return datatables()->of(Dosen::select('*'))
+            ->addColumn('action', function ($row) {
+                return view('components.dosen-action', [
+                    'id_dosen' => $row->id_dosen,
+                ]);
+            })
+            ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);
         }
-        return view('content.dosen');
+        return view('content.dosen', compact('user'));
     }
 
     /**
@@ -40,51 +50,31 @@ class DosenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dosenId = $request->id_dosen;
+
+        $dosen   =   Dosen::updateOrCreate(
+                    [
+                        'id_dosen' => $dosenId
+                    ],
+                    [
+                        'NIP' => $request->NIP,
+                        'Nama_Dosen' => $request->Nama_Dosen,
+                    ]);
+        return Response()->json($dosen);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Dosen  $dosen
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Dosen $dosen)
+    public function edit(Request $request)
     {
-        //
+        $where = array('id_dosen' => $request->id_dosen);
+        $dosen  = Dosen::where($where)->first();
+
+        return Response()->json($dosen);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Dosen  $dosen
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Dosen $dosen)
+    public function destroy(Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dosen  $dosen
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Dosen $dosen)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Dosen  $dosen
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Dosen $dosen)
-    {
-        //
+        $dosen = Dosen::findOrFail($request->id_dosen);
+        $dosen->delete();
+        return Response()->json($dosen);
     }
 }
