@@ -32,9 +32,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
-    // Route::view('/cpl', 'content.cpl')->name('cpl');
-    // Route::view('/cpmk', 'content.cpmk')->name('cpmk');
+    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::view('/matakuliah', 'content.matakuliah')->name('matakuliah');
 
     // Route::view('/mahasiswa', 'content.mahasiswa')->name('mahasiswa');
@@ -44,13 +42,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/mahasiswa/delete', [MahasiswaController::class, 'destroy']);
 
     Route::get('/matakuliah', [MataKuliahController::class, 'index'])->name('matakuliah');
-    Route::post('/matakuliah/edit', [MataKuliahController::class, 'edit'])->name('matakuliah.edit');;
+    Route::post('/matakuliah/edit', [MataKuliahController::class, 'edit'])->name('matakuliah.edit');
     Route::post('/matakuliah/store', [MataKuliahController::class, 'store'])->name('matakuliah.store');
-    Route::post('/matakuliah/delete', [MataKuliahController::class, 'destroy'])->name('matakuliah.delete');;
+    Route::post('/matakuliah/delete', [MataKuliahController::class, 'destroy'])->name('matakuliah.delete');
+
+    Route::get('/dosen', [DosenController::class, 'index'])->name('dosen');
+    Route::post('/dosen/edit', [DosenController::class, 'edit'])->name('dosen.edit');
+    Route::post('/dosen/store', [DosenController::class, 'store'])->name('dosen.store');
+    Route::post('/dosen/delete', [DosenController::class, 'destroy'])->name('dosen.delete');
 
     Route::get('/cpl', [CplController::class, 'index'])->name('cpl');
+    Route::post('/cpl/edit', [CplController::class, 'edit'])->name('cpl.edit');
+    Route::post('/cpl/store', [CplController::class, 'store'])->name('cpl.store');
+    Route::post('/cpl/delete', [CplController::class, 'destroy'])->name('cpl.delete');
+    
     Route::get('/cpmk', [CpmkController::class, 'index'])->name('cpmk');
-    Route::get('/dosen', [DosenController::class, 'index'])->name('dosen');
     Route::get('/rekap', [ChartAllController::class, 'index'])->name('rekap');
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
@@ -61,34 +67,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::match(['get', 'post'], '/mata_kuliah/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}/cpl_pie/{selectedCpl?}', [NilaiMahasiswaController::class, 'view'])->name('pieChartCpl');
     Route::match(['get', 'post'], '/rekap/{selectedTahunAkademik?}/{selectedSemester?}', [ChartAllController::class, 'index'])->name('semesterChart');
 
-    Route::get('/matakuliah/PTSK6506', [ExcelsdlController::class, 'index'])->name('PTSK6506');
-    Route::post('/importexcelsdl', [ExcelsdlController::class, 'excelsdlimport'])->name('importexcelsdl');
-    Route::match(['get', 'post'], '/matakuliah/PTSK6506/{selectedCpmk?}', [ExcelsdlController::class, 'index'])->name('cpmkPTSK6506');
-
-    Route::get('/matakuliah/PTSK6103', [ExcelDKPController::class, 'index'])->name('PTSK6103');
-    Route::post('/importexceldkp', [ExcelDKPController::class, 'exceldkpimport'])->name('importexceldkp');
-
     Route::get('/admin', [AdminController::class, 'view'])->name('admin');
-    Route::post('/admin/edit', [AdminController::class, 'edit'])->name('admin.edit');
-    Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
-    Route::post('/admin/delete', [AdminController::class, 'delete'])->name('admin.delete');
-    Route::post('/admin/restore', [AdminController::class, 'restore'])->name('admin.restore');
+    Route::get('/admin/datatables/cpl', [AdminController::class, 'cpl_datatables'])->name('admin.cpl_datatables');
+    Route::get('/admin/datatables/dosen', [AdminController::class, 'dosen_datatables'])->name('admin.dosen_datatables');
+    Route::post('/admin/delete/matakuliah', [AdminController::class, 'matkul_delete'])->name('matkul_admin.delete');
+    Route::post('/admin/restore/matakuliah', [AdminController::class, 'matkul_restore'])->name('matkul_admin.restore');
+    Route::post('/admin/delete/cpl', [AdminController::class, 'cpl_delete'])->name('cpl_admin.delete');
+    Route::post('/admin/restore/cpl', [AdminController::class, 'cpl_restore'])->name('cpl_admin.restore');
+    Route::post('/admin/delete/dosen', [AdminController::class, 'dosen_delete'])->name('dosen_admin.delete');
+    Route::post('/admin/restore/dosen', [AdminController::class, 'dosen_restore'])->name('dosen_admin.restore');
 
-    // Route without selectedCpmk
-    Route::get('/matakuliah/PTSK6660', [PTSK6660Controller::class, 'index'])->name('PTSK6660');
-    // Route with selectedCpmk
-    Route::match(['get', 'post'], '/matakuliah/PTSK6660/{selectedCpmk?}', [PTSK6660Controller::class, 'index'])->name('cpmkPTSK6660');
-    Route::post('/ExcelPTSK6660', [PTSK6660Controller::class, 'ExcelPTSK6660'])->name('ExcelPTSK6660');
-
-    // Route::get('/matakuliah/PTSK6660', [PTSK6660Controller::class, 'index'])->name('PTSK6660');
-    // Route::post('/matakuliah/PTSK6660/{selectedCpmk}', [PTSK6660Controller::class, 'index'])->name('cpmkPTSK6660');
-
-
-    // Route::view('/dosen', 'content.dosen')->name('dosen');
     Route::view('/nilai', 'content.nilai')->name('nilai');
-    // Route::view('/excel', 'content.excel.excel')->name('excel');
     Route::view('/nilai', 'content.nilai')->name('nilai');
-    // Route::view('/rekap', 'content.rekap')->name('rekap');
     Route::view('/rapor', 'content.rapor')->name('rapor');
     Route::view('/bukupanduan', 'content.bukupanduan')->name('bukupanduan');
 });
@@ -101,8 +91,8 @@ Route::middleware('auth')->group(function () {
 });
 
 #multiuser
-Route::get('/', [HomeController::class, 'index'])->name('welcome')->middleware('auth');
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/', [HomeController::class, 'dashboard'])->name('welcome')->middleware('auth');
+Route::get('/home', [HomeController::class, 'dashboard'])->name('home')->middleware('auth');
 
 
 

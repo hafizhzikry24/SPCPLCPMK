@@ -12,7 +12,7 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function dashboard()
     {
         if (auth()->user()->is_admin) {
 

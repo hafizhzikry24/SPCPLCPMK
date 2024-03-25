@@ -6,6 +6,7 @@ use App\Models\Dosen;
 use App\Models\Mata_kuliah;
 use App\Models\Cpl;
 use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 
 class MataKuliahController extends Controller
