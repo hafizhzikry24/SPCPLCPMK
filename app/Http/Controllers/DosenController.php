@@ -16,7 +16,7 @@ class DosenController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $this->authorize('isAdmin', $user);// Check if the user is an admin
+        $isAdmin = $user->isAdmin();
 
         if(request()->ajax()) {
             return datatables()->of(Dosen::select('*'))
@@ -29,7 +29,7 @@ class DosenController extends Controller
             ->addIndexColumn()
             ->make(true);
         }
-        return view('content.dosen', compact('user'));
+        return view('content.dosen', compact('user', 'isAdmin'));
     }
 
     /**

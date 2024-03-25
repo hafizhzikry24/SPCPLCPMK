@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cpl;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CplController extends Controller
@@ -15,7 +16,7 @@ class CplController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $this->authorize('isAdmin', $user);// Check if the user is an admin
+        $isAdmin = $user->isAdmin();
 
         if(request()->ajax()) {
             return datatables()->of(Cpl::select('*'))
@@ -28,7 +29,7 @@ class CplController extends Controller
             ->addIndexColumn()
             ->make(true);
         }
-        return view('content.cpl', compact('user'));
+        return view('content.cpl', compact('user', 'isAdmin'));
     }
     public function store(Request $request)
     {

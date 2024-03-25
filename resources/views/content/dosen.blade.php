@@ -26,7 +26,9 @@
                                     <tr>
                                         <th class="bg-[#C2E7FF]" style=" border: none;">NIP Dosen</th>
                                         <th class="bg-[#C2E7FF]" style=" border: none;">Nama Dosen</th>
-                                        <th class="bg-[#C2E7FF]" style=" border: none;">Aksi</th>
+                                        @if(isset($isAdmin) && $isAdmin)
+                                        <th class="bg-[#C2E7FF]" style="border: none;">Aksi</th>
+                                        @endif  
                                     </tr>
                                 </thead>
                             </table>
@@ -168,11 +170,13 @@
                         data: 'Nama_Dosen',
                         name: 'Nama_Dosen'
                     },
-                    {
+                    @if(isset($isAdmin) && $isAdmin)
+                    { 
                         data: 'action',
                         name: 'action',
                         orderable: false
                     },
+                    @endif
                 ],
                 order: [
                     [0, 'desc']

@@ -28,7 +28,9 @@
                                         <th class="bg-[#C2E7FF]" style=" border: none;">ID CPL</th>
                                         <th class="bg-[#C2E7FF]" style=" border: none;">Nama CPL</th>
                                         <th class="bg-[#C2E7FF]" style=" border: none;">Pernyataan CPL</th>
-                                        <th class="bg-[#C2E7FF]" style=" border: none;">Aksi</th>
+                                        @if(isset($isAdmin) && $isAdmin)
+                                        <th class="bg-[#C2E7FF]" style="border: none;">Aksi</th>
+                                        @endif                            
                                     </tr>
                                 </thead>
                             </table>
@@ -173,11 +175,13 @@
                         data: 'desc',
                         name: 'desc'
                     },
-                    {
+                    @if(isset($isAdmin) && $isAdmin)
+                    { 
                         data: 'action',
                         name: 'action',
                         orderable: false
                     },
+                    @endif
                 ],
                 order: [
                     [0, 'desc']
