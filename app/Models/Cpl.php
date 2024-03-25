@@ -13,8 +13,4 @@ class Cpl extends Model
 
     protected $fillable = ['id', 'nama', 'desc'];
 
-    // public function excelDKPs()
-    // {
-    //     return $this->hasMany(ExcelDKP::class, 'cpl_id');
-    // }
 }

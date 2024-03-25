@@ -14,77 +14,49 @@ class CplController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+        $this->authorize('isAdmin', $user);// Check if the user is an admin
+
         if(request()->ajax()) {
             return datatables()->of(Cpl::select('*'))
+            ->addColumn('action', function ($row) {
+                return view('components.cpl-action', [
+                    'id' => $row->id,
+                ]);
+            })
+            ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);
         }
-        return view('content.cpl');
+        return view('content.cpl', compact('user'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $cplId = $request->id;
+
+        $cpl   =   Cpl::updateOrCreate(
+                    [
+                        'id' => $cplId
+                    ],
+                    [
+                        'nama' => $request->nama,
+                        'desc' => $request->desc,
+                    ]);
+        return Response()->json($cpl);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Cpl  $cpl
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cpl $cpl)
+    public function edit(Request $request)
     {
-        //
+        $where = array('id' => $request->id);
+        $cpl  = Cpl::where($where)->first();
+
+        return Response()->json($cpl);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cpl  $cpl
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cpl $cpl)
+    public function destroy(Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cpl  $cpl
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Cpl $cpl)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Cpl  $cpl
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Cpl $cpl)
-    {
-        //
+        $cpl = Cpl::findOrFail($request->id);
+        $cpl->delete();
+        return Response()->json($cpl);
     }
 }

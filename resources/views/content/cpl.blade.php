@@ -4,6 +4,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <div class="grid grid-cols-12">
         <!-- Sidebar -->
         <x-sidebar />
@@ -27,6 +28,7 @@
                                         <th class="bg-[#C2E7FF]" style=" border: none;">ID CPL</th>
                                         <th class="bg-[#C2E7FF]" style=" border: none;">Nama CPL</th>
                                         <th class="bg-[#C2E7FF]" style=" border: none;">Pernyataan CPL</th>
+                                        <th class="bg-[#C2E7FF]" style=" border: none;">Aksi</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -82,12 +84,66 @@
                                 }
                             </style>
                         </head>
+                        <div class="overflow-y-auto py-12 bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
+                            id="cpl-modal">
+                            <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
+                            <div
+                                class="absolute mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+                                <div class="w-full flex justify-start text-gray-600 mb-3">
+                                    </div>
+                                    <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel
+                                        CPL Teknik Komputer </h1>
+                                    <form action="javascript:void(0)" id="CplForm" name="CplForm"
+                                        class="form-horizontal" method="POST">
+                                        <input type="hidden" name="id" id="id" />
+
+                                        <label for="nama"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">
+                                            Nama CPL<span class="text-red-500">*</span></label>
+                                        <input name="nama" id="nama"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                            placeholder="" />
+
+                                        <label for="desc"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Deskripsi CPL<span
+                                                class="text-red-500">*</span></label>
+                                        <textarea name="desc" id="desc" rows="5"
+                                            class="mb-5 mt-2 block p-2.5 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full items-center text-sm border-gray-300 rounded border"
+                                            placeholder=""></textarea>
+
+                                        <div class="flex items-center justify-start w-full">
+                                            <button type="submit"
+                                                class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700 transition duration-150 ease-in-out hover:bg-green-300 bg-green-400 rounded text-white px-8 py-2 text-sm">Submit</button>
+                                            <button type="button"
+                                                class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                                                onclick="modalHandler(false)">Cancel</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <button
+                                    class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
+                                    onclick="modalHandler()" aria-label="close modal" role="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x"
+                                        width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" />
+                                        <line x1="18" y1="6" x2="6" y2="18" />
+                                        <line x1="6" y1="6" x2="18" y2="18" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                 </main>
         </div>
     </div>
 
 
     <script type="text/javascript">
+        let isAdmin = {{ $user->isAdmin() ? 'true' : 'false' }};
+        let modal = document.getElementById("cpl-modal");
+
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
@@ -95,10 +151,12 @@
                 }
             });
 
+            // Check if the logged-in user is an admin
+
             $('#cpl').DataTable({
                 language: {
-                    search: '', // Mengosongkan teks pada kotak pencarian
-                    lengthMenu: '_MENU_', // Mengganti teks "Show Entries" dengan '_MENU_'
+                    search: '',
+                    lengthMenu: '_MENU_',
                 },
                 processing: true,
                 serverSide: true,
@@ -115,20 +173,170 @@
                         data: 'desc',
                         name: 'desc'
                     },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    },
                 ],
                 order: [
                     [0, 'desc']
                 ],
-                // Customizing the DataTables elements position
-                dom: '<"flex mb-3 mt-3"l<"flex-shrink-0 mr-3 ml-3"f>>rtip',
+                dom: '<"flex mb-3 mt-3 items-center"l<"flex-shrink-0 mr-3 ml-3 items-center"f>>rtip',
                 initComplete: function() {
-                    // Menyesuaikan kotak pencarian
                     $('.dataTables_filter input[type="search"]').addClass('custom-search');
-                },
-                lengthMenu: [5, 10],
-                pageLength: 5
+
+                    // Append "Tambah data" button only if the user is an admin
+                    if (isAdmin) {
+                        var addButton = $(
+                            `<div class="flex justify-between items-center">
+                        <x-add-button type="submit" class="ml-auto" id="button">
+                            Tambah data
+                        </x-add-button>
+                    </div>`
+                        ).addClass('ml-auto');
+                        $('#cpl_wrapper').find('.flex.mb-3').append(addButton);
+                    }
+                }
             });
             $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
+        });
+        
+        function modalHandler(val) {
+            if (val) {
+                fadeIn(modal);
+            } else {
+                fadeOut(modal);
+            }
+        }
+
+        function fadeOut(el) {
+            el.style.opacity = 1;
+            (function fade() {
+                if ((el.style.opacity -= 0.1) < 0) {
+                    el.style.display = "none";
+                } else {
+                    requestAnimationFrame(fade);
+                }
+            })();
+            $('#id').val("");
+            $('#nama').val("");
+            $('#desc').val("");
+            document.getElementById('cpl-modal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Allow scrolling
+        }
+
+        function fadeIn(el, display) {
+            el.style.opacity = 0;
+            el.style.display = display || "flex";
+            (function fade() {
+                let val = parseFloat(el.style.opacity);
+                if (!((val += 0.2) > 1)) {
+                    el.style.opacity = val;
+                    requestAnimationFrame(fade);
+                }
+            })();
+            document.getElementById('cpl-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        // Hide the modal when the page is first rendered
+        modal.style.display = "none";
+
+        // Tambahkan pemanggilan modalHandler(false) pada saat halaman ini dimuat
+        document.addEventListener("DOMContentLoaded", function() {
+            modalHandler(false);
+        });
+
+        function add() {
+            modalHandler(true);
+        }
+
+        function editFunc(id) {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('cpl.edit') }}",
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function(res) {
+                    // Show the modal using your custom modalHandler
+                    console.log(res);
+                    // Set the data in the form fields
+                    modalHandler(true);
+                    $('#id').val(res.id);
+                    $('#nama').val(res.nama);
+                    $('#desc').val(res.desc);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            });
+        }
+
+        function deleteFunc(id) {
+            Swal.fire({
+                title: 'Hapus CPL?',
+                text: 'Apakah Yakin Menghapus CPL ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User confirmed deletion
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('cpl.delete') }}",
+                        data: {
+                            id: id
+                        },
+                        dataType: 'json',
+                        success: function(res) {
+                            var oTable = $('#cpl').dataTable();
+                            oTable.fnDraw(false);
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: 'CPL Berhasil dihapus',
+                                icon: 'success',
+                                showConfirmButton: false // Hide the confirm button
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        $('#CplForm').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('cpl.store') }}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: (data) => {
+                    modalHandler(false);
+                    console.log(formData); // Add this line to log the form data
+                    var oTable = $('#cpl').dataTable();
+                    oTable.fnDraw(false);
+                    console.log(data);
+                    Swal.fire({
+                                title: 'Berhasil',
+                                text: 'CPL Berhasil di Submit',
+                                icon: 'success',
+                                showConfirmButton: false // Hide the confirm button
+                    });
+                },
+                error: function(data) {
+                    console.log("Submit button clicked");
+                    console.log(data);
+                }
+            });
         });
     </script>
 </x-app-layout>

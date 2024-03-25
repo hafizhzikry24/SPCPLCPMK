@@ -432,8 +432,8 @@
 
         function cpl_restoreFunc(id) {
             Swal.fire({
-                title: 'Restore Mata Kuliah?',
-                text: 'Apakah Yakin Restore Mata Kuliah ini?',
+                title: 'Restore CPL?',
+                text: 'Apakah Yakin Restore CPL ini?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#22C55E',
