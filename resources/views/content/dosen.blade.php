@@ -94,7 +94,7 @@
                                     <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel
                                         Dosen Teknik Komputer </h1>
                                     <form action="javascript:void(0)" id="DosenForm" name="DosenForm"
-                                        class="form-horizontal" method="POST">
+                                        class="form-horizontal w-1/2 mx-auto" method="POST">
                                         <input type="hidden" name="id_dosen" id="id_dosen" />
 
                                         <label for="NIP"

@@ -201,7 +201,9 @@
                         ).addClass('ml-auto');
                         $('#cpl_wrapper').find('.flex.mb-3').append(addButton);
                     }
-                }
+                },
+                lengthMenu: [5, 10],
+                pageLength: 5
             });
             $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
         });
