@@ -6,7 +6,7 @@
 
 @if ($isAdmin)
     <!-- Show admin-specific content or buttons -->
-    <x-danger-button onClick='deleteFunc({{ $id }})'>
+    <x-danger-button onClick='deleteFunc({{ $id }})' class="">
         <a href="javascript:void(0);" id="delete-company" data-toggle="tooltip" data-original-title="Delete"
             class="delete btn btn-danger">
             Remove

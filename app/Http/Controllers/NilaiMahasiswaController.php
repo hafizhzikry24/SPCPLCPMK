@@ -10,7 +10,8 @@ use App\Models\Mata_kuliah;
 use App\Models\NilaiMahasiswa;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class NilaiMahasiswaController extends Controller
 {
@@ -85,6 +86,7 @@ class NilaiMahasiswaController extends Controller
         $file->move('DataMatkul', $namaFile);
 
         Excel::import(new ExcelImportNilaiMahasiswa, public_path('/DataMatkul/'.$namaFile));
+        Alert::success('Berhasil', 'Nilai Mahasiswa berhasil di Import');
         return redirect()->route('mata_kuliah', [
             'tahun_akademik_matkul' => $tahun_akademik_matkul,
             'semester_matkul' => $semester_matkul,
