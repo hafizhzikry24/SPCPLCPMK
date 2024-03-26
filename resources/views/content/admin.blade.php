@@ -307,18 +307,6 @@
                 dom: '<"flex mb-3 mt-3 items-center"l<"flex-shrink-0 mr-3 ml-3 items-center"f>>rtip',
                 initComplete: function() {
                     $('.dataTables_filter input[type="search"]').addClass('custom-search');
-
-                    // Append "Tambah data" button only if the user is an admin
-                    if (isAdmin) {
-                        var addButton = $(
-                            `<div class="flex justify-between items-center">
-                        <x-add-button type="submit" class="ml-auto" id="button">
-                            Tambah data
-                        </x-add-button>
-                    </div>`
-                        ).addClass('ml-auto');
-                        $('#matakuliah_wrapper').find('.flex.mb-3').append(addButton);
-                    }
                 }
             });
 
@@ -335,6 +323,26 @@
 
         function add() {
             modalHandler(true);
+        }
+
+        function restoreFunc(id) {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('admin.restore') }}",
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function(res) {
+                    var oTable = $('#matakuliah').dataTable();
+                    oTable.fnDraw(false);
+                },
+                error: function(error) {
+                    console.log(id);
+                    console.error("Error restoring company:", error);
+                    // Handle potential errors (e.g., display an error message to the user)
+                }
+            });
         }
 
         function editFunc(id) {
@@ -392,8 +400,13 @@
                     },
                     dataType: 'json',
                     success: function(res) {
+                        alert(res.message);
                         var oTable = $('#matakuliah').dataTable();
                         oTable.fnDraw(false);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", error);
+                        console.log(id);
                     }
                 });
             }

@@ -43,10 +43,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/mahasiswa/store', [MahasiswaController::class, 'store']);
     Route::post('/mahasiswa/delete', [MahasiswaController::class, 'destroy']);
 
-    Route::get('/matakuliah', [MatakuliahController::class, 'index'])->name('matakuliah');
-    Route::post('/matakuliah/edit', [MatakuliahController::class, 'edit'])->name('matakuliah.edit');;
-    Route::post('/matakuliah/store', [MatakuliahController::class, 'store'])->name('matakuliah.store');
-    Route::post('/matakuliah/delete', [MatakuliahController::class, 'destroy'])->name('matakuliah.delete');;
+    Route::get('/matakuliah', [MataKuliahController::class, 'index'])->name('matakuliah');
+    Route::post('/matakuliah/edit', [MataKuliahController::class, 'edit'])->name('matakuliah.edit');;
+    Route::post('/matakuliah/store', [MataKuliahController::class, 'store'])->name('matakuliah.store');
+    Route::post('/matakuliah/delete', [MataKuliahController::class, 'destroy'])->name('matakuliah.delete');;
 
     Route::get('/cpl', [CplController::class, 'index'])->name('cpl');
     Route::get('/cpmk', [CpmkController::class, 'index'])->name('cpmk');
@@ -69,9 +69,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/importexceldkp', [ExcelDKPController::class, 'exceldkpimport'])->name('importexceldkp');
 
     Route::get('/admin', [AdminController::class, 'view'])->name('admin');
-    Route::post('/admin/edit', [AdminController::class, 'edit'])->name('admin.edit');;
+    Route::post('/admin/edit', [AdminController::class, 'edit'])->name('admin.edit');
     Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
-    Route::post('/admin/delete', [AdminController::class, 'destroy'])->name('admin.delete');;
+    Route::post('/admin/delete', [AdminController::class, 'delete'])->name('admin.delete');
+    Route::post('/admin/restore', [AdminController::class, 'restore'])->name('admin.restore');
 
     // Route without selectedCpmk
     Route::get('/matakuliah/PTSK6660', [PTSK6660Controller::class, 'index'])->name('PTSK6660');
