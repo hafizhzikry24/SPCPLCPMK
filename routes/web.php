@@ -11,7 +11,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\MatakuliahController;
+use App\Http\Controllers\MataKuliahController;
 use App\Http\Controllers\NilaiMahasiswaController;
 use App\Http\Controllers\PTSK6660Controller;
 use App\Http\Controllers\RaporController;
