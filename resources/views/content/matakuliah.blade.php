@@ -12,6 +12,7 @@
                 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
                 <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
                 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             </div>
 
             <body>
@@ -353,7 +354,6 @@
                 success: function(res) {
                     // Show the modal using your custom modalHandler
                     console.log(res);
-
                     // Set the data in the form fields
                     modalHandler(true);
                     $('#id').val(res.id);
@@ -386,22 +386,37 @@
         }
 
         function deleteFunc(id) {
-            if (confirm("Delete Record?") == true) {
-                var id = id;
-                // ajax
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('matakuliah.delete') }}",
-                    data: {
-                        id: id
-                    },
-                    dataType: 'json',
-                    success: function(res) {
-                        var oTable = $('#matakuliah').dataTable();
-                        oTable.fnDraw(false);
-                    }
-                });
-            }
+            Swal.fire({
+                title: 'Hapus Mata Kuliah?',
+                text: 'Apakah Yakin Menghapus Mata Kuliah ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User confirmed deletion
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('matakuliah.delete') }}",
+                        data: {
+                            id: id
+                        },
+                        dataType: 'json',
+                        success: function(res) {
+                            var oTable = $('#matakuliah').dataTable();
+                            oTable.fnDraw(false);
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Mata Kuliah Berhasil dihapus',
+                                icon: 'success',
+                                showConfirmButton: false // Hide the confirm button
+                            });
+                        }
+                    });
+                }
+            });
         }
 
         $('#MatakuliahForm').submit(function(e) {
@@ -420,6 +435,12 @@
                     var oTable = $('#matakuliah').dataTable();
                     oTable.fnDraw(false);
                     console.log(data);
+                    Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Mata Kuliah Berhasil di Submit',
+                                icon: 'success',
+                                showConfirmButton: false // Hide the confirm button
+                    });
                 },
                 error: function(data) {
                     console.log("Submit button clicked");
