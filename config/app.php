@@ -182,7 +182,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -215,4 +215,5 @@ return [
     ])->toArray(),
     'Datatables' => Yajra\Datatables\Facades\Datatables::class,
     'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+    'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
 ];

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id('id_dosen');
             $table->string('NIP')->index();
             $table->string('Nama_Dosen');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
