@@ -88,27 +88,27 @@
                             id="dosen-modal">
                             <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
                             <div
-                                class="absolute mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+                                class="absolute mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400 h-3/5 w-1/4">
                                 <div class="w-full flex justify-start text-gray-600 mb-3">
                                     </div>
-                                    <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel
+                                    <h1 class="text-gray-800 text-xl font-bold tracking-normal leading-tight">Tabel
                                         Dosen Teknik Komputer </h1>
                                     <form action="javascript:void(0)" id="DosenForm" name="DosenForm"
-                                        class="form-horizontal w-1/2 mx-auto" method="POST">
+                                        class="form-horizontal py-8" method="POST">
                                         <input type="hidden" name="id_dosen" id="id_dosen" />
 
                                         <label for="NIP"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">
                                             NIP<span class="text-red-500">*</span></label>
                                         <input name="NIP" id="NIP"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                            class="mb-8 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                                             placeholder="" />
 
                                         <label for="Nama_Dosen"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">
                                             Nama Dosen<span class="text-red-500">*</span></label>
                                         <input name="Nama_Dosen" id="Nama_Dosen"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                            class="mb-12 mt-4 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                                             placeholder="" />
 
                                         <div class="flex items-center justify-start w-full">
@@ -119,6 +119,7 @@
                                                 onclick="modalHandler(false)">Cancel</button>
                                         </div>
                                     </form>
+                                    
 
                                 </div>
                                 <button
