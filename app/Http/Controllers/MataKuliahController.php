@@ -11,16 +11,21 @@ use Illuminate\Http\Request;
 
 class MataKuliahController extends Controller
 {
-        public function index(){
+        public function index()
+        {
         $user = auth()->user();
 
         if (request()->ajax()) {
             // Check if the user is an admin
             if ($user->isAdmin()) {
-                $subjectsQuery = Mata_kuliah::with('dosen')->select('*');
+                $subjectsQuery = Mata_kuliah::with(['dosen' => function ($query) {
+                    $query->withTrashed();
+                }])->select('*');
             } else {
                 // If not an admin, retrieve only the Matakuliah that has the same NIP as the user
-                $subjectsQuery = Mata_kuliah::with('dosen')->where('NIP', $user->NIP)->select('*');
+                $subjectsQuery = Mata_kuliah::with(['dosen' => function ($query) {
+                    $query->withTrashed();
+                }])->where('NIP', $user->NIP)->select('*');
             }
 
             return datatables()->of($subjectsQuery)
