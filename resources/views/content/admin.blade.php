@@ -407,27 +407,48 @@
         }
 
         function matkul_deleteFunc(id) {
-            if (confirm("Delete Record?") == true) {
-                var id = id;
-                // ajax
-                $.ajax({
+            Swal.fire({
+                title: 'Hapus Permanen Mata Kuliah?',
+                text: 'Apakah Yakin Menghapus Permanen Mata Kuliah ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User confirmed deletion
+                    $.ajax({
                     type: "POST",
                     url: "{{ route('matkul_admin.delete') }}",
                     data: {
                         id: id
                     },
                     dataType: 'json',
-                    success: function(res) {
-                        alert(res.message);
-                        var oTable = $('#matakuliah').dataTable();
-                        oTable.fnDraw(false);
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil Dihapus',
+                                text: response.message
+                            });
+                            // Reload or update your data table
+                            $('#matakuliah').DataTable().ajax.reload();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal Dihapus',
+                                text: response.error
+                            });
+                        }
                     },
                     error: function(xhr, status, error) {
                         console.error("Error:", error);
                         console.log(id);
                     }
                 });
-            }
+                }
+            });
         }
 
         function cpl_restoreFunc(id) {
@@ -470,9 +491,15 @@
         }
 
         function cpl_deleteFunc(id) {
-            if (confirm("Delete Record?") == true) {
-                var id = id;
-                // ajax
+            Swal.fire({
+                title: 'Hapus Permanen CPL?',
+                text: 'Apakah Yakin Menghapus Permanen CPL ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus!'
+            }).then((result) => {
                 $.ajax({
                     type: "POST",
                     url: "{{ route('cpl_admin.delete') }}",
@@ -480,17 +507,29 @@
                         id: id
                     },
                     dataType: 'json',
-                    success: function(res) {
-                        alert(res.message);
-                        var oTable = $('#dosen').dataTable();
-                        oTable.fnDraw(false);
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil Dihapus',
+                                text: response.message
+                            });
+                            // Reload or update your data table
+                            $('#cpl').DataTable().ajax.reload();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal Dihapus',
+                                text: response.error
+                            });
+                        }
                     },
                     error: function(xhr, status, error) {
                         console.error("Error:", error);
                         console.log(id);
                     }
                 });
-            }
+            });
         }
 
         function dosen_restoreFunc(id) {
@@ -533,8 +572,15 @@
         }
 
         function dosen_deleteFunc(id) {
-            if (confirm("Delete Record?") == true) {
-                var id = id;
+            Swal.fire({
+                title: 'Hapus Permanen Dosen?',
+                text: 'Apakah Yakin Menghapus Permanen Dosen ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus!'
+            }).then((result) => {
                 // ajax
                 $.ajax({
                     type: "POST",
@@ -543,17 +589,29 @@
                         id_dosen: id
                     },
                     dataType: 'json',
-                    success: function(res) {
-                        alert(res.message);
-                        var oTable = $('#dosen').dataTable();
-                        oTable.fnDraw(false);
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil Dihapus',
+                                text: response.message
+                            });
+                            // Reload or update your data table
+                            $('#dosen').DataTable().ajax.reload();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal Dihapus',
+                                text: response.error
+                            });
+                        }
                     },
                     error: function(xhr, status, error) {
                         console.error("Error:", error);
                         console.log(id);
                     }
                 });
-            }
+            });
         }
     </script>
 </x-app-layout>

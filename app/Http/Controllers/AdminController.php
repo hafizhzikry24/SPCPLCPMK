@@ -7,6 +7,7 @@ use App\Models\Dosen;
 use App\Models\Mata_kuliah;
 use App\Models\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -78,10 +79,16 @@ class AdminController extends Controller
 
     public function matkul_delete(Request $request)
     {
-        $matakuliah = Mata_kuliah::findOrFail($request->id);
-        $matakuliah->delete();
-
-        return response()->json(['message' => 'Matakuliah deleted successfully']);
+        try {
+            $matakuliah = Mata_kuliah::onlyTrashed()->findOrFail($request->id);
+            $matakuliah->forceDelete();
+    
+            return response()->json(['success' => true, 'message' => 'Mata Kuliah Berhasil Dihapus Permanen']);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['error' => 'Matakuliah not found'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete matakuliah'], 500);
+        }
     }
 
     public function matkul_restore(Request $request)
@@ -94,10 +101,16 @@ class AdminController extends Controller
 
     public function cpl_delete(Request $request)
     {
-        $matakuliah = Cpl::findOrFail($request->id);
-        $matakuliah->delete();
-
-        return response()->json(['message' => 'CPL deleted successfully']);
+        try {
+            $cpl = Cpl::onlyTrashed()->findOrFail($request->id);
+            $cpl->forceDelete();
+    
+            return response()->json(['success' => true, 'message' => 'CPL Berhasil Dihapus Permanen']);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['error' => 'CPL not found'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete CPL'], 500);
+        }
     }
 
     public function cpl_restore(Request $request)
@@ -110,10 +123,16 @@ class AdminController extends Controller
 
     public function dosen_delete(Request $request)
     {
-        $matakuliah = Dosen::findOrFail($request->id_dosen);
-        $matakuliah->delete();
-
-        return response()->json(['message' => 'Dosen deleted successfully']);
+        try {
+            $dosen = Dosen::onlyTrashed()->findOrFail($request->id_dosen);
+            $dosen->forceDelete();
+    
+            return response()->json(['success' => true, 'message' => 'Dosen Berhasil Dihapus Permanen']);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['error' => 'Dosen not found'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete Dosen'], 500);
+        }
     }
 
     public function dosen_restore(Request $request)
