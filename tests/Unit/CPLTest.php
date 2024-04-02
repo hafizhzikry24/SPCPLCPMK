@@ -1,18 +1,89 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
-use PHPUnit\Framework\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+use App\Models\Cpl;
+use App\Models\User;
 
-class CPLTest extends TestCase
+class CplControllerTest extends TestCase
 {
+    use RefreshDatabase; // This trait resets the database after each test
+
     /**
-     * A basic unit test example.
+     * A basic test example for index method.
      *
      * @return void
      */
-    public function test_example()
+    public function testIndex()
     {
-        $this->assertTrue(true);
+        // Create a dummy user
+        $user = User::factory()->create();
+
+        // Acting as the user, make a GET request to the index route
+        $response = $this->actingAs($user)->get('/cpl');
+
+        // Assert that the response was successful
+        $response->assertStatus(200);
     }
+
+    /**
+     * A basic test example for store method.
+     *
+     * @return void
+     */
+    public function testStore()
+    {
+        // Create a dummy user
+        $user = User::factory()->create();
+
+        // Acting as the user, make a POST request to the store route
+        $response = $this->actingAs($user)->postJson('/cpl/store', [
+            'nama' => 'Test CPL',
+            'desc' => 'Test Description',
+        ]);
+
+        // Assert that the response was successful
+        $response->assertStatus(200);
+
+        // Assert that the created CPL exists in the database
+        $this->assertDatabaseHas('cpls', [
+            'nama' => 'Test CPL',
+            'desc' => 'Test Description',
+        ]);
+    }
+
+    /**
+     * A basic test example for edit method.
+     *
+     * @return void
+     */
+    public function testEdit()
+    {
+        // Create a dummy CPL
+        $cpl = Cpl::factory()->create();
+    
+        // Acting as the user, make a GET request to the edit route
+        $response = $this->getJson("/cpl/edit");
+    
+        // Assert that the response was unsuccessful due to the route expecting AJAX request
+        $response->assertStatus(405);
+    }
+    
+    public function testDestroy()
+    {
+        // Create a dummy user
+        $user = User::factory()->create();
+    
+        // Create a dummy CPL
+        $cpl = Cpl::factory()->create();
+    
+        // Acting as the user, make a DELETE request to the destroy route
+        $response = $this->actingAs($user)->deleteJson("/cpl/delete");
+    
+        // Assert that the response was unsuccessful due to the route expecting AJAX request
+        $response->assertStatus(405);
+    }
+    
 }
