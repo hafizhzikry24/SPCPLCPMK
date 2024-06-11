@@ -274,70 +274,70 @@
 
             // Check if the logged-in user is an admin
 
-            $('#matakuliah').DataTable({
-                language: {
-                    search: '',
-                    lengthMenu: '_MENU_',
-                },
-                processing: true,
-                serverSide: true,
-                ajax: "{{ url('matakuliah') }}",
-                columns: [{
-                        data: 'kode_MK',
-                        name: 'kode_MK'
+                $('#matakuliah').DataTable({
+                    language: {
+                        search: '',
+                        lengthMenu: '_MENU_',
                     },
-                    {
-                        data: 'Mata_Kuliah',
-                        name: 'Mata_Kuliah'
-                    },
-                    {
-                        data: 'semester',
-                        name: 'semester'
-                    },
-                    {
-                        data: 'tahun_akademik',
-                        name: 'tahun_akademik'
-                    },
-                    {
-                        data: 'dosen_name',
-                        name: 'dosen_name'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false
-                    },
-                ],
-                order: [
-                    [0, 'desc']
-                ],
-                dom: '<"flex mb-3 mt-3 items-center"l<"flex-shrink-0 mr-3 ml-3 items-center"f>>rtip',
-                initComplete: function() {
-                    $('.dataTables_filter input[type="search"]').addClass('custom-search');
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ url('matakuliah') }}",
+                    columns: [{
+                            data: 'kode_MK',
+                            name: 'kode_MK'
+                        },
+                        {
+                            data: 'Mata_Kuliah',
+                            name: 'Mata_Kuliah'
+                        },
+                        {
+                            data: 'semester',
+                            name: 'semester'
+                        },
+                        {
+                            data: 'tahun_akademik',
+                            name: 'tahun_akademik'
+                        },
+                        {
+                            data: 'dosen_name',
+                            name: 'dosen_name'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false
+                        },
+                    ],
+                    order: [
+                        [0, 'desc']
+                    ],
+                    dom: '<"flex mb-3 mt-3 items-center"l<"flex-shrink-0 mr-3 ml-3 items-center"f>>rtip',
+                    initComplete: function() {
+                        $('.dataTables_filter input[type="search"]').addClass('custom-search');
 
-                    // Append "Tambah data" button only if the user is an admin
-                    if (isAdmin) {
-                        var addButton = $(
-                            `<div class="flex justify-between items-center">
-                        <x-add-button type="submit" class="ml-auto" id="button">
-                            Tambah data
-                        </x-add-button>
-                    </div>`
-                        ).addClass('ml-auto');
-                        $('#matakuliah_wrapper').find('.flex.mb-3').append(addButton);
+                        // Append "Tambah data" button only if the user is an admin
+                        if (isAdmin) {
+                            var addButton = $(
+                                `<div class="flex justify-between items-center">
+                            <x-add-button type="submit" class="ml-auto" id="button">
+                                Tambah data
+                            </x-add-button>
+                        </div>`
+                            ).addClass('ml-auto');
+                            $('#matakuliah_wrapper').find('.flex.mb-3').append(addButton);
+                        }
                     }
-                }
+                });
+
+                $('#matakuliah tbody').on('click', 'tr', function() {
+                    var data = table.row(this).data();
+                    var kode_mk = data.kode_MK;
+
+                    $('.nilai-button').attr('href', "{{ url('/matakuliah/') }}/" + kode_mk);
+                });
+
+                $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
             });
-
-            $('#matakuliah tbody').on('click', 'tr', function() {
-                var data = table.row(this).data();
-                var kode_mk = data.kode_MK;
-
-                $('.nilai-button').attr('href', "{{ url('/matakuliah/') }}/" + kode_mk);
-            });
-
-            $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
-        });
 
 
         function add() {

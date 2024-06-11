@@ -90,27 +90,26 @@
                             id="cpl-modal">
                             <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
                             <div
-                                class="absolute mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
-                                <div class="w-full flex justify-start text-gray-600 mb-3">
-                                    </div>
-                                    <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel
+                                class="absolute mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400 h-3/5 w-1/4 ">
+                               
+                                    <h1 class="text-gray-800 text-xl font-bold tracking-normal leading-tight mb-4">Tabel
                                         CPL Teknik Komputer </h1>
                                     <form action="javascript:void(0)" id="CplForm" name="CplForm"
-                                        class="form-horizontal" method="POST">
+                                        class="form-horizontal py-8" method="POST">
                                         <input type="hidden" name="id" id="id" />
 
                                         <label for="nama"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal py-8">
                                             Nama CPL<span class="text-red-500">*</span></label>
                                         <input name="nama" id="nama"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                            class="mb-8 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                                             placeholder="" />
 
                                         <label for="desc"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Deskripsi CPL<span
                                                 class="text-red-500">*</span></label>
                                         <textarea name="desc" id="desc" rows="5"
-                                            class="mb-5 mt-2 block p-2.5 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full items-center text-sm border-gray-300 rounded border"
+                                            class="mb-12 mt-4 block p-2.5 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full items-center text-sm border-gray-300 rounded border"
                                             placeholder=""></textarea>
 
                                         <div class="flex items-center justify-start w-full">

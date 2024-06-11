@@ -36,6 +36,13 @@ return [
             'throw' => false,
         ],
 
+        'DataMatkul' => [
+            'driver' => 'local',
+            'root' => public_path('DataMatkul'), // This will point to public/DataMatkul
+            'url' => env('APP_URL').'/DataMatkul', // URL to access files stored in this disk
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
