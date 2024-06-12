@@ -147,7 +147,6 @@
                         </table>
                     </div>
                     <div>
-
                         <body class="h-screen bg-gray-100">
                             <div class="p-6 m-5 bg-white rounded shadow" id="chartContainer">
                                 <h2 class="text-2xl font-bold mb-2" id="chartTitle">Distribusi Nilai CPL Mahasiswa
@@ -270,6 +269,30 @@
                                 // Set the last selected chart type as the default value
                                 showChart(lastSelectedChartType);
                             </script>
+                        </body>
+                    </div>
+                    <div>
+                        <body class="h-screen bg-gray-100">
+                            <div class="p-6 m-5 bg-white rounded shadow">
+                                <h2 class="text-2xl font-bold mb-2" id="chartTitle">Evaluasi Pemenuhan Capaian Pembelajaran Mata Kuliah
+                                </h2>
+                                <div>
+                                    <!-- Tabel Data -->
+                                    <table class="table table-bordered" id="">
+                                        <thead>
+                                            <tr>
+                                                <th class="bg-[#C2E7FF]" style=" border: none;">CPMK</th>
+                                                <th class="bg-[#C2E7FF]" style=" border: none;">Rerata</th>
+                                                <th class="bg-[#C2E7FF]" style=" border: none;">%>Ambang</th>
+                                                <th class="bg-[#C2E7FF]" style=" border: none;">Memenuhi</th>
+                                                <th class="bg-[#C2E7FF]" style=" border: none;">Analisis Pelaksanaan Pembelajaran</th>
+                                                <th class="bg-[#C2E7FF]" style=" border: none;">Rencana Perbaikan Semester Depan</th>
+                                                <th class="bg-[#C2E7FF]" style=" border: none;">Aksi</th> 
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
                         </body>
                     </div>
                 </div>

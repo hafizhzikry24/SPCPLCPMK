@@ -430,7 +430,7 @@
                 cache: false,
                 contentType: false,
                 processData: false,
-                success: (data) => {
+                success: (data) => {    
                     modalHandler(false);
                     console.log(formData); // Add this line to log the form data
                     var oTable = $('#matakuliah').dataTable();

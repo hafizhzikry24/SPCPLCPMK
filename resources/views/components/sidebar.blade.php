@@ -13,7 +13,7 @@
                 <li class="my-8 mx-3 sm:rounded-xl hover:bg-[#DFF3FF] @if (Request::route()->getName() === 'admin') bg-[#DFF3FF] @endif">
                     <a href="{{ route('admin') }}" class="my-3 mx-3 inline-flex items-center text-gray-500 w-full">
                         <x-assets.user class="w-4 h-4 mr-1" />
-                        <span class="ml-2 text-1xl">Halaman Admin</span>
+                        <span class="ml-2 text-1xl">Riwayat</span>
                     </a>
                 </li>
             @endif

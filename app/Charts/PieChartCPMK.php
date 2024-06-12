@@ -12,7 +12,7 @@ class PieChartCPMK
 
     public function __construct(LarapexChart $pieChartCPMK)
     {
-        $this->pieChartCPMK = $pieChartCPMK;
+        $this->pieChartCPMK = $pieChartCPMK;    
     }
 
     public function build($selectedCpmk, $tahun_akademik, $semester,  $kode_MK): \ArielMejiaDev\LarapexCharts\PieChart
