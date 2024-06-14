@@ -4,10 +4,11 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Models\Mata_kuliah;
+use App\Models\Cpl;
+use App\Models\Dosen;
 use App\Models\User;
 
-class MatakuliahControllerTest extends TestCase
+class DosenControllerTest extends TestCase
 {
     use RefreshDatabase; // This trait resets the database after each test
 
@@ -22,7 +23,7 @@ class MatakuliahControllerTest extends TestCase
         $user = User::factory()->create();
 
         // Acting as the user, make a GET request to the index route
-        $response = $this->actingAs($user)->get('/matakuliah');
+        $response = $this->actingAs($user)->get('/dosen');
 
         // Assert that the response was successful
         $response->assertStatus(200);
@@ -39,32 +40,20 @@ class MatakuliahControllerTest extends TestCase
         $user = User::factory()->create();
 
         // Acting as the user, make a POST request to the store route
-        $response = $this->actingAs($user)->postJson('/matakuliah/store', [
-            'kode_MK' => 'Test kode_MK',
-            'Mata_Kuliah' => 'Test Mata_Kuliah',
-            'semester' => 'Test semester',
-            'cpl' => 'Test cpl',
-            'SKS' => '3',
-            'cpmk' => 'Test cpmk',
-            'NIP' => 'Test NIP',
-            'tahun_akademik' => 'Test tahun_akademik',
+        $response = $this->actingAs($user)->postJson('/dosen/store', [
+            'NIP' => 'Test Dosen',
+            'Nama_Dosen' => 'Test Dosen',
         ]);
 
         // Assert that the response was successful
         $response->assertStatus(200);
 
         // Assert that the created CPL exists in the database
-        $this->assertDatabaseHas('mata_kuliahs', [
-            'kode_MK' => 'Test kode_MK',
-            'Mata_Kuliah' => 'Test Mata_Kuliah',
-            'semester' => 'Test semester',
-            'cpl' => '"Test cpl"', // Expect the value with quotes
-            'SKS' => '3',
-            'cpmk' => 'Test cpmk',
-            'NIP' => 'Test NIP',
-            'tahun_akademik' => 'Test tahun_akademik',
+        $this->assertDatabaseHas('dosens', [
+            'NIP' => 'Test Dosen',
+            'Nama_Dosen' => 'Test Dosen',
         ]);
-}
+    }
 
     /**
      * A basic test example for edit method.
@@ -74,10 +63,10 @@ class MatakuliahControllerTest extends TestCase
     public function testEdit()
     {
         // Create a dummy CPL
-        $matakuliah = Mata_kuliah::factory()->create();
+        $dosen = Dosen::factory()->create();
     
         // Acting as the user, make a GET request to the edit route
-        $response = $this->getJson("/matakuliah/edit");
+        $response = $this->getJson("/dosen/edit");
     
         // Assert that the response was unsuccessful due to the route expecting AJAX request
         $response->assertStatus(405);
@@ -89,10 +78,10 @@ class MatakuliahControllerTest extends TestCase
         $user = User::factory()->create();
     
         // Create a dummy CPL
-        $matakuliah = Mata_kuliah::factory()->create();
+        $dosen = Dosen::factory()->create();
     
         // Acting as the user, make a DELETE request to the destroy route
-        $response = $this->actingAs($user)->deleteJson("/matakuliah/delete");
+        $response = $this->actingAs($user)->deleteJson("/dosen/delete");
     
         // Assert that the response was unsuccessful due to the route expecting AJAX request
         $response->assertStatus(405);

@@ -46,6 +46,5 @@ class User extends Authenticatable
     {
         // Check if the user has the is_admin column set to true
         return $this->is_admin == 1;
-        return $this->role === 'admin';
     }
 }
