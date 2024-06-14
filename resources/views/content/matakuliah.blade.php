@@ -175,7 +175,6 @@
                                                 </div>
                                             @endforeach
                                         </div>
-
                                         <div class="flex items-center justify-start w-full">
                                             <button type="submit"
                                                 class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700 transition duration-150 ease-in-out hover:bg-green-300 bg-green-400 rounded text-white px-8 py-2 text-sm">Submit</button>
