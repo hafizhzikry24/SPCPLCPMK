@@ -63,6 +63,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mata_kuliah/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [NilaiMahasiswaController::class, 'view'])->name('mata_kuliah');
     Route::post('/mata_kuliah/excel/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [NilaiMahasiswaController::class, 'inputexcel'])->name('mata_kuliah.inputexcel');
     Route::get('/datatables/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [NilaiMahasiswaController::class, 'datatables'])->name('mata_kuliah.datatables');
+    Route::get('/evaluasi/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [NilaiMahasiswaController::class, 'evaluasi_matkul'])->name('evaluasi.datatables');
     Route::match(['get', 'post'], '/mata_kuliah/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}/cpmk_pie/{selectedCpmk?}', [NilaiMahasiswaController::class, 'view'])->name('pieChartCpmk');
     Route::match(['get', 'post'], '/mata_kuliah/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}/cpl_pie/{selectedCpl?}', [NilaiMahasiswaController::class, 'view'])->name('pieChartCpl');
     Route::match(['get', 'post'], '/rekap/{selectedTahunAkademik?}/{selectedSemester?}', [ChartAllController::class, 'index'])->name('semesterChart');

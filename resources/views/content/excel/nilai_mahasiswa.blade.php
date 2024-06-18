@@ -278,7 +278,7 @@
                                 </h2>
                                 <div>
                                     <!-- Tabel Data -->
-                                    <table class="table table-bordered" id="">
+                                    <table class="table table-bordered" id="evaluasi">
                                         <thead>
                                             <tr>
                                                 <th class="bg-[#C2E7FF]" style=" border: none;">CPMK</th>
@@ -511,6 +511,69 @@
                 });
                 $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
             });
+
+            $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // Check if the logged-in user is an admin
+            $('#evaluasi').DataTable({
+                language: {
+                    search: '',
+                    lengthMenu: '_MENU_',
+                },
+                processing: true,
+                serverSide: true,
+                    "ajax": {
+                        "url": "{{ route('evaluasi.datatables', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}",
+                        "type": "GET",
+                    },
+                columns: [{
+                        data: 'cpmk',
+                        name: 'cpmk'
+                    },
+                    {
+                        data: 'rerata',
+                        name: 'rerata'
+                    },
+                    {
+                        data: 'ambang',
+                        name: 'ambang'
+                    },
+                    { 
+                        data: 'memenuhi',
+                        name: 'memenuhi',
+                    },
+                    { 
+                        data: 'analisis_pelaksanaan',
+                        name: 'analisis_pelaksanaan',
+                    },
+                    { 
+                        data: 'analisis_pelaksanaan',
+                        name: 'analisis_pelaksanaan',
+                    },
+                    { 
+                        data: 'aksi',
+                        name: 'aksi',
+                        orderable : false
+                    },
+                ],
+                order: [
+                    [0, 'desc']
+                ],
+                dom: '<"flex mb-3 mt-3 items-center"l<"flex-shrink-0 mr-3 ml-3 items-center"f>>rtip',
+                initComplete: function() {
+                    $('.dataTables_filter input[type="search"]').addClass('custom-search');
+                },
+                lengthMenu: [5, 10],
+                pageLength: 5
+            });
+            $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
+        });
+
         </script>
 
 </x-app-layout>

@@ -7,6 +7,7 @@ use App\Charts\PieChartCPMK;
 use App\Charts\PieChartCPL;
 use App\Imports\ExcelImportNilaiMahasiswa;
 use App\Models\Mata_kuliah;
+use App\Models\Evaluasi_cpmk;
 use App\Models\NilaiMahasiswa;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -81,6 +82,7 @@ class NilaiMahasiswaController extends Controller
     }
 
     public function inputexcel(Request $request, $tahun_akademik_matkul, $semester_matkul, $matkul_id){
+
         $file = $request->file('file');
         $namaFile = $file->getClientOriginalName();
         $file->move('DataMatkul', $namaFile);
@@ -92,5 +94,34 @@ class NilaiMahasiswaController extends Controller
             'semester_matkul' => $semester_matkul,
             'matkul_id' => $matkul_id
         ]);
+    }
+
+    public function evaluasi_matkul($kode_MK, $semester, $tahun_akademik, $user, $request, $tahun_akademik_eval, $semester_eval, $id_eval_matkul){
+        if ($request->ajax()) {
+            $eval_info = Mata_kuliah::where("kode_MK", $kode_MK)
+            ->where("semester", $semester)
+            ->where("tahun_akademik", $tahun_akademik)
+            ->first();
+    
+            if (!$eval_info) {
+                return response()->json(['error' => 'Evaluasi not found.'], 404);
+            }
+
+            $eval_data = Evaluasi_cpmk::where('tahun_akademik_matkul', $tahun_akademik_eval)
+            ->where('semester_matkul', $semester_eval)
+            ->where('id_eval_matkul', $id_eval_matkul)
+            ->get();
+    
+            return datatables()->of($eval_data)
+            ->addIndexColumn()
+            ->addColumn('action', function ($row) use ($user) {
+                return view('components.evaluasi-action', [
+                    'id_evaluasi' => $row->id_evaluasi,
+                ]);
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
     }
 }
