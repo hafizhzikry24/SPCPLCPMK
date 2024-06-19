@@ -96,27 +96,27 @@ class NilaiMahasiswaController extends Controller
         ]);
     }
 
-    public function evaluasi_matkul($kode_MK, $semester, $tahun_akademik, $user, $request, $tahun_akademik_eval, $semester_eval, $id_eval_matkul){
+    public function evaluasi_matkul (Request $request ,$tahun_akademik ,$semester ,$kode_MK){
         if ($request->ajax()) {
-            $eval_info = Mata_kuliah::where("kode_MK", $kode_MK)
+            $matakuliah_info = Mata_kuliah::where("kode_MK", $kode_MK)
             ->where("semester", $semester)
             ->where("tahun_akademik", $tahun_akademik)
             ->first();
-    
-            if (!$eval_info) {
+            
+            if (!$matakuliah_info) {
                 return response()->json(['error' => 'Evaluasi not found.'], 404);
             }
 
-            $eval_data = Evaluasi_cpmk::where('tahun_akademik_matkul', $tahun_akademik_eval)
-            ->where('semester_matkul', $semester_eval)
-            ->where('id_eval_matkul', $id_eval_matkul)
+            $eval_data = Evaluasi_cpmk::where('tahun_akademik_eval', $tahun_akademik)
+            ->where('semester_eval', $semester)
+            ->where('id_eval_matkul', $kode_MK)
             ->get();
     
             return datatables()->of($eval_data)
             ->addIndexColumn()
-            ->addColumn('action', function ($row) use ($user) {
+            ->addColumn('action', function ($row) {
                 return view('components.evaluasi-action', [
-                    'id_evaluasi' => $row->id_evaluasi,
+                    'id_eval_matkul' => $row->id_eval_matkul,
                 ]);
             })
             ->rawColumns(['action'])

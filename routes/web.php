@@ -5,16 +5,13 @@ use App\Http\Controllers\ChartAllController;
 use App\Http\Controllers\CplController;
 use App\Http\Controllers\CpmkController;
 use App\Http\Controllers\DosenController;
-use App\Http\Controllers\ExcelDKPController;
-use App\Http\Controllers\ExcelsdlController;
+use App\Http\Controllers\EvaluasiController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MataKuliahController;
 use App\Http\Controllers\NilaiMahasiswaController;
-use App\Http\Controllers\PTSK6660Controller;
-use App\Http\Controllers\RaporController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,10 +60,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mata_kuliah/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [NilaiMahasiswaController::class, 'view'])->name('mata_kuliah');
     Route::post('/mata_kuliah/excel/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [NilaiMahasiswaController::class, 'inputexcel'])->name('mata_kuliah.inputexcel');
     Route::get('/datatables/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [NilaiMahasiswaController::class, 'datatables'])->name('mata_kuliah.datatables');
-    Route::get('/evaluasi/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [NilaiMahasiswaController::class, 'evaluasi_matkul'])->name('evaluasi.datatables');
     Route::match(['get', 'post'], '/mata_kuliah/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}/cpmk_pie/{selectedCpmk?}', [NilaiMahasiswaController::class, 'view'])->name('pieChartCpmk');
     Route::match(['get', 'post'], '/mata_kuliah/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}/cpl_pie/{selectedCpl?}', [NilaiMahasiswaController::class, 'view'])->name('pieChartCpl');
     Route::match(['get', 'post'], '/rekap/{selectedTahunAkademik?}/{selectedSemester?}', [ChartAllController::class, 'index'])->name('semesterChart');
+
+    Route::get('/evaluasi/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [EvaluasiController::class, 'evaluasi'])->name('evaluasi');
+    Route::get('/evaluasi_datatables/{tahun_akademik_matkul}/{semester_matkul}/{matkul_id}', [EvaluasiController::class, 'evaluasi_datatables'])->name('evaluasi.datatables');
+    Route::post('/evaluasi/edit', [EvaluasiController::class, 'edit'])->name('evaluasi.edit');
+    Route::post('/evaluasi/store', [EvaluasiController::class, 'store'])->name('evaluasi.store');
+    Route::post('/evaluasi/delete', [EvaluasiController::class, 'destroy'])->name('evaluasi.delete');
 
     Route::get('/admin', [AdminController::class, 'view'])->name('admin');
     Route::get('/admin/datatables/cpl', [AdminController::class, 'cpl_datatables'])->name('admin.cpl_datatables');
