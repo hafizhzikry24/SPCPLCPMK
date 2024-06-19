@@ -95,7 +95,7 @@
                                         Matakuliah Teknik Komputer </h1>
                                     <form action="javascript:void(0)" id="MatakuliahForm" name="MatakuliahForm"
                                         class="form-horizontal" method="POST">
-                                        <input type="hidden" name="id" id="id" />
+                                        <input type=" hidden" name="id" id="id" />
 
                                         <label for="kode_MK"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Kode
@@ -429,7 +429,7 @@
                 cache: false,
                 contentType: false,
                 processData: false,
-                success: (data) => {
+                success: (data) => {    
                     modalHandler(false);
                     console.log(formData); // Add this line to log the form data
                     var oTable = $('#matakuliah').dataTable();

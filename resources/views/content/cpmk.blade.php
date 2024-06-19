@@ -27,6 +27,7 @@
                                         <th class="bg-[#C2E7FF]" style=" border: none;">ID Mata Kuliah</th>
                                         <th class="bg-[#C2E7FF]" style=" border: none;">Nama Mata Kuliah</th>
                                         <th class="bg-[#C2E7FF]" style=" border: none;">Capaian Mata Kuliah</th>
+                                        <th class="bg-[#C2E7FF]" style=" border: none;">Aksi</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -138,6 +139,11 @@
                                 return data; // Return original data if empty
                             }
                         }
+                    },
+                    { 
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
                     },
                 ],
                 order: [

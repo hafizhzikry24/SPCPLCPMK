@@ -8,7 +8,6 @@
         </a>
         </li> --}}
         {{-- yang diubah --}}
-
         {{-- sampe sini --}}
         <li class="my-8 mx-3 sm:rounded-xl hover:bg-[#DFF3FF]  @if (Request::route()->getName() === 'matakuliah') bg-[#DFF3FF] @endif">
             <a href="{{ route('matakuliah') }}" class="my-3 mx-3 inline-flex items-center text-gray-500 w-full">
