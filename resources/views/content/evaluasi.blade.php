@@ -18,6 +18,7 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <div class="grid grid-cols-12">
 
@@ -35,7 +36,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="px-2 py-1 whitespace-no-wrap">Kode Mata Kuliah</td>
-                                        <td class="px-2 py-1 whitespace-no-wrap">{{ $matakuliah_info->kode_MK }}
+                                        <td class="px-2 py-1 whitespace-no-wrap" id="kode_MK">{{ $matakuliah_info->kode_MK }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -45,12 +46,12 @@
                                     </tr>
                                     <tr>
                                         <td class="px-2 py-1 whitespace-no-wrap">Semester</td>
-                                        <td class="px-2 py-1 whitespace-no-wrap">
+                                        <td class="px-2 py-1 whitespace-no-wrap"id="semester">
                                             {{ $matakuliah_info->semester }}</td>
                                     </tr>
                                     <tr>
                                         <td class="px-2 py-1 whitespace-no-wrap">Tahun Akademik</td>
-                                        <td class="px-2 py-1 whitespace-no-wrap">
+                                        <td class="px-2 py-1 whitespace-no-wrap" id="tahun_akademik">
                                             {{ $matakuliah_info->tahun_akademik }}
                                         </td>
                                     </tr>
@@ -94,17 +95,32 @@
                 <form action="javascript:void(0)" id="EvaluasiForm" name="EvaluasiForm" class="form-horizontal" method="POST">
                     <input type="hidden"  name="id_evaluasi" id="id_evaluasi" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="XXXX" />
 
-                    <label for="id_eval_matkul" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Kode Mata Kuliah<span class="text-red-500">*</span></label>
-                    <input name="id_eval_matkul" id="id_eval_matkul" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="PTSKXXXX" />
+                    {{-- <label for="id_eval_matkul" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Kode Mata Kuliah<span class="text-red-500">*</span></label> --}}
+                    <input type="hidden" name="id_eval_matkul" id="id_eval_matkul" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="PTSKXXXX" />
 
-                    <label for="tahun_akademik_eval" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Tahun Akademik<span class="text-red-500">*</span></label>
-                    <input name="tahun_akademik_eval" id="tahun_akademik_eval" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="2023-2024" />
+                    {{-- <label for="tahun_akademik_eval" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Tahun Akademik<span class="text-red-500">*</span></label> --}}
+                    <input type="hidden" name="tahun_akademik_eval" id="tahun_akademik_eval" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="2023-2024" />
 
-                    <label for="semester_eval" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Semester<span class="text-red-500">*</span></label>
-                    <input name="semester_eval" id="semester_eval" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Ganjil" />
+                    {{-- <label for="semester_eval" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Semester<span class="text-red-500">*</span></label> --}}
+                    <input type="hidden" name="semester_eval" id="semester_eval" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Ganjil" />
+                    <label for="cpmk" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">
+                        CPMK<span class="text-red-500">*</span>
+                      </label>
+                      <select name="cpmk" id="cpmk" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                          <?php 
+                            // Assuming $matakuliah_info is already defined
+                            $cpmkData = $matakuliah_info->cpmk;
 
-                    <label for="cpmk" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CPMK<span class="text-red-500">*</span></label>
-                    <input name="cpmk" id="cpmk" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="1" />
+                            // Convert sentences to an array
+                            $cpmkList = explode('. ', $cpmkData);
+
+                            // Remove empty elements from the array
+                            $cpmkList = array_filter($cpmkList);
+                            foreach ($cpmkList as $cpmk): ?>
+                              <option value="<?php echo htmlspecialchars($cpmk); ?>"><?php echo htmlspecialchars($cpmk); ?></option>
+                          <?php endforeach; ?>
+                      </select>
+          
 
                     <label for="rerata" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Rerata<span class="text-red-500">*</span></label>
                     <input name="rerata" id="rerata" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="2.5" />
@@ -148,6 +164,15 @@
 
     function modalHandler(val) {
             if (val) {
+                // Get the data from the table cells
+                var kodeMK = document.getElementById('kode_MK').textContent;
+                var semester = document.getElementById('semester').textContent;
+                var tahunAkademik = document.getElementById('tahun_akademik').textContent;
+
+                // Set the values of the input fields
+                document.getElementById('id_eval_matkul').value = kodeMK.trim();
+                document.getElementById('semester_eval').value = semester.trim();
+                document.getElementById('tahun_akademik_eval').value = tahunAkademik.trim();
                 fadeIn(modal);
             } else {
                 fadeOut(modal);
@@ -207,71 +232,71 @@
     }
 
 
-    // // Function to handle edit button click
-    // function editFunc(id) {
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "{{ route('evaluasi.edit') }}",
-    //         data: {
-    //             id: id
-    //         },
-    //         dataType: 'json',
-    //         success: function(res) {
-    //             // Show the corresponding modal
-    //             modalHandler(modalId, true);
-    //             // Set the data in the form fields
-    //             $('#id_evaluasi').val(res.id_evaluasi);
-    //             $('#id_eval_matkul').val(res.id_eval_matkul);
-    //             $('#tahun_akademik_eval').val(res.tahun_akademik_eval);
-    //             $('#semester_eval').val(res.semester_eval);
-    //             $('#cpmk').val(res.cpmk);
-    //             $('#rerata').val(res.rerata);
-    //             $('#batas_rerata').val(res.batas_rerata);
-    //             $('#ambang').val(res.ambang);
-    //             $('#batas_ambang').val(res.batas_ambang);
-    //             $('#analisis_pelaksanaan').val(res.analisis_pelaksanaan);
-    //             $('#rencana_perbaikan').val(res.rencana_perbaikan);
-    //         },
-    //         error: function(xhr, status, error) {
-    //             console.error("Error:", error);
-    //         }
-    //     });
-    // }
+    // Function to handle edit button click
+    function editFunc(id) {
+        $.ajax({
+            type: "POST",
+            url: "{{ route('evaluasi.edit') }}",
+            data: {
+                id_evaluasi: id
+            },
+            dataType: 'json',
+            success: function(res) {
+                // Show the corresponding modal
+                modalHandler(true);
+                // Set the data in the form fields
+                $('#id_evaluasi').val(res.id_evaluasi);
+                $('#id_eval_matkul').val(res.id_eval_matkul);
+                $('#tahun_akademik_eval').val(res.tahun_akademik_eval);
+                $('#semester_eval').val(res.semester_eval);
+                $('#cpmk').val(res.cpmk);
+                $('#rerata').val(res.rerata);
+                $('#batas_rerata').val(res.batas_rerata);
+                $('#ambang').val(res.ambang);
+                $('#batas_ambang').val(res.batas_ambang);
+                $('#analisis_pelaksanaan').val(res.analisis_pelaksanaan);
+                $('#rencana_perbaikan').val(res.rencana_perbaikan);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
 
-    // // Function to handle delete button click
-    // function deleteFunc(id_evaluasi) {
-    //     Swal.fire({
-    //         title: 'Hapus Evaluasi?',
-    //         text: 'Apakah Yakin Menghapus Evaluasi ini?',
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Hapus!'
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             // User confirmed deletion
-    //             $.ajax({
-    //                 type: "POST",
-    //                 url: "{{ route('evaluasi.delete') }}",
-    //                 data: {
-    //                     id: id_evaluasi
-    //                 },
-    //                 dataType: 'json',
-    //                 success: function(res) {
-    //                     var oTable = $('#evaluasi').dataTable();
-    //                     oTable.fnDraw(false);
-    //                     Swal.fire({
-    //                         title: 'Berhasil',
-    //                         text: 'Evaluasi Berhasil dihapus',
-    //                         icon: 'success',
-    //                         showConfirmButton: false // Hide the confirm button
-    //                     });
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
+    // Function to handle delete button click
+    function deleteFunc(id) {
+        Swal.fire({
+            title: 'Hapus Evaluasi?',
+            text: 'Apakah Yakin Menghapus Evaluasi ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // User confirmed deletion
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('evaluasi.delete') }}",
+                    data: {
+                        id_evaluasi: id
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        var oTable = $('#evaluasi').dataTable();
+                        oTable.fnDraw(false);
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Evaluasi Berhasil dihapus',
+                            icon: 'success',
+                            showConfirmButton: false // Hide the confirm button
+                        });
+                    }
+                });
+            }
+        });
+    }
 
     // Function to handle form submission
     $('#EvaluasiForm').submit(function(e) {
@@ -347,8 +372,8 @@
                         name: 'analisis_pelaksanaan',
                     },
                     { 
-                        data: 'analisis_pelaksanaan',
-                        name: 'analisis_pelaksanaan',
+                        data: 'rencana_perbaikan',
+                        name: 'rencana_perbaikan',
                     },
                     {
                         data: 'action',

@@ -21,11 +21,11 @@ return new class extends Migration
             $table->string('cpmk');
             $table->integer('rerata');
             $table->integer('ambang');
-            $table->string('memenuhi');
+            $table->string('memenuhi')->nullable();
             $table->string('analisis_pelaksanaan');
             $table->string('rencana_perbaikan');
-            $table->integer('batas_ambang');
-            $table->integer('batas_rerata');
+            $table->integer('batas_ambang')->nullable();
+            $table->integer('batas_rerata')->nullable();
             $table->timestamps();
         });
     }

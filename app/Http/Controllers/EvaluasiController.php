@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Evaluasi_cpmk;
 use App\Models\Mata_kuliah;
+use App\Models\NilaiMahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -39,6 +40,11 @@ class EvaluasiController extends Controller
             'semester_matkul' => $semester_matkul,
             'tahun_akademik_matkul' => $tahun_akademik_matkul,
         ]);
+
+        $batas_rerata_data = NilaiMahasiswa::where("id_matkul", $matkul_id)
+            ->where("semester_matkul", $semester_matkul)
+            ->where("tahun_akademik_matkul", $tahun_akademik_matkul)
+            ->first();
     }
 
     public function evaluasi_datatables (Request $request ,$tahun_akademik ,$semester ,$kode_MK)
@@ -62,7 +68,7 @@ class EvaluasiController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
                 return view('components.evaluasi-action', [
-                    'id_eval_matkul' => $row->id_eval_matkul,
+                    'id_evaluasi' => $row->id_evaluasi,
                 ]);
             })
             ->rawColumns(['action'])
