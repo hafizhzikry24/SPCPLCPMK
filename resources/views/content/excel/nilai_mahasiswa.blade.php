@@ -271,30 +271,6 @@
                             </script>
                         </body>
                     </div>
-                    <div>
-                        <body class="h-screen bg-gray-100">
-                            <div class="p-6 m-5 bg-white rounded shadow">
-                                <h2 class="text-2xl font-bold mb-2" id="chartTitle">Evaluasi Pemenuhan Capaian Pembelajaran Mata Kuliah
-                                </h2>
-                                <div>
-                                    <!-- Tabel Data -->
-                                    <table class="table table-bordered" id="evaluasi">
-                                        <thead>
-                                            <tr>
-                                                <th class="bg-[#C2E7FF]" style=" border: none;">CPMK</th>
-                                                <th class="bg-[#C2E7FF]" style=" border: none;">Rerata</th>
-                                                <th class="bg-[#C2E7FF]" style=" border: none;">%>Ambang</th>
-                                                <th class="bg-[#C2E7FF]" style=" border: none;">Memenuhi</th>
-                                                <th class="bg-[#C2E7FF]" style=" border: none;">Analisis Pelaksanaan Pembelajaran</th>
-                                                <th class="bg-[#C2E7FF]" style=" border: none;">Rencana Perbaikan Semester Depan</th>
-                                                <th class="bg-[#C2E7FF]" style=" border: none;">Aksi</th> 
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                            </div>
-                        </body>
-                    </div>
                 </div>
             </main>
         </div>
@@ -342,49 +318,18 @@
                 </svg>
             </button>
         </div>
-    </div>
-
-    <div id="modal-evaluasi" class="overflow-y-auto py-12 bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 fixed top-0 right-0 bottom-0 left-0 hidden">
-        <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
-            <div class="absolute mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
-                <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel Evaluasi</h1>
-                <form action="javascript:void(0)" id="EvaluasiForm" name="EvaluasiForm" class="form-horizontal" method="POST">
-                    <!-- Form inputs -->
-                    <div>
-                        <label for="id_eval_matkul" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Kode Mata Kuliah<span class="text-red-500">*</span></label>
-                        <input name="id_eval_matkul" id="id_eval_matkul" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="PTSKXXXX" />
-                    </div>
-                    <!-- Include other form inputs as needed -->
-    
-                    <!-- Buttons -->
-                    <div class="flex items-center justify-start w-full">
-                        <button type="submit" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700 transition duration-150 ease-in-out hover:bg-green-300 bg-green-400 rounded text-white px-8 py-2 text-sm">Submit</button>
-                        <button type="button" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm" onclick="closeModal('modal-evaluasi')">Cancel</button>
-                    </div>
-                </form>
-    
-                <!-- Close button -->
-                <button class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600" onclick="closeModal('modal-evaluasi')" aria-label="close modal" role="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" />
-                        <line x1="18" y1="6" x2="6" y2="18" />
-                        <line x1="6" y1="6" x2="18" y2="18" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-    
+    </div>    
 
     <script type="text/javascript">
     // Define modals and their IDs
-    let modalIds = ["modal-excel", "modal-target", "modal-evaluasi"];
+    let modalIds = ["modal-excel"];
     let modals = {};
 
     // Initialize modals
     modalIds.forEach(modalId => {
         modals[modalId] = document.getElementById(modalId);
     });
+    
     // Function to open modal
     function openModal(modalId) {
         const modal = document.getElementById(modalId);
@@ -429,22 +374,13 @@
         })();
     }
 
-    // Function eval_add() to open modal-evaluasi
-    function eval_add() {
-        closeModal('modal-excel'); // Close excel modal if open
-        openModal('modal-evaluasi');
-    }
-
-    // Function add() to open modal-excel
     function add() {
-        closeModal('modal-evaluasi'); // Close evaluasi modal if open
         openModal('modal-excel');
     }
 
     // Close modals when the document is fully loaded
     document.addEventListener('DOMContentLoaded', function() {
         closeModal('modal-excel');
-        closeModal('modal-evaluasi');
     });
 
 
@@ -564,87 +500,5 @@
                 document.getElementById("cplForm").submit();
                 showChart('pieChartCPL');
             }
-
-            $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            console.log("Constructed URL:",
-                     "{{ route('evaluasi.datatables', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}"
-                );
-            $('#evaluasi').DataTable({
-                language: {
-                    search: '', // Mengosongkan teks pada kotak pencarian
-                    lengthMenu: '_MENU_', // Mengganti teks "Show Entries" dengan '_MENU_'
-                },
-                processing: true,
-                serverSide: true,
-                "ajax": {
-                    "url": "{{ route('evaluasi.datatables', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}",
-                    "type": "GET",
-                    },
-                columns: [{
-                        data: 'cpmk',
-                        name: 'cpmk'
-                    },
-                    {
-                        data: 'rerata',
-                        name: 'rerata'
-                    },
-                    {
-                        data: 'ambang',
-                        name: 'ambang'
-                    },
-                    { 
-                        data: 'memenuhi',
-                        name: 'memenuhi',
-                    },
-                    { 
-                        data: 'analisis_pelaksanaan',
-                        name: 'analisis_pelaksanaan',
-                    },
-                    { 
-                        data: 'analisis_pelaksanaan',
-                        name: 'analisis_pelaksanaan',
-                    },
-                    {
-                        data: 'action',
-                        name: 'action'
-                    },
-                ],
-                order: [
-                    [0, 'desc']
-                ],
-                // Customizing the DataTables elements position
-                dom: '<"flex mb-3 mt-3 items-center"l<"flex-shrink-0 mr-3 ml-3 items-center"f>>rtip',
-                initComplete: function() {
-                    var addButton = $(
-                            `<div class="flex justify-between items-center">
-                        <x-nilai-button type="submit" class="ml-auto" id="button">
-                            Atur Target
-                        </x-nilai-button>
-                    </div>`
-                        ).addClass('ml-auto');
-                        $('#evaluasi_wrapper').find('.flex.mb-3').append(addButton);
-
-                        var eval_addbutton = $(
-                            `<div class="flex justify-between items-center">
-                        <x-evaluasi_add-button onclick="eval_add()" type="submit" class="ml-auto" id="button">
-                           Tambah Evaluasi
-                        </x-evaluasi_add-button>
-                    </div>`
-                        ).addClass('ml-auto');
-                        $('#evaluasi_wrapper').find('.flex.mb-3').append(eval_addbutton);
-                    // Menyesuaikan kotak pencarian
-                    $('.dataTables_filter input[type="search"]').addClass('custom-search');
-                },
-                lengthMenu: [10, 20, 30],
-                pageLength: 10
-            });
-            $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
-        });
-
      </script>
 </x-app-layout>
