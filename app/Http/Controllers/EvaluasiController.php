@@ -42,9 +42,36 @@ class EvaluasiController extends Controller
         ]);
 
         $batas_rerata_data = NilaiMahasiswa::where("id_matkul", $matkul_id)
-            ->where("semester_matkul", $semester_matkul)
-            ->where("tahun_akademik_matkul", $tahun_akademik_matkul)
-            ->first();
+        ->where("semester_matkul", $semester_matkul)
+        ->where("tahun_akademik_matkul", $tahun_akademik_matkul)
+        ->first();
+
+        $totalSum = 0;
+        $totalCount = 0;
+
+        foreach ($batas_rerata_data as $item) {
+            $rowSum = 0;
+            $rowCount = 0;
+        
+            for ($i = 1; $i <= 12; $i++) {
+                $column = 'cpl' . $i;
+                if (!is_null($item->$column)) {
+                    $rowSum += $item->$column;
+                    $rowCount++;
+                }
+            }
+        
+            if ($rowCount > 0) {
+                $totalSum += ($rowSum / $rowCount);
+                $totalCount++;
+            }
+        }
+        
+        $averageCplValues = ($totalCount > 0) ? ($totalSum / $totalCount) : 0;
+        return response()->json([
+            'averageCplValues' => $averageCplValues
+        ]);
+
     }
 
     public function evaluasi_datatables (Request $request ,$tahun_akademik ,$semester ,$kode_MK)

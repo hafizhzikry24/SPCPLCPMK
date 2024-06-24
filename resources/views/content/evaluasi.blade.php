@@ -135,10 +135,10 @@
                     <input name="batas_ambang" id="batas_ambang" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="80" />
 
                     <label for="analisis_pelaksanaan" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Analisis Pelaksanaan<span class="text-red-500">*</span></label>
-                    <input name="analisis_pelaksanaan" id="analisis_pelaksanaan" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="80" />
-
+                    <textarea name="analisis_pelaksanaan" id="analisis_pelaksanaan" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="80" ></textarea>
+                      
                     <label for="rencana_perbaikan" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Rencana Perbaikan<span class="text-red-500">*</span></label>
-                    <input name="rencana_perbaikan" id="rencana_perbaikan" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="80" />
+                    <textarea name="rencana_perbaikan" id="rencana_perbaikan" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="80" ></textarea>
 
                     <div class="flex items-center justify-start w-full">
                         <button type="submit" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700 transition duration-150 ease-in-out hover:bg-green-300 bg-green-400 rounded text-white px-8 py-2 text-sm">Submit</button>
