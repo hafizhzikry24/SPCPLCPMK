@@ -287,6 +287,7 @@
                     serverSide: true,
                     ajax: "{{ url('matakuliah') }}",
                     columns: [{
+                        
                             data: 'kode_MK',
                             name: 'kode_MK'
                         },
@@ -313,7 +314,7 @@
                         },
                     ],
                     order: [
-                        [0, 'desc']
+                        [3, 'asc']
                     ],
                     dom: '<"flex mb-3 mt-3 items-center"l<"flex-shrink-0 mr-3 ml-3 items-center"f>>rtip',
                     initComplete: function() {
