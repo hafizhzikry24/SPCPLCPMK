@@ -28,7 +28,7 @@
 
         <div class="col-span-10 overflow-y-auto mt-4">
             <main class="flex w-full justify-center pl-5 pr-5 pb-5">
-                <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5  overflow-y-auto">
+                <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5  overflow-y-auto ">
                     <div class="p-4 sm:p-8 bg-[#C4EED0] shadow sm:rounded-lg mb-4">
                         <div class="max-w-7x1">
                             <a class="text-2xl font-bold ml-2 mb-4 mt-4 "> Keterangan </a>
@@ -103,6 +103,7 @@
 
                     {{-- <label for="semester_eval" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Semester<span class="text-red-500">*</span></label> --}}
                     <input type="hidden" name="semester_eval" id="semester_eval" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="Ganjil" />
+                    
                     <label for="cpmk" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">
                         CPMK<span class="text-red-500">*</span>
                       </label>
@@ -124,15 +125,15 @@
 
                     <label for="rerata" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Rerata<span class="text-red-500">*</span></label>
                     <input name="rerata" id="rerata" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="2.5" />
-
+{{-- 
                     <label for="batas_rerata" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Batas Rerata<span class="text-red-500">*</span></label>
-                    <input name="batas_rerata" id="batas_rerata" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="2.5" />
+                    <input name="batas_rerata" id="batas_rerata" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="2.5" /> --}}
 
                     <label for="ambang" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Ambang<span class="text-red-500">*</span></label>
                     <input name="ambang" id="ambang" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="80" />
 
-                    <label for="batas_ambang" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Batas Ambang<span class="text-red-500">*</span></label>
-                    <input name="batas_ambang" id="batas_ambang" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="80" />
+                    {{-- <label for="batas_ambang" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Batas Ambang<span class="text-red-500">*</span></label>
+                    <input name="batas_ambang" id="batas_ambang" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="80" /> --}}
 
                     <label for="analisis_pelaksanaan" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Analisis Pelaksanaan<span class="text-red-500">*</span></label>
                     <textarea name="analisis_pelaksanaan" id="analisis_pelaksanaan" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="80" ></textarea>
@@ -185,6 +186,14 @@
     // Tambahkan pemanggilan modalHandler(false) pada saat halaman ini dimuat
     document.addEventListener("DOMContentLoaded", function() {
         modalHandler(false);
+        const batasAmbangInput = document.getElementById('batas_ambang');
+        if (!batasAmbangInput.value) {
+            batasAmbangInput.value = '50'; // Set default value
+        }
+        const batasRerataInput = document.getElementById('batas_rerata');
+        if (!batasRerataInput.value) {
+            batasRerataInput.value = '2.5'; // Set default value
+        }
     });
 
     function add() {
@@ -336,7 +345,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            });
+            }); 
             console.log("Constructed URL:",
                      "{{ route('evaluasi.datatables', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}"
                 );
@@ -350,6 +359,15 @@
                 "ajax": {
                     "url": "{{ route('evaluasi.datatables', ['tahun_akademik_matkul' => $matakuliah_info->tahun_akademik, 'semester_matkul' => $matakuliah_info->semester, 'matkul_id' => $matakuliah_info->kode_MK]) }}",
                     "type": "GET",
+                    dataSrc: function(json) {
+                        var batas_ambang = parseFloat($('#batas_ambang').val()) || 50;
+                        var batas_rerata = parseFloat($('#batas_rerata').val()) || 2.5;
+                        // Process data to add 'memenuhi' field
+                        for (var i = 0; i < json.data.length; i++) {
+                            json.data[i].memenuhi = json.data[i].ambang >= batas_ambang ? 'YA' : 'TIDAK';
+                        }
+                        return json.data;
+                    }
                     },
                 columns: [{
                         data: 'cpmk',
