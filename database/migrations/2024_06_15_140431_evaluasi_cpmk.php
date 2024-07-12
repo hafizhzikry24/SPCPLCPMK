@@ -19,13 +19,13 @@ return new class extends Migration
             $table->string('tahun_akademik_eval');
             $table->string('semester_eval');
             $table->string('cpmk');
-            $table->integer('rerata');
-            $table->integer('ambang');
+            $table->float('rerata');
+            $table->float('ambang');
             $table->string('memenuhi')->nullable();
             $table->string('analisis_pelaksanaan');
             $table->string('rencana_perbaikan');
-            $table->integer('batas_ambang')->nullable();
-            $table->integer('batas_rerata')->nullable();
+            $table->float('batas_ambang')->nullable();
+            $table->float('batas_rerata')->nullable();
             $table->timestamps();
         });
     }
