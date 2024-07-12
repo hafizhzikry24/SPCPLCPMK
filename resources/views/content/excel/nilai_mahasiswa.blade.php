@@ -31,7 +31,7 @@
                     <div class="flex items-center justify-between my-8">
                         <a class="text-3xl font-bold mx-8"> Nilai Matakuliah {{ $matakuliah_info->Mata_Kuliah }}</a>
                         <div class="flex">
-                            <a href="https://drive.google.com/drive/folders/1K1b_OI1BU3w9Tv1X24pMNoG39QMxWQVV?usp=sharing">
+                            <a href="https://drive.google.com/drive/folders/1K1b_OI1BU3w9Tv1X24pMNoG39QMxWQVV?usp=sharing" target="_blank">
                             <x-nilai-button type="button" class="mx-2" id="button" >
                                 Download Template
                             </x-nilai-button>
