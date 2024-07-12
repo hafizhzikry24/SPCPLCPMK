@@ -149,9 +149,9 @@
                                             @endfor
                                         </select>
 
-                                        <label for="Nama_Dosen"
+                                        <label for="Nama_Dosen_1"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Dosen
-                                            Pengampu<span class="text-red-500">*</span></label>
+                                            Pengampu 1<span class="text-red-500">*</span></label>
                                         <select name="NIP" id="NIP"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
                                             <option value="" disabled selected>Pilih Dosen</option>
@@ -159,6 +159,40 @@
                                                 <option value="{{ $dosen->NIP }}">{{ $dosen->Nama_Dosen }}</option>
                                             @endforeach
                                         </select>
+                                        
+                                        <label for="Nama_Dosen_2"
+                                        class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Dosen
+                                        Pengampu 2</label>
+                                        <select name="NIP2" id="NIP2"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                                            <option value="" disabled selected>Pilih Dosen Jika Ada</option>
+                                            @foreach ($dosens as $dosen)
+                                                <option value="{{ $dosen->NIP }}">{{ $dosen->Nama_Dosen }}</option>
+                                            @endforeach
+                                        </select>
+
+                                        <label for="Nama_Dosen_3"
+                                        class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Dosen
+                                        Pengampu 3</label>
+                                        <select name="NIP3" id="NIP3"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                                            <option value="" disabled selected>Pilih Dosen Jika Ada</option>
+                                            @foreach ($dosens as $dosen)
+                                                <option value="{{ $dosen->NIP }}">{{ $dosen->Nama_Dosen }}</option>
+                                            @endforeach
+                                        </select>
+
+                                        <label for="Nama_Dosen_4"
+                                        class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Dosen
+                                        Pengampu 4</label>
+                                        <select name="NIP4" id="NIP4"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border">
+                                            <option value="" disabled selected>Pilih Dosen Jika Ada</option>
+                                            @foreach ($dosens as $dosen)
+                                                <option value="{{ $dosen->NIP }}">{{ $dosen->Nama_Dosen }}</option>
+                                            @endforeach
+                                        </select>
+
 
                                         <label for="cpmk"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CPMK<span
@@ -241,6 +275,9 @@
             $('#tahun_akademik').val("");
             $('#SKS').val("");
             $('#NIP').val("");
+            $('#NIP2').val("");
+            $('#NIP3').val("");
+            $('#NIP4').val("");
             $('#cpmk').val("");
             $('#cpl').val("");
             document.getElementById('matakuliah-modal').style.display = 'none';
@@ -369,6 +406,9 @@
                     $('#tahun_akademik').val(res.tahun_akademik);
                     $('#SKS').val(res.SKS);
                     $('#NIP').val(res.NIP);
+                    $('#NIP2').val(res.NIP2);
+                    $('#NIP3').val(res.NIP3);
+                    $('#NIP4').val(res.NIP4);
                     $('#cpmk').val(res.cpmk);
 
                     // Uncheck all checkboxes before checking the selected ones

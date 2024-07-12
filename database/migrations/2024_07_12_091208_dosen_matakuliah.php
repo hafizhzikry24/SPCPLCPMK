@@ -13,13 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rapors', function (Blueprint $table) {
-            $table->id('id_rapor');
-            $table->string('Uraian');
-            $table->string('Capaian');
-            $table->string('Nama_CPL');
-            $table->timestamps();
-        });
+        //
     }
 
     /**
@@ -29,6 +23,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rapors');
+        //
     }
 };

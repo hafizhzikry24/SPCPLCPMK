@@ -23,7 +23,12 @@ class MataKuliahPolicy
         }
 
         // For non-admin users, check NIP
-        return $user->NIP === $mataKuliah->NIP;
+        return in_array($user->NIP, [
+            $mataKuliah->NIP,
+            $mataKuliah->NIP2,
+            $mataKuliah->NIP3,
+            $mataKuliah->NIP4,
+        ]);
     }
 
 }

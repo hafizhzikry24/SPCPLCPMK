@@ -22,16 +22,23 @@ class MataKuliahController extends Controller
                     $query->withTrashed();
                 }])->select('*');
             } else {
-                // If not an admin, retrieve only the Matakuliah that has the same NIP as the user
+                // If not an admin, retrieve only the Mata Kuliah that has the same NIP as the user
                 $subjectsQuery = Mata_kuliah::with(['dosen' => function ($query) {
                     $query->withTrashed();
-                }])->where('NIP', $user->NIP)->select('*');
+                }])->where(function ($query) use ($user) {
+                    $query->where('NIP', $user->NIP)
+                        ->orWhere('NIP2', $user->NIP)
+                        ->orWhere('NIP3', $user->NIP)
+                        ->orWhere('NIP4', $user->NIP);
+                })->select('*');
             }
 
             return datatables()->of($subjectsQuery)
                 ->addColumn('dosen_name', function ($row) {
-                    // Access the Dosen name through the eager-loaded relationship
-                    return $row->dosen->Nama_Dosen;
+                    // Get the first associated dosen
+                    $firstDosen = $row->dosen()->first();
+                
+                    return $firstDosen ? $firstDosen->Nama_Dosen : 'No Dosen Assigned';
                 })
                 ->addColumn('action', function ($row) use ($user) {
                     return view('components.matakuliah-action', [
@@ -70,6 +77,9 @@ class MataKuliahController extends Controller
                         'tahun_akademik' => $request->tahun_akademik,
                         'SKS' => $request->SKS,
                         'NIP' => $request->NIP,
+                        'NIP2' => $request->NIP2,
+                        'NIP3' => $request->NIP3,
+                        'NIP4' => $request->NIP4,
                         'cpl' => json_encode($request->cpl),
                         'cpmk' => $request->cpmk,
                     ]);

@@ -19,7 +19,10 @@ return new class extends Migration
             $table->string('Mata_Kuliah');
             $table->string('semester');
             $table->integer('SKS');
-            $table->string('NIP');
+            $table->string('NIP1');
+            $table->string('NIP2')->nullable();
+            $table->string('NIP3')->nullable();
+            $table->string('NIP4')->nullable();
             $table->text('cpmk');
             $table->text('cpl');
             $table->string('tahun_akademik');

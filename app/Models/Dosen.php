@@ -15,8 +15,13 @@ class Dosen extends Model
 
     protected $fillable = ['NIP', 'Nama_Dosen'];
 
-    public function mataKuliahs()
+    public function mataKuliah()
     {
-        return $this->hasMany(Mata_kuliah::class, 'NIP', 'NIP');
+        return Mata_kuliah::where(function ($query) {
+            $query->where('NIP', $this->NIP)
+                  ->orWhere('NIP2', $this->NIP)
+                  ->orWhere('NIP3', $this->NIP)
+                  ->orWhere('NIP4', $this->NIP);
+        });
     }
 }

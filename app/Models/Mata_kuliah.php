@@ -12,10 +12,14 @@ class Mata_kuliah extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'id', 'kode_MK', 'Mata_Kuliah', 'semester', 'cpl', 'SKS', 'cpmk', 'NIP', 'tahun_akademik'];
+        'id', 'kode_MK', 'Mata_Kuliah', 'semester', 'cpl', 'SKS', 'cpmk', 'NIP', 'NIP2', 'NIP3', 'NIP4', 'tahun_akademik'];
 
-    public function dosen()
-    {
-        return $this->belongsTo(Dosen::class, 'NIP', 'NIP');
-    }
+        public function dosen()
+        {
+            return $this->hasMany(Dosen::class, 'NIP', 'NIP')
+                ->orWhere('NIP', 'NIP2')
+                ->orWhere('NIP', 'NIP3')
+                ->orWhere('NIP', 'NIP4');
+        }
+    
 }

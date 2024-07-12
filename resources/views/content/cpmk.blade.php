@@ -157,7 +157,7 @@
                     $('.dataTables_filter input[type="search"]').addClass('custom-search');
                 },
                 lengthMenu: [5, 10],
-                pageLength: 5
+                pageLength: 5   
             })
             $('.dataTables_length select').addClass('px-2 py-1 w-16 rounded');
         });
