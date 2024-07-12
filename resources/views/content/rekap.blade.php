@@ -15,9 +15,7 @@
                         <a class="text-3xl font-bold"> Grafik Rekap CPL </a>
                         <div class="mt-2 flex">
                             <form id="semesterForm" method="POST"
-                                @php
-                                    $uniqueSemesters = $uniqueSemesters->sort();
-                                @endphp
+
                                 action="{{ route('semesterChart', ['selectedSemester' => $selectedSemester]) }}">
                                 @csrf
                                 <select name="selectedSemester" id="selectedSemester" onchange="changeSemester()"

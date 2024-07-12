@@ -14,7 +14,7 @@ class ChartAllController extends Controller
         // dd($nilai_mahasiswa);
         $uniqueSemesters = $nilai_mahasiswa->unique('semester_matkul')->pluck('semester_matkul');
         // dd($uniqueSemesters);
-        $uniqueTahunAkademik = $nilai_mahasiswa->unique('tahun_akademik_matkul')->pluck('tahun_akademik_matkul');
+        $uniqueTahunAkademik = $nilai_mahasiswa->unique('tahun_akademik_matkul')->pluck('tahun_akademik_matkul')->sort();
         // dd($uniqueTahunAkademik);
 
         $selectedTahunAkademik = $request->input('selectedTahunAkademik', 999);
