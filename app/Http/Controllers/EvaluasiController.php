@@ -122,11 +122,11 @@ class EvaluasiController extends Controller
                 'semester_eval' => $request->semester_eval,
                 'cpmk' => $request->cpmk,
                 'rerata' => $request->rerata,
-                'ambang' => $request->ambang,
-                'analisis_pelaksanaan' => $request->analisis_pelaksanaan,
-                'rencana_perbaikan' => $request->rencana_perbaikan,
-                'batas_ambang' => $request->batas_ambang,
                 'batas_rerata' => $request->batas_rerata,
+                'ambang' => $request->ambang,
+                'batas_ambang' => $request->batas_ambang,
+                'analisis_pelaksanaan' => $request->analisis_pelaksanaan,
+                'rencana_perbaikan' => $request->rencana_perbaikan,                
             ]
         );
     

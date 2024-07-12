@@ -60,7 +60,7 @@
                         </div>
                     </div>
 
-                    <body class="h-screen bg-gray-100">
+                    <body class="h-screen bg-gray-100 ">
                         <div class="p-6 m-5 bg-white rounded shadow">
                             <h2 class="text-2xl font-bold mb-2" id="chartTitle">Evaluasi Pemenuhan Capaian Pembelajaran Mata Kuliah
                             </h2>
@@ -89,8 +89,8 @@
     <div class="overflow-y-auto py-12 bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
         id="modal-evaluasi">
         <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
-            <div class="absolute mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
-                <div class="w-full flex justify-start text-gray-600 mb-3"></div>
+            <div class="absolute mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400  h-full ">
+                <div class=" flex justify-start text-gray-600 mb-3"></div>
                 <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel Evaluasi </h1>
                 <form action="javascript:void(0)" id="EvaluasiForm" name="EvaluasiForm" class="form-horizontal" method="POST">
                     <input type="hidden"  name="id_evaluasi" id="id_evaluasi" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="XXXX" />
