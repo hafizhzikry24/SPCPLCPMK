@@ -28,7 +28,7 @@
 
         <div class="col-span-10 overflow-y-auto mt-4">
             <main class="flex w-full justify-center pl-5 pr-5 pb-5">
-                <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
+                <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5  overflow-y-auto">
                     <div class="p-4 sm:p-8 bg-[#C4EED0] shadow sm:rounded-lg mb-4">
                         <div class="max-w-7x1">
                             <a class="text-2xl font-bold ml-2 mb-4 mt-4 "> Keterangan </a>

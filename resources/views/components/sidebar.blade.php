@@ -40,7 +40,7 @@
             </a>
         </li>
         <li class="my-8 mx-3 sm:rounded-xl hover:bg-[#DFF3FF]  @if (Request::route()->getName() === 'bukupanduan') bg-[#DFF3FF] @endif ">
-            <a href="https://drive.google.com/drive/u/0/folders/1vKBEsr2AyStjquE9XB0Sv300uhE6z18i" target="_blank"
+            <a href="https://drive.google.com/file/d/1VSTS0yGV_0wL8GNrPiAgzlrGr-W3P2p-/view?usp=sharing" target="_blank"
                 class="my-3 mx-3 inline-flex items-center text-gray-400">
                 <x-assets.briefcase class="w-4 h-4 mr-1" />
                 <span class="ml-2 text-1xl">Buku Panduan</span>

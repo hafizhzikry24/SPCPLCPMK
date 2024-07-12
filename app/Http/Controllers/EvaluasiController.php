@@ -71,7 +71,6 @@ class EvaluasiController extends Controller
         return response()->json([
             'averageCplValues' => $averageCplValues
         ]);
-
     }
 
     public function evaluasi_datatables (Request $request ,$tahun_akademik ,$semester ,$kode_MK)

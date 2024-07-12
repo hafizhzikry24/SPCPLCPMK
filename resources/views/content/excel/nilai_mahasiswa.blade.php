@@ -336,7 +336,7 @@
     function openModal(modalId) {
         const modal = document.getElementById(modalId);
         if (modal) {
-            modal.classList.remove('hidden');
+            modal.style.display = 'block';
             fadeIn(modal);
             document.body.style.overflow = 'hidden'; // Disable scrolling
         }

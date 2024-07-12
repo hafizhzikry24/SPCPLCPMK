@@ -12,5 +12,5 @@ class Evaluasi_cpmk extends Model
     protected $primaryKey = 'id_evaluasi';
 
     protected $fillable = ['id_evaluasi', 'id_eval_matkul', 'semester_eval', 'tahun_akademik_eval', 'cpmk',
-     'rerata', 'ambang', 'memenuhi', 'analisis_pelaksanaan', 'rencana_perbaikan'];
+     'rerata', 'ambang', 'memenuhi', 'analisis_pelaksanaan', 'rencana_perbaikan', 'batas_ambang', 'batas_rerata'];
 }

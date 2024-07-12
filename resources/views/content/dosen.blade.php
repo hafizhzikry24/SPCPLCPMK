@@ -16,8 +16,8 @@
         <div class="col-span-10 overflow-y-auto mt-4">
 
             <body>
-                <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5">
-                    <div class="w-full bg-white shadow-md rounded-md overflow-hidden border pl-5 pr-5 pt-5">
+                <main class="flex w-full justify-center h-screen pl-5 pr-5 pb-5 ">
+                    <div class="w-full bg-white shadow-md rounded-md border pl-5 pr-5 pt-5  overflow-y-auto">
                         <a class="text-3xl font-bold"> TABEL DOSEN </a>
                         <div>
                             <!-- Tabel Data -->
